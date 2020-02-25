@@ -1,0 +1,8 @@
+{% include 'base.html' %}
+{% load widget_tweaks %}
+<a href="{% url 'index' %}">Home</a>
+<h4>{{ object.name }}</h4>
+<img src="/{{object.image}}"/>
+</br>
+{{object.content}}
+{% include 'footer.html' %}
