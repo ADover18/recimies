@@ -1,0 +1,8 @@
+{% load widget_tweaks %}
+<form action="{% url 'index' %}" method="post" class="form-inline">
+  {% csrf_token %}
+  {% render_field form.username placeholder="username" %}
+  {% render_field form.password placeholder="password" style="margin-left:1ex" %}
+  <input class="btn" type="submit" value="Sign In" style="margin-left:1ex" />
+</form>
+</br>

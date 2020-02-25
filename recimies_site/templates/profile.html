@@ -1,0 +1,12 @@
+{% include 'base.html' %}
+  <a href="{% url 'index' %}">Home!</a>
+  <a href="{% url 'logout' %}">Logout</a>
+  <h4>Hello {{ object.username }}</h4>
+    <a href="{% url 'new_recipie' user_pk=user.pk %}">New Recipie</a>
+    </br>
+    </br>
+  <h5>Your recipies:</h5>
+  {%  for recipie in object.recipies.all %}
+      <a href="{% url 'recipie' recipie_pk=recipie.pk %}">{{recipie.name}}</a>
+  {% endfor %}
+{% include 'footer.html' %}

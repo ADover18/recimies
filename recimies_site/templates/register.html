@@ -1,0 +1,40 @@
+{% load widget_tweaks %}
+{% include 'base.html'%}
+<a href="{% url 'index' %}">Home!</a>
+<form method="post" class="form-horizontal" style="margin:5em">
+  {% csrf_token %}
+  <div class="form-group">
+    <label class="control-label" for="username">username</label>
+    {% render_field form.username|add_class:'form-control' %}
+    {% for error in form.username.errors %}
+      {{ error }}
+    {% endfor %}
+  </div>
+  <div class="form-group">
+    <label class="control-label" for="email">email</label>
+    {% render_field form.email|add_class:'form-control' %}
+    {% for error in form.username.errors %}
+      {{ error }}
+    {% endfor %}
+  </div>
+  <div class="form-group">
+    <label class="control-label" for="password">password</label>
+    {% render_field form.password1 class='form-control' type='password' %}
+    {% for error in form.username.errors %}
+      {{ error }}
+    {% endfor %}
+  </div>
+  <div class="form-group">
+    <label class="control-label" for="password-2">re-enter password</label>
+    {% render_field form.password2 class='form-control' type='password' %}
+  </div>
+    {% for error in form.username.errors %}
+      {{ error }}
+    {% endfor %}
+    <br/>
+    <input class="btn" id="register-submit" type="submit" value="Submit">
+    {% for error in form.non_field_errors %}
+       {{ error }}
+    {% endfor %}
+</form>
+{%include 'footer.html'%}

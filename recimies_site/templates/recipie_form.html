@@ -1,0 +1,22 @@
+{% include 'base.html' %}
+{% load widget_tweaks %}
+<a href="{% url 'index' %}">Home</a>
+{% if user.is_authenticated %}
+<form method="post">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="recipie-name">name</label>
+    {% render_field form.name id="recipie-name" class="form-group" %}
+  </div>
+  <div class="form-group">
+    <label for="recipie-content">content</label>
+    {% render_field form.content id="recipie-content" class="form-group" %}
+  </div>
+  <div class="form-group">
+    <label for="recipie-image">upload an image</label>
+    {% render_field form.image id="recipie-image" class="form-group" %}
+  </div>
+  <input type="submit" class="btn" value="submit"/>
+</form>
+{% endif %}
+{% include 'footer.html' %}
