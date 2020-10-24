@@ -79,7 +79,6 @@ class RecipieView(DetailView):
     template_name = "recipie.html"
     
     def get_object(self, **kwargs):
-        object = super().get_object(**kwargs)
         object = Recipie.objects.get(pk=self.kwargs['recipie_pk'])
         return object
 
