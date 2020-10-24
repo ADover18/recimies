@@ -94,3 +94,6 @@ class NewRecipieView(CreateView):
         kwargs = super(NewRecipieView, self).get_form_kwargs()
         kwargs['user_pk'] = self.kwargs['user_pk']
         return kwargs
+
+    def form_valid(self, form):
+        return super().form_valid(form)
