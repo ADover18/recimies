@@ -79,7 +79,6 @@ class RecipieView(DetailView):
     template_name = "recipie.html"
     
     def get_object(self, **kwargs):
-        object = super().get_object(**kwargs)
         object = Recipie.objects.get(pk=self.kwargs['recipie_pk'])
         return object
 
@@ -94,3 +93,6 @@ class NewRecipieView(CreateView):
         kwargs = super(NewRecipieView, self).get_form_kwargs()
         kwargs['user_pk'] = self.kwargs['user_pk']
         return kwargs
+
+    def form_valid(self, form):
+        return super().form_valid(form)

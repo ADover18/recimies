@@ -30,13 +30,11 @@ class RecipieForm(ModelForm):
         exclude = ['user']
 
     def __init__(self, *args, **kwargs):
-        self.user_pk = kwargs.pop('user_pk', None)
+        self.user = User.objects.get(pk=kwargs.pop('user_pk', None))
         super(RecipieForm, self).__init__(*args, **kwargs)
 
     def save(self, *args, **kwargs):
-        recipie = super(RecipieForm, self).save(*args, **kwargs)
-        recipie.user = User.objects.get(pk=self.user_pk)
+        recipie = super(RecipieForm, self).save(commit=False)
+        recipie.user = self.user
         recipie.save()
         return recipie
-        
-        
