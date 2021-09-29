@@ -1,14 +1,15 @@
 from django.forms import ModelForm, ValidationError
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UsernameField
 from django.contrib.auth.models import User
 
-from .models import Recipie
+from .models import Recipie, RecimieUser
 
 
 class RegisterForm(UserCreationForm):
     class Meta:
-        model = User
+        model = RecimieUser
         fields = ['username', 'email', 'password1', 'password2']
+        field_classes = {'username': UsernameField}
 
     def clean(self):
         cleaned_data = super().clean()
@@ -30,7 +31,7 @@ class RecipieForm(ModelForm):
         exclude = ['user']
 
     def __init__(self, *args, **kwargs):
-        self.user = User.objects.get(pk=kwargs.pop('user_pk', None))
+        self.user = RecimieUser.objects.get(pk=kwargs.pop('user_pk', None))
         super(RecipieForm, self).__init__(*args, **kwargs)
 
     def save(self, *args, **kwargs):
