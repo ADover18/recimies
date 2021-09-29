@@ -127,3 +127,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Mac OS System Files
+.DS_Store
+recimies_site/.DS_Store
+recimies_site/static/.DS_Store

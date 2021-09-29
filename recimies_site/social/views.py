@@ -2,10 +2,6 @@ from django.conf import settings
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
-from django.core.exceptions import ValidationError
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.views import View
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
@@ -16,8 +12,7 @@ from django.views.generic.list import ListView
 from django.utils.decorators import method_decorator
 
 from .forms import RecipieForm, RegisterForm
-from .models import Recipie
-
+from .models import Recipie, RecimieUser
 
 class IndexView(FormView):
     template_name = "index.html"
@@ -50,18 +45,18 @@ class IndexView(FormView):
 
 
 class ProfileView(DetailView):
-    model = User
+    model = RecimieUser
     template_name = 'profile.html'
 
     def get_object(self, **kwargs):
         user_pk = self.kwargs['user_pk']
-        object = User.objects.get(pk=user_pk)
+        object = RecimieUser.objects.get(pk=user_pk)
         return object
 
 
 class RegisterView(CreateView):
     template_name = "register.html"
-    model = User
+    model = RecimieUser
     form_class = RegisterForm
     success_url = '/'
 

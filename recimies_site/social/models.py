@@ -3,6 +3,7 @@ from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 
+
 def _recipie_image_path(instance, filename):
         return "static/" + "user_img/%s/%s" % (instance.name, ntpath.basename(filename))
 
@@ -18,3 +19,7 @@ class Recipie(models.Model):
 
     def __str__(self):
         return self.name + " - " + str(self.user)
+
+
+class RecimieUser(User):
+    friends = models.ManyToManyField('self', null=True)
