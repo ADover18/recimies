@@ -1,0 +1,35 @@
+{% include 'base.html'%}
+<div class="searchbar">
+  <form method="GET">
+    <input type="text" name="q" value="{{ request.GET.q }}" />
+    <input class="button" type="submit" value="Search Profile" />
+  </form>
+</div>
+
+<div class="currentfriends">
+  Current Friends
+  {{friends}}
+</div>
+
+<div class="userlist">
+  {% for otheruser in object_list %}
+  <!-- list of user links -->
+  {% if user.username != otheruser.username %}
+  {{otheruser}} 
+  {% if otheruser not in friends %}
+  <form action="#" method="POST">
+    {%csrf_token%}
+    <button type="submit" class="btn" value="{{otheruser.pk}}" name="addfriend">follow</button>
+  </form>
+  {% endif %}
+  {% if otheruser in friends %}
+  <form action="#" method="POST">
+    {%csrf_token%}
+    <button type="submit" class="btn" value="{{otheruser.pk}}" name="removefriend">Unfollow</button>
+  </form>
+  {% endif %}
+  {% endif %}
+</br>
+  {% endfor %}
+</div>
+{%include 'footer.html'%}
