@@ -2,6 +2,8 @@ from django.conf import settings
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
+from django.shortcuts import redirect
+
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
@@ -13,6 +15,7 @@ from django.utils.decorators import method_decorator
 
 from .forms import RecipieForm, RegisterForm
 from .models import Recipie, RecimieUser
+
 
 class IndexView(FormView):
     template_name = "index.html"
@@ -91,3 +94,42 @@ class NewRecipieView(CreateView):
 
     def form_valid(self, form):
         return super().form_valid(form)
+
+class SearchUsersListView(ListView):
+    model = RecimieUser
+    template_name = "search_for_users.html"
+
+
+    def get_context_data(self, **kwargs):
+        context = super(SearchUsersListView, self).get_context_data(**kwargs)
+        curuser = RecimieUser.objects.get(username=self.request.user.username)
+        context['friends'] = RecimieUser.objects.filter(pk__in=[f.pk for f in curuser.friends.all()])
+        return context
+
+    
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        params = self.request.GET
+        query = params.get('q')
+        if query:
+            return qs.filter(username__icontains=query)
+        else:
+            return qs
+
+    def post(self, request):
+        params = self.request.POST
+        curuser = RecimieUser.objects.get(username=self.request.user.username)
+        if 'addfriend' in params.keys():
+            friendtoadd = RecimieUser.objects.get(pk=params['addfriend'])
+            curuser.friends.add(friendtoadd)
+            curuser.save()
+        elif 'removefriend' in params.keys():
+            friendtoremove = RecimieUser.objects.get(pk=params['removefriend'])
+            curuser.friends.remove(friendtoremove)
+            curuser.save()
+        else:
+            pass
+        return redirect('usersearch')        
+            
+    #if two users are friends in the database render the text following else render a follow button

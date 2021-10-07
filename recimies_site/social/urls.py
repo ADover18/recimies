@@ -11,6 +11,7 @@ urlpatterns = [
     path('logout', LogoutView.as_view(), name='logout'),
     path('profile/<int:user_pk>/new-recipie', NewRecipieView.as_view(), name='new_recipie'),
     path('recipie/<int:recipie_pk>', RecipieView.as_view(), name='recipie'),
+    path('usersearch', SearchUsersListView.as_view(), name='usersearch'),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

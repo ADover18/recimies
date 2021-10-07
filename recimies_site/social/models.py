@@ -23,3 +23,6 @@ class Recipie(models.Model):
 
 class RecimieUser(User):
     friends = models.ManyToManyField('self', null=True)
+
+    def __repr__(self):
+        return str(self.username)
