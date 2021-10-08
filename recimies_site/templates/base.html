@@ -1,5 +1,5 @@
 {% load static %}
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
   <head>
     <title>ReciMies</title>
@@ -7,12 +7,116 @@
     <script src="{% static 'js/jquery-3.3.1.min.js'%}"></script>
     <script src="{% static 'js/bootstrap.min.js'%}"></script>
     <script src="{% static 'js/site.js'%}"></script>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}"/>
-    <link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css'%}"/>
-    <link rel="stylesheet" href="{% static 'css/site.css'%}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css'%}" />
+    <link rel="stylesheet" href="{% static 'css/site.css'%}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body>
-    <div id="title">
-      <h1>ReciMies</h1>
-      <h2>A place to keep and share personal recipies</h2>
-    </div>
+    <nav
+      class="
+        navbar navbar-expand-lg navbar-light
+        bg-light
+        justify-content-between
+      "
+    >
+      <div id="title">
+        <svg class="logo">
+          <use href="{% static 'site_img/logos/icons.svg' %}#logo"></use>
+        </svg>
+        <p class="strapline">A place to keep and share personal recipies</p>
+      </div>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <form class="form-inline my-2 my-lg-0">
+            <input
+              class="form-control mr-sm-2"
+              type="search"
+              placeholder="Search for Recipes"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+              Search
+            </button>
+          </form>
+          {% if user.is_authenticated %}
+          <div class="right-elements">
+            <div class="right-element">
+              <li class="nav-item">
+                <svg class="icon profile-icon">
+                  <use
+                    href="{% static 'site_img/logos/icons.svg' %}#icon-user"
+                  ></use>
+                </svg>
+                <a class="nav-link" href="{% url 'profile' user_pk=user.pk %}"
+                  >Profile</a
+                >
+              </li>
+            </div>
+            <div class="right-element">
+              <li class="nav-item">
+                <svg class="icon find-icon">
+                  <use
+                    href="{% static 'site_img/logos/icons.svg' %}#icon-search"
+                  ></use>
+                </svg>
+                <a class="nav-link" href="{% url 'usersearch' %}"
+                  >Find Friends</a
+                >
+              </li>
+            </div>
+            <div class="right-element">
+              <li class="nav-item dropdown">
+                <svg class="icon friends-icon">
+                  <use
+                    href="{% static 'site_img/logos/icons.svg' %}#heart"
+                  ></use>
+                </svg>
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdownMenuLink"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Following
+                </a>
+                <div
+                  class="dropdown-menu"
+                  aria-labelledby="navbarDropdownMenuLink"
+                >
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li>
+            </div>
+          </div>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+
+    <!-- <div class="container">
+      <div id="title">
+        <svg>
+          <use href="{% static 'site_img/logos/icons.svg' %}#logo"></use>
+        </svg>
+        <h2>A place to keep and share personal recipies</h2>
+      </div>
+    </div> -->
+  </body>
+</html>
