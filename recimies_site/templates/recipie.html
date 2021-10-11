@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 <a href="{% url 'index' %}">Home</a>
 <h4>{{ object.name }}</h4>
-<img src="/{{object.image}}"/>
+<img src="/{{object.image_url}}"/>
 </br>
 {{object.content}}
 {% include 'footer.html' %}
