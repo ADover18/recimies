@@ -4,16 +4,16 @@
 
 .thumbnail_container {
   position: relative;
-  width: 100%;
+  /* width: 100%; */
   padding-bottom: 8%; /* matching this to above makes it square */
   float: left;
 }
 
-.thumbnail {
+/* .thumbnail {
   position: absolute;
   width: 100%;
   height: 100%;
-}
+} */
 .thumbnail img {
   position: absolute;
   top: 0;
@@ -23,9 +23,13 @@
   margin: auto;
 }
 
-img {
+/* img {
   max-height: 72.2%;
   max-width: 100%;
+} */
+
+.title-img {
+  padding-right: 30px;
 }
 
 .front-page-link {
@@ -69,14 +73,6 @@ img {
 
 .find-icon {
   margin-left: 3rem;
-}
-
-.circle {
-  height: 25px;
-  width: 25px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: absolute;
 }
 
 .right-elements {

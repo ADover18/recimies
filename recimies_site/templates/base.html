@@ -22,10 +22,9 @@
       "
     >
       <div id="title">
-        <svg class="logo">
+        <svg class="title-img">
           <use href="{% static 'site_img/logos/icons.svg' %}#logo"></use>
         </svg>
-        <p class="strapline">A place to keep and share personal recipies</p>
       </div>
       <button
         class="navbar-toggler"
@@ -105,10 +104,15 @@
               </li>
             </div>
           </div>
-          {% endif %}
         </ul>
       </div>
     </nav>
+    <a style="margin: 3em" href="{% url 'logout' %}">Logout</a>
+    <a href="{% url 'new_recipie' user_pk=user.pk %}">New Recipie</a>
+
+    {% else %}
+    <a style="margin: 3em" href="{% url 'register' %}">Register!</a>
+    {% include 'login_form.html' %} {% endif %}
 
     <!-- <div class="container">
       <div id="title">
@@ -118,5 +122,6 @@
         <h2>A place to keep and share personal recipies</h2>
       </div>
     </div> -->
-  </body>
-</html>
+    <!-- </body>
+</html> -->
+

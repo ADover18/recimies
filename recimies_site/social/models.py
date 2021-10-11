@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 
 def _recipie_image_path(instance, filename):
-        return "static/" + "user_img/%s/%s" % (instance.name, ntpath.basename(filename))
+        return "recimies_site/static/" + "user_img/%s/%s" % (instance.name, ntpath.basename(filename))
 
 class Recipie(models.Model):
     name = models.CharField(max_length=255, null=False)
@@ -19,6 +19,9 @@ class Recipie(models.Model):
 
     def __str__(self):
         return self.name + " - " + str(self.user)
+
+    def image_url(self):
+        return str(self.image)[14:]
 
 
 class RecimieUser(User):
