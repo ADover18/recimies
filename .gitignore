@@ -132,6 +132,11 @@ dmypy.json
 .DS_Store
 recimies_site/.DS_Store
 recimies_site/static/.DS_Store
+.vscode/settings.json
 
 # Text file to input user data
 addusers.txt
+
+
+# Uploaded user images
+recimies_site/static/user_img

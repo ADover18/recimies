@@ -95,6 +95,7 @@ class NewRecipieView(CreateView):
     def form_valid(self, form):
         return super().form_valid(form)
 
+
 class SearchUsersListView(ListView):
     model = RecimieUser
     template_name = "search_for_users.html"
