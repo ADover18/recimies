@@ -2,6 +2,135 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Courgette&family=Marck+Script&display=swap");
 
+/* Navbar Elements */
+
+.icon {
+  width: 30px;
+  height: 30px;
+}
+
+.main-logo {
+  width: clamp(15rem, 20vw, 10000px);
+  height: 70px;
+}
+
+.search-box {
+  width: 26vw;
+  /* height:20px; */
+}
+
+.search-button {
+  width: 8vw;
+  /* height:20px; */
+}
+.search-bar {
+  margin-bottom: 10px;
+}
+
+.search {
+  padding-right: 15px;
+}
+
+.profile-pic {
+  object-fit: contain;
+  margin-left: 0px;
+}
+
+@media (min-width: 1450px) {
+  .search {
+    margin-left: 8%;
+    margin-right: 8%;
+    min-width: 25vw;
+  }
+}
+
+@media (min-width: 1070px) {
+  .search {
+    margin-left: 6%;
+    margin-right: 6%;
+    /* min-width: 40vw; */
+  }
+}
+
+@media (min-width: 1000px) {
+  .form-control {
+    width: 20vw !important;
+  }
+  .search {
+    margin-left: 3%;
+    margin-right: 3%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .flex-container {
+    display: flex;
+    width: 16rem;
+    padding-top: 1rem;
+    margin-left: -15px;
+    align-content: center;
+  }
+  .profile-pic {
+    margin-left: 30px;
+  }
+
+  .sub-icon {
+    width: 25px;
+    height: 25px;
+  }
+
+  .sub-text {
+    margin-left: -0.8rem;
+    font-size: 18px;
+    text-align: left;
+  }
+  .username {
+    margin-left: 1rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  .flex-container {
+    padding: 0.5rem;
+    display: block;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sub-text {
+    text-align: center;
+    font-size: 17px;
+  }
+  .sub-icon,
+  .icon {
+    justify-self: center;
+    align-self: center;
+    display: block;
+    margin-left: 27%;
+    margin-bottom: 10px;
+  }
+
+  .narrow {
+    width: 80px;
+  }
+  .profile {
+    width: 80px;
+  }
+}
+
+.sub-icon {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.sub-text {
+  flex: 2;
+  min-width: 0;
+  min-height: 0;
+  color: black;
+}
+
 .thumbnail_container {
   position: relative;
   /* width: 100%; */
@@ -23,15 +152,6 @@
   margin: auto;
 }
 
-/* img {
-  max-height: 72.2%;
-  max-width: 100%;
-} */
-
-.title-img {
-  padding-right: 30px;
-}
-
 .front-page-link {
   background-color: #f44336;
   color: white;
@@ -40,52 +160,8 @@
   text-decoration: none;
   display: inline-block;
 }
-.right-align {
-  float: right !important ;
-}
 
 .strapline {
   font-size: 1.6rem;
   margin-top: -2.3rem;
-}
-
-.nav-item {
-  /* font-family: "Courgette", cursive; */
-  /* font-family: "Marck Script", cursive; */
-  font-size: 1.2rem;
-  /* margin-left: 6rem;
-  margin-right: -3rem; */
-}
-
-.icon {
-  width: 2rem;
-  display: relative !important;
-  margin-bottom: -3rem;
-}
-
-.profile-icon {
-  margin-left: 1rem;
-}
-
-.friends-icon {
-  margin-left: 2rem;
-}
-
-.find-icon {
-  margin-left: 3rem;
-}
-
-.right-elements {
-  padding-left: 30rem;
-}
-
-.right-element {
-  display: relative;
-  float: right;
-  align-items: center;
-}
-
-.spacing {
-  width: 2rem;
-  height: 2rem;
 }
