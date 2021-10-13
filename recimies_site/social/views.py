@@ -46,6 +46,10 @@ class IndexView(FormView):
         context['recipies'] = Recipie.objects.all()
         return context
 
+    
+
+    
+
 
 class ProfileView(DetailView):
     model = RecimieUser
