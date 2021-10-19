@@ -182,3 +182,12 @@
   font-size: 1.6rem;
   margin-top: -2.3rem;
 }
+
+/* recipe view */
+
+
+
+.recipe-image {
+  object-fit: contain;
+  width: 300px;
+}

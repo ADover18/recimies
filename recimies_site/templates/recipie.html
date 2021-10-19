@@ -1,8 +1,18 @@
 {% include 'base.html' %}
 {% load widget_tweaks %}
-<a href="{% url 'index' %}">Home</a>
-<h4>{{ object.name }}</h4>
-<img src="/{{object.image_url}}"/>
-</br>
-{{object.content}}
+
+<h2>{{ object.name }}</h2>
+<h6>Serves: {{ object.serves }} </h6>
+<h6>Prep Time: {{ object.prep_time }} {{ object.prep_time_units }} </h6>
+{% if object.cooking_time > 0 %}
+<h6>Cooking Time: {{ object.cooking_time }} {{object.cooking_time_units}}</h6>
+{% endif %}
+<img class="recipe-image" src="/{{object.image_url}}"/>
+{% for ingredient in ingredients %}
+    <ul>{{ingredient}}</ul>
+{% endfor %}
+{% for step in method %}
+    <ul>{{step}}</ul>
+{% endfor %}
+{{object.method}}
 {% include 'footer.html' %}

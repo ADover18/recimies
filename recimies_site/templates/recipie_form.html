@@ -1,8 +1,7 @@
-{% include 'base.html' %}
-{% load widget_tweaks %}
-<a href="{% url 'index' %}">Home</a>
+{% include 'base.html' %} {% load widget_tweaks %}
 {% if user.is_authenticated %}
-<form method="post"  enctype="multipart/form-data">
+
+<form method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="form-group">
     <label for="recipie-name">name</label>
@@ -13,23 +12,27 @@
     {% render_field form.cooking_time id="recipie-cooking_time" class="form-group" %}
   </div>
   <div class="form-group">
+    <label for="recipie-cooking_time">cooking time units</label>
+    {% render_field form.cooking_time_units id="recipie-cooking_time_units" class="form-group" %}
+  </div>
+  <div class="form-group">
     <label for="recipie-prep_time">prep time</label>
     {% render_field form.prep_time id="recipie-prep_time" class="form-group" %}
+  </div>
+  <div class="form-group">
+    <label for="recipie-prep_time">prep time units</label>
+    {% render_field form.prep_time_units id="recipie-prep_time_units" class="form-group" %}
   </div>
   <div class="form-group">
     <label for="recipie-serves">serves</label>
     {% render_field form.serves id="recipie-serves" class="form-group" %}
   </div>
   <div class="form-group">
-    <label for="recipie-content">content</label>
-    {% render_field form.content id="recipie-content" class="form-group" %}
-  </div>
-  <div class="form-group">
     <label for="recipie-image">upload an image</label>
     {% render_field form.image id="recipie-image" class="form-group" %}
   </div>
-  <input type="submit" class="btn" value="Save"/>
+  {{ingredients}}<br>
+  {{method}}
+  <input type="submit" class="btn" value="Save" />
 </form>
-{{ form.errors }}
-{% endif %}
-{% include 'footer.html' %}
+{{ form.errors }} {% endif %} {% include 'footer.html' %}
