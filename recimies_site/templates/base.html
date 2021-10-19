@@ -44,8 +44,18 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
           <li class="nav-item active">
+            <div class="f-c-home flex-container">
+              <svg class="sub-icon icon home-icon-size">
+                <use
+                  href="{% static 'site_img/logos/icons.svg' %}#home"
+                ></use>
+              </svg>
+              <a class="sub-text" href="{% url 'index' %}">Home</a>
+            </div>
+          </li>
+          <li class="nav-item active">
             <div class="flex-container">
-              <svg class="sub-icon icon">
+              <svg class="sub-icon icon icon-size">
                 <use
                   href="{% static 'site_img/logos/icons.svg' %}#search"
                 ></use>
@@ -55,7 +65,7 @@
           </li>
           <li class="nav-item active">
             <div class="flex-container">
-              <svg class="sub-icon icon">
+              <svg class="sub-icon icon icon-size">
                 <use
                   href="{% static 'site_img/logos/icons.svg' %}#new-recipe"
                 ></use>
@@ -67,7 +77,7 @@
           </li>
           <li class="nav-item active">
             <div class="flex-container">
-              <svg class="sub-icon icon">
+              <svg class="sub-icon icon icon-size">
                 <use
                   href="{% static 'site_img/logos/icons.svg' %}#log-out"
                 ></use>
@@ -78,10 +88,10 @@
           <li class="nav-item active">
             <div class="flex-container profile">
               <div>
-              <img class="icon profile-pic" src="{% static 'site_img/profile.png' %}"></img>
+              <img class="icon-size icon profile-pic" src="{% static 'site_img/profile.png' %}"></img>
               </div>
               <div>
-              <a class="sub-text username" href="{% url 'profile' user_pk=user.pk %}"> {{ object.username }}</a>
+              <a class="sub-text username" href="{% url 'profile' user_pk=user.pk %}"> {{ user }}</a>
               </div>
             </div>
           </li>

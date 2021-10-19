@@ -4,9 +4,14 @@
 
 /* Navbar Elements */
 
-.icon {
+.icon-size {
   width: 30px;
   height: 30px;
+}
+
+.home-icon-size {
+  width: 34px;
+  height: 34px;
 }
 
 .main-logo {
@@ -97,6 +102,10 @@
     align-items: center;
   }
 
+  .f-c-home {
+    padding-right: 1rem;
+  }
+
   .sub-text {
     text-align: center;
     font-size: 17px;
@@ -106,8 +115,16 @@
     justify-self: center;
     align-self: center;
     display: block;
-    margin-left: 27%;
+  }
+
+  .icon-size {
     margin-bottom: 10px;
+    margin-left: 27%;
+  }
+
+  .home-icon-size {
+    margin-bottom: 6px;
+    margin-left: 13%;
   }
 
   .narrow {
@@ -164,4 +181,13 @@
 .strapline {
   font-size: 1.6rem;
   margin-top: -2.3rem;
+}
+
+/* recipe view */
+
+
+
+.recipe-image {
+  object-fit: contain;
+  width: 300px;
 }

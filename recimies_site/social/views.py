@@ -9,11 +9,13 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.base import RedirectView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, FormView
+from django.views.generic.edit import CreateView, FormView, UpdateView
 from django.views.generic.list import ListView
 from django.utils.decorators import method_decorator
+from django.db import transaction
+from django.urls import reverse_lazy
 
-from .forms import RecipieForm, RegisterForm
+from .forms import *
 from .models import Recipie, RecimieUser
 
 
@@ -46,6 +48,7 @@ class IndexView(FormView):
         context['recipies'] = Recipie.objects.all()
         return context
 
+    
 
 class ProfileView(DetailView):
     model = RecimieUser
@@ -75,10 +78,22 @@ class LogoutView(RedirectView):
 class RecipieView(DetailView):
     model = Recipie
     template_name = "recipie.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(RecipieView, self).get_context_data(**kwargs)
+        ingredients = Ingredient.objects.filter(recipe=self.object.pk)
+        method = MethodStep.objects.filter(recipe=self.object.pk)
+        context['ingredients'] = ingredients
+        context['method'] = method
+        return context
+
+    
     
     def get_object(self, **kwargs):
         object = Recipie.objects.get(pk=self.kwargs['recipie_pk'])
         return object
+
+
 
 
 class NewRecipieView(CreateView):
@@ -86,14 +101,71 @@ class NewRecipieView(CreateView):
     template_name = "recipie_form.html"
     form_class = RecipieForm
     success_url = '/'
-    
+
+    def get_context_data(self, **kwargs):
+        data = super(NewRecipieView, self).get_context_data(**kwargs)
+        if self.request.POST:
+            data['ingredients'] = IngredientFormSet(self.request.POST)
+            data['method'] = MethodFormSet(self.request.POST)
+        else:
+            data['ingredients'] = IngredientFormSet()
+            data['method'] = MethodFormSet()
+        return data
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        ingredients = context['ingredients']
+        method = context['method']
+        with transaction.atomic():
+            form.instance.user = self.request.user
+            self.object = form.save()
+            if ingredients.is_valid():
+                ingredients.instance = self.object
+                ingredients.save()
+            if method.is_valid():
+                method.instance = self.object
+                method.save()
+        return super(NewRecipieView, self).form_valid(form)
+
+
     def get_form_kwargs(self):
         kwargs = super(NewRecipieView, self).get_form_kwargs()
         kwargs['user_pk'] = self.kwargs['user_pk']
         return kwargs
 
+    # def form_valid(self, form):
+    #     return super().form_valid(form)
+    
+
+class RecipieUpdate(UpdateView):
+    model = Recipie 
+    template_name = "recipie_form.html"
+    form_class = RecipieForm
+
+    def get_context_data(self, **kwargs):
+        data = super(RecipieUpdate, self).get_context_data(**kwargs)
+        if self.request.POST:
+            data['ingredients'] = IngredientFormSet(self.request.POST)
+            data['method'] = MethodFormSet(self.request.POST)
+        else:
+            data['ingredients'] = IngredientFormSet()
+            data['method'] = MethodFormSet()
+        return data
+
     def form_valid(self, form):
-        return super().form_valid(form)
+        context = self.get_context_data()
+        ingredients = context['ingredients']
+        method = context['method']
+        with transaction.atomic():
+            form.instance.user = self.request.user
+            self.object = form.save()
+            if ingredients.is_valid():
+                ingredients.instance = self.object
+                ingredients.save()
+            if method.is_valid():
+                method.instance = self.object
+                method.save()
+        return super(RecipieUpdate, self).form_valid(form)
 
 
 class SearchUsersListView(ListView):
