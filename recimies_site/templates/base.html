@@ -2,11 +2,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ReciMies</title>
+    <title>{% block title %}Recimies{% endblock %}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="{% static 'js/jquery-3.3.1.min.js'%}"></script>
     <script src="{% static 'js/bootstrap.min.js'%}"></script>
-    <script src="{% static 'js/site.js'%}"></script>
+    {% block script %}
+    <script defer src="{% static 'js/site.js'%}"></script>
+    {% endblock %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}" />
     <link rel="stylesheet" href="{% static 'css/bootstrap-grid.min.css'%}" />
     <link rel="stylesheet" href="{% static 'css/site.css'%}" />
@@ -22,7 +24,7 @@
         <input
           class="form-control mr-sm-2"
           type="search"
-          placeholder="Search for a recipie..."
+          placeholder="Search for a recipe..."
           aria-label="Search"
         />
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
@@ -70,7 +72,7 @@
                   href="{% static 'site_img/logos/icons.svg' %}#new-recipe"
                 ></use>
               </svg>
-              <a class="sub-text" href="{% url 'new_recipie' user_pk=user.pk %}"
+              <a class="sub-text" href="{% url 'new_recipe' user_pk=user.pk %}"
                 >Add Recipe</a
               >
             </div>
@@ -112,14 +114,13 @@
     {% include 'login_form.html' %} 
     {% endif %}
 
-    <!-- <div class="container">
-      <div id="title">
-        <svg>
-          <use href="{% static 'site_img/logos/icons.svg' %}#logo"></use>
-        </svg>
-        <h2>A place to keep and share personal recipies</h2>
-      </div>
-    </div> -->
-    <!-- </body>
-</html> -->
+    {% block content %}{% endblock %}
 
+    <div id="footer">
+      <br/>
+      <br/>
+      <small>Copyright Alexandra Dover and James Stevenson {% now "Y" %} </small>
+    </div>
+    </html>
+    </body>
+    </html>

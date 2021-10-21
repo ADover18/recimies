@@ -1,0 +1,62 @@
+{% extends 'base.html' %} 
+{% load widget_tweaks %}
+{% load static %}
+{% block script %}<script defer src="{% static 'js/newRecipeView.js'%}"></script>{% endblock %}
+{% block title %}Recimies: Add Recipe{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+
+<form id="recipe-form" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="recipe-name">name</label>
+    {% render_field form.name id="recipe-name" class="form-group" %}
+  </div>
+  <div class="form-group">
+    <label for="recipe-cooking_time">cooking time</label>
+    {% render_field form.cooking_time id="recipe-cooking_time" class="form-group" %}
+  </div>
+  <div class="form-group">
+    <label for="recipe-cooking_time">cooking time units</label>
+    {% render_field form.cooking_time_units id="recipe-cooking_time_units" class="form-group" %}
+  </div>
+  <div class="form-group">
+    <label for="recipe-prep_time">prep time</label>
+    {% render_field form.prep_time id="recipe-prep_time" class="form-group" %}
+  </div>
+  <div class="form-group">
+    <label for="recipe-prep_time">prep time units</label>
+    {% render_field form.prep_time_units id="recipe-prep_time_units" class="form-group" %}
+  </div>
+  <div class="form-group">
+    <label for="recipe-serves">serves</label>
+    {% render_field form.serves id="recipe-serves" class="form-group" %}
+  </div>
+  <div class="form-group">
+    <label for="recipe-image">upload an image</label>
+    {% render_field form.image id="recipe-image" class="form-group" %}
+  </div>
+  {{ingredient_form.management_form}}
+  {%for form in ingredient_form%}
+  <div class="ingredient-form">
+  {{form}}
+  <button class="align-self-center btn btn-danger delete-ingredient-form">Delete</button>
+  </div>
+  {% endfor %}
+  <button id="add-ingredient" class="btn btn-primary my-3">Add Ingredient</button>
+  <br>
+  {{direction_form.management_form}}
+  {%for form in direction_form%}
+  <div class="direction-form">
+  {{form}}
+  <button class="align-self-center btn btn-danger delete-direction-form">Delete</button>
+  </div>
+  {% endfor %}
+  <button id="add-direction" class="btn btn-primary my-3">Add Step</button>
+
+  <input id="submit-button" type="submit" class="btn" value="Save" />
+</form>
+{{ form.errors }} {% endif %} 
+
+
+{% endblock %}

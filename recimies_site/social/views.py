@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect
 
 from django.views.decorators.cache import never_cache
@@ -12,11 +13,9 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormView, UpdateView
 from django.views.generic.list import ListView
 from django.utils.decorators import method_decorator
-from django.db import transaction
-from django.urls import reverse_lazy
 
 from .forms import *
-from .models import Recipie, RecimieUser
+from .models import Recipe, RecimieUser
 
 
 class IndexView(FormView):
@@ -45,7 +44,7 @@ class IndexView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
-        context['recipies'] = Recipie.objects.all()
+        context['recipes'] = Recipe.objects.all()
         return context
 
     
@@ -75,97 +74,152 @@ class LogoutView(RedirectView):
         return super(LogoutView, self).get(request, *args, **kwargs)
 
 
-class RecipieView(DetailView):
-    model = Recipie
-    template_name = "recipie.html"
+class RecipeView(DetailView):
+    model = Recipe
+    template_name = "recipe.html"
 
     def get_context_data(self, **kwargs):
-        context = super(RecipieView, self).get_context_data(**kwargs)
+        context = super(RecipeView, self).get_context_data(**kwargs)
         ingredients = Ingredient.objects.filter(recipe=self.object.pk)
-        method = MethodStep.objects.filter(recipe=self.object.pk)
+        direction = Direction.objects.filter(recipe=self.object.pk)
         context['ingredients'] = ingredients
-        context['method'] = method
+        context['direction'] = direction
         return context
 
     
     
     def get_object(self, **kwargs):
-        object = Recipie.objects.get(pk=self.kwargs['recipie_pk'])
+        object = Recipe.objects.get(pk=self.kwargs['recipe_pk'])
         return object
 
 
+class EditRecipeMixin():
+    def form_invalid(self, form, ingredient_form, direction_form):
+        return self.render_to_response(
+            self.get_context_data(form=form, ingredient_form = ingredient_form, direction_form=direction_form)
+        )
 
-
-class NewRecipieView(CreateView):
-    model = Recipie 
-    template_name = "recipie_form.html"
-    form_class = RecipieForm
+class NewRecipeView(CreateView, EditRecipeMixin):
+    model = Recipe 
+    template_name = "recipe_form.html"
+    form_class = RecipeForm
     success_url = '/'
 
-    def get_context_data(self, **kwargs):
-        data = super(NewRecipieView, self).get_context_data(**kwargs)
-        if self.request.POST:
-            data['ingredients'] = IngredientFormSet(self.request.POST)
-            data['method'] = MethodFormSet(self.request.POST)
-        else:
-            data['ingredients'] = IngredientFormSet()
-            data['method'] = MethodFormSet()
-        return data
+    def get(self, request, *args, **kwargs):
+        """
+        Handles GET requests and instantiates blank versions of the form
+        and its inline formsets.
+        """
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        ingredient_form = IngredientFormSet()
+        direction_form = DirectionFormSet()
+        return self.render_to_response(
+            self.get_context_data(form=form, ingredient_form=ingredient_form, direction_form=direction_form)
+        )
 
-    def form_valid(self, form):
-        context = self.get_context_data()
-        ingredients = context['ingredients']
-        method = context['method']
-        with transaction.atomic():
-            form.instance.user = self.request.user
-            self.object = form.save()
-            if ingredients.is_valid():
-                ingredients.instance = self.object
-                ingredients.save()
-            if method.is_valid():
-                method.instance = self.object
-                method.save()
-        return super(NewRecipieView, self).form_valid(form)
+    def post(self, request, *args, **kwargs):
+        """
+        Handles POST requests, instantiating a form instance and its inline
+        formsets with the passed POST variables and then checking them for
+        validity.
+        """
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        ingredient_form = IngredientFormSet(self.request.POST)
+        direction_form = DirectionFormSet(self.request.POST)
+        if (form.is_valid() and ingredient_form.is_valid() and direction_form.is_valid()):
+            return self.form_valid(form, ingredient_form, direction_form)
+        else:
+            return self.form_invalid(form, ingredient_form, direction_form)
+
+    def form_valid(self, form, ingredient_form, direction_form):
+        self.object = form.save()
+        ingredient_form.instance = self.object
+        ingredient_form.save()
+        direction_form.instance = self.object
+        direction_form.save()
+        return HttpResponseRedirect(self.get_success_url())
 
 
     def get_form_kwargs(self):
-        kwargs = super(NewRecipieView, self).get_form_kwargs()
+        kwargs = super(NewRecipeView, self).get_form_kwargs()
         kwargs['user_pk'] = self.kwargs['user_pk']
         return kwargs
-
-    # def form_valid(self, form):
-    #     return super().form_valid(form)
     
 
-class RecipieUpdate(UpdateView):
-    model = Recipie 
-    template_name = "recipie_form.html"
-    form_class = RecipieForm
+class RecipeUpdate(UpdateView, EditRecipeMixin):
+    model = Recipe 
+    template_name = "recipe_form.html"
+    form_class = RecipeForm
+    success_url = '/'
 
-    def get_context_data(self, **kwargs):
-        data = super(RecipieUpdate, self).get_context_data(**kwargs)
-        if self.request.POST:
-            data['ingredients'] = IngredientFormSet(self.request.POST)
-            data['method'] = MethodFormSet(self.request.POST)
+    def get_form_kwargs(self):
+        kwargs = super(NewRecipeView, self).get_form_kwargs()
+        kwargs['user_pk'] = self.kwargs['user_pk']
+        kwargs['recipe_pk'] = self.kwargs['recipe_pk'] # whatever the url var is called
+        return kwargs
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handles POST requests, instantiating a form instance and its inline
+        formsets with the passed POST variables and then checking them for
+        validity.
+        """
+        # self.object is already set up UpdateView
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        ingredient_form = IngredientFormSet(self.request.POST)
+        direction_form = DirectionFormSet(self.request.POST)
+        if (form.is_valid() and ingredient_form.is_valid() and direction_form.is_valid()):
+            return self.form_valid(form, ingredient_form, direction_form)
         else:
-            data['ingredients'] = IngredientFormSet()
-            data['method'] = MethodFormSet()
-        return data
+            return self.form_invalid(form, ingredient_form, direction_form)
 
-    def form_valid(self, form):
-        context = self.get_context_data()
-        ingredients = context['ingredients']
-        method = context['method']
-        with transaction.atomic():
-            form.instance.user = self.request.user
-            self.object = form.save()
-            if ingredients.is_valid():
-                ingredients.instance = self.object
-                ingredients.save()
-            if method.is_valid():
-                method.instance = self.object
-                method.save()
-        return super(RecipieUpdate, self).form_valid(form)
+    def form_valid(self, form, ingredient_form, direction_form):
+        pass
+        """
+        look at contents in form and update the objects that are
+        being edited
+        then save them with their new contents
+        """
+        # self.object = form.save()
+        # ingredient_form.instance = self.object
+        # ingredient_form.save()
+        # direction_form.instance = self.object
+        # direction_form.save()
+        # return HttpResponseRedirect(self.get_success_url())
+
+#     model = Recipe 
+#     template_name = "recipe_form.html"
+#     form_class = RecipeForm
+
+#     def get_context_data(self, **kwargs):
+#         data = super(RecipeUpdate, self).get_context_data(**kwargs)
+#         if self.request.POST:
+#             data['ingredients'] = IngredientFormSet(self.request.POST)
+#             data['direction'] = DirectionFormSet(self.request.POST)
+#         else:
+#             data['ingredients'] = IngredientFormSet()
+#             data['direction'] = DirectionFormSet()
+#         return data
+
+#     def form_valid(self, form):
+#         context = self.get_context_data()
+#         ingredients = context['ingredients']
+#         direction = context['direction']
+#         with transaction.atomic():
+#             form.instance.user = self.request.user
+#             self.object = form.save()
+#             if ingredients.is_valid():
+#                 ingredients.instance = self.object
+#                 ingredients.save()
+#             if direction.is_valid():
+#                 direction.instance = self.object
+#                 direction.save()
+#         return super(RecipeUpdate, self).form_valid(form)
 
 
 class SearchUsersListView(ListView):

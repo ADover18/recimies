@@ -1,12 +1,14 @@
-{% include 'base.html' %}
+{% extends 'base.html' %}
+{% block title %}Recimies: Profile{% endblock %}
   <a href="{% url 'index' %}">Home!</a>
   <a href="{% url 'logout' %}">Logout</a>
   <h4>Hello {{ object.username }}</h4>
-    <a href="{% url 'new_recipie' user_pk=user.pk %}">New Recipie</a>
+    <a href="{% url 'new_recipe' user_pk=user.pk %}">New Recipe</a>
     </br>
     </br>
-  <h5>Your recipies:</h5>
-  {%  for recipie in object.recipies.all %}
-      <a href="{% url 'recipie' recipie_pk=recipie.pk %}">{{recipie.name}}</a>
+  <h5>Your recipes:</h5>
+  {%  for recipe in object.recipes.all %}
+      <a href="{% url 'recipe' recipe_pk=recipe.pk %}">{{recipe.name}}</a>
   {% endfor %}
-{% include 'footer.html' %}
+{% endblock %}
+
