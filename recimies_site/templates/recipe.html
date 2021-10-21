@@ -13,7 +13,7 @@
     <ul>{{ingredient}}</ul>
 {% endfor %}
 {% for step in direction %}
-    <ul>{{step}}</ul>
+    <ul>{{ forloop.counter }}. {{step}}</ul>
 {% endfor %}
 {{object.method}}
 {% endblock %}

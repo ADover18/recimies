@@ -42,7 +42,7 @@ class Direction(models.Model):
 
 
     def __str__(self):
-        return str(self.pk) + ". " + self.direction
+        return self.direction
 
 
 
