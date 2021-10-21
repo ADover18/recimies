@@ -2,6 +2,12 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Courgette&family=Marck+Script&display=swap");
 
+.hidden {
+  display:none;
+}
+
+
+
 /* Navbar Elements */
 
 .icon-size {

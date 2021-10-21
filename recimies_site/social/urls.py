@@ -9,8 +9,8 @@ urlpatterns = [
     path('register', RegisterView.as_view(), name='register'),
     path('profile/<int:user_pk>', ProfileView.as_view(), name='profile'),
     path('logout', LogoutView.as_view(), name='logout'),
-    path('profile/<int:user_pk>/new-recipie', NewRecipieView.as_view(), name='new_recipie'),
-    path('recipie/<int:recipie_pk>', RecipieView.as_view(), name='recipie'),
+    path('profile/<int:user_pk>/new-recipe', NewRecipeView.as_view(), name='new_recipe'),
+    path('recipe/<int:recipe_pk>', RecipeView.as_view(), name='recipe'),
     path('usersearch', SearchUsersListView.as_view(), name='usersearch'),
 ]
 

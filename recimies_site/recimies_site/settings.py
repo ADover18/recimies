@@ -81,7 +81,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'recimies',
-        'USER': 'recipies',
+        'USER': 'recipes',
         'PASSWORD': env.get('PGPW'),
         'HOST': 'localhost',
         'PORT': '5432',

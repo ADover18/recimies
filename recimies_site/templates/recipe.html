@@ -1,6 +1,7 @@
-{% include 'base.html' %}
+{% extends 'base.html' %}
 {% load widget_tweaks %}
-
+{% block title %}Recimies:{{object.name}}{% endblock %}
+{% block content %}
 <h2>{{ object.name }}</h2>
 <h6>Serves: {{ object.serves }} </h6>
 <h6>Prep Time: {{ object.prep_time }} {{ object.prep_time_units }} </h6>
@@ -11,8 +12,8 @@
 {% for ingredient in ingredients %}
     <ul>{{ingredient}}</ul>
 {% endfor %}
-{% for step in method %}
+{% for step in direction %}
     <ul>{{step}}</ul>
 {% endfor %}
 {{object.method}}
-{% include 'footer.html' %}
+{% endblock %}

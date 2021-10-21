@@ -1,4 +1,6 @@
-{% include 'base.html'%}
+{% extends 'base.html'%}
+{% block title %}Recimies: Search for Users{% endblock %}
+{% block content %}
 <div class="searchbar">
   <form method="GET">
     <input type="text" name="q" value="{{ request.GET.q }}" />
@@ -32,4 +34,4 @@
 </br>
   {% endfor %}
 </div>
-{%include 'footer.html'%}
+{% endblock %}
