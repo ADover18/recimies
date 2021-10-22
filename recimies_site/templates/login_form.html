@@ -1,6 +1,8 @@
-{% extends "base.html" %}
+
+{% load static %}
 {% load widget_tweaks %}
-{% block title %}Recimies: Login{% endblock %}
+
+
 <form action="{% url 'index' %}" method="post" class="form-inline">
   {% csrf_token %}
   {% render_field form.username placeholder="username" %}
@@ -8,4 +10,3 @@
   <input class="btn" type="submit" value="Sign In" style="margin-left:1ex" />
 </form>
 </br>
-{% endblock %}
