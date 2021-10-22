@@ -38,11 +38,11 @@ class Ingredient(models.Model):
 
 class Direction(models.Model):
     recipe = models.ForeignKey(Recipe, related_name='direction', on_delete=models.CASCADE)
-    direction = models.CharField(max_length=100)
+    direction = models.TextField()
 
 
     def __str__(self):
-        return str(self.pk) + ". " + self.direction
+        return self.direction
 
 
 
