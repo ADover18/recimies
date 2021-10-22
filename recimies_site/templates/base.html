@@ -46,46 +46,54 @@
       <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
           <li class="nav-item active">
-            <div class="f-c-home flex-container">
-              <svg class="sub-icon icon home-icon-size">
-                <use
-                  href="{% static 'site_img/logos/icons.svg' %}#home"
-                ></use>
-              </svg>
-              <a class="sub-text" href="{% url 'index' %}">Home</a>
-            </div>
+            <a href="{% url 'index' %}">
+              <div class="f-c-home flex-container">
+                <svg class="sub-icon icon home-icon-size">
+                  <use
+                    href="{% static 'site_img/logos/icons.svg' %}#home"
+                  ></use>
+                </svg>
+                <a href="{% url 'index' %}" class="sub-text">Home</a>
+              </div>
+            </a>
           </li>
           <li class="nav-item active">
-            <div class="flex-container">
-              <svg class="sub-icon icon icon-size">
-                <use
-                  href="{% static 'site_img/logos/icons.svg' %}#search"
-                ></use>
-              </svg>
-              <a class="sub-text" href="{% url 'usersearch' %}">Find Friends</a>
-            </div>
+            <a href="{% url 'usersearch' %}">
+              <div class="flex-container">
+                <svg class="sub-icon icon icon-size">
+                  <use
+                    href="{% static 'site_img/logos/icons.svg' %}#search"
+                  ></use>
+                </svg>
+                <a class="sub-text" href="{% url 'usersearch' %}">Find Friends</a>
+              </div>
+            </a>
           </li>
           <li class="nav-item active">
-            <div class="flex-container">
-              <svg class="sub-icon icon icon-size">
-                <use
-                  href="{% static 'site_img/logos/icons.svg' %}#new-recipe"
-                ></use>
-              </svg>
-              <a class="sub-text" href="{% url 'new_recipe' user_pk=user.pk %}"
-                >Add Recipe</a
-              >
-            </div>
+            <a href="{% url 'new_recipe' user_pk=user.pk %}">
+              <div class="flex-container">
+                <svg class="sub-icon icon icon-size">
+                  <use
+                    href="{% static 'site_img/logos/icons.svg' %}#new-recipe"
+                  ></use>
+                </svg>
+                <a class="sub-text" href="{% url 'new_recipe' user_pk=user.pk %}"
+                  >Add Recipe</a
+                >
+              </div>
+            </a>
           </li>
           <li class="nav-item active">
-            <div class="flex-container">
-              <svg class="sub-icon icon icon-size">
-                <use
-                  href="{% static 'site_img/logos/icons.svg' %}#log-out"
-                ></use>
-              </svg>
-              <a class="sub-text" href="{% url 'logout' %}">Log out</a>
-            </div>
+              <a href="{% url 'logout' %}">
+              <div class="flex-container">
+                <svg class="sub-icon icon icon-size">
+                  <use
+                    href="{% static 'site_img/logos/icons.svg' %}#log-out"
+                  ></use>
+                </svg>
+                <a class="sub-text" href="{% url 'logout' %}">Log out</a>
+              </div>
+            </a>
           </li>
           <li class="nav-item active">
             <div class="flex-container profile">

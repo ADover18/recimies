@@ -213,17 +213,13 @@
 .recipe-image {
   object-fit: cover;
   padding: 13px;
-  overflow: hidden;
-  transform: scale(1); 
 }
 
 .recipe-image:hover {
-  transform: scale(1.05); 
+  transition: .2s ease-in-out;
+  transform: scale(1.05);
 }
 
-.thumbnail_container {
-  object-fit: contain;
-}
 
 
 
