@@ -41,9 +41,10 @@ DirectionFormSet = forms.inlineformset_factory(Recipe, Direction, fields=['direc
 
 
 class RecipeForm(ModelForm):
+
     class Meta:
         model = Recipe
-        exclude = ['user']
+        exclude = ['user',]
 
     def __init__(self, *args, **kwargs):
         self.user = RecimieUser.objects.get(pk=kwargs.pop('user_pk', None))

@@ -16,98 +16,88 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light nav-fill w-100">
-      <svg class="main-logo">
-        <use href="{% static 'site_img/logos/icons.svg' %}#logo"></use>
-      </svg>
-      <form class="search form-inline my-2 my-lg-0">
-        <input
-          class="form-control mr-sm-2"
-          type="search"
-          placeholder="Search for a recipe..."
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-          Search
-        </button>
-      </form>
-      {% if user.is_authenticated %}
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarTogglerDemo01"
-        aria-controls="navbarTogglerDemo01"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-          <li class="nav-item active">
-            <a href="{% url 'index' %}">
-              <div class="f-c-home flex-container">
-                <svg class="sub-icon icon home-icon-size">
-                  <use
-                    href="{% static 'site_img/logos/icons.svg' %}#home"
-                  ></use>
+    <div class="nav-container">
+      <nav class="my-nav-bar">
+        <svg class="main-logo">
+          <use href="{% static 'site_img/logos/icons.svg' %}#logo"></use>
+        </svg>
+
+        <form class="search form-inline my-2 my-lg-0">
+          <input
+            class="form-control mr-sm-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button
+            class="search-btn btn btn-outline-success my-2 my-sm-0"
+            type="submit"
+          >
+            Search
+          </button>
+        </form>
+        {% if user.is_authenticated %}
+        <div class="icons">
+          <a href="{% url 'index' %}">
+            <div class="icon-block">
+              <div class="my-flex-container">
+                <svg class="my-icon">
+                  <use href="{% static 'site_img/logos/icons.svg' %}#home"></use>
                 </svg>
-                <a href="{% url 'index' %}" class="sub-text">Home</a>
               </div>
-            </a>
-          </li>
-          <li class="nav-item active">
-            <a href="{% url 'usersearch' %}">
-              <div class="flex-container">
-                <svg class="sub-icon icon icon-size">
+              <p class="my-icon-text">Home</p>
+            </div>
+          </a>
+          <a href="{% url 'usersearch' %}">
+            <div class="icon-block">
+              <div class="my-flex-container">
+                <svg class="my-icon">
                   <use
                     href="{% static 'site_img/logos/icons.svg' %}#search"
                   ></use>
                 </svg>
-                <a class="sub-text" href="{% url 'usersearch' %}">Find Friends</a>
               </div>
-            </a>
-          </li>
-          <li class="nav-item active">
-            <a href="{% url 'new_recipe' user_pk=user.pk %}">
-              <div class="flex-container">
-                <svg class="sub-icon icon icon-size">
+              <p class="my-icon-text">Find Friends</p>
+            </div>
+          </a>
+          <a href="{% url 'new_recipe' user_pk=user.pk %}">
+            <div class="icon-block">
+              <div class="my-flex-container">
+                <svg class="my-icon">
                   <use
                     href="{% static 'site_img/logos/icons.svg' %}#new-recipe"
                   ></use>
                 </svg>
-                <a class="sub-text" href="{% url 'new_recipe' user_pk=user.pk %}"
-                  >Add Recipe</a
-                >
               </div>
-            </a>
-          </li>
-          <li class="nav-item active">
-              <a href="{% url 'logout' %}">
-              <div class="flex-container">
-                <svg class="sub-icon icon icon-size">
+              <p class="my-icon-text">Add Recipe</p>
+            </div>
+          </a>
+          <a href="{% url 'logout' %}">
+            <div class="icon-block">
+              <div class="my-flex-container">
+                <svg class="my-icon">
                   <use
                     href="{% static 'site_img/logos/icons.svg' %}#log-out"
                   ></use>
                 </svg>
-                <a class="sub-text" href="{% url 'logout' %}">Log out</a>
               </div>
-            </a>
-          </li>
-          <li class="nav-item active">
-            <div class="flex-container profile">
-              <div>
-              <img class="icon-size icon profile-pic" src="{% static 'site_img/profile.png' %}"></img>
-              </div>
-              <div>
-              <a class="sub-text username" href="{% url 'profile' user_pk=user.pk %}"> {{ user }}</a>
-              </div>
+              <p class="my-icon-text">Log out</p>
             </div>
-          </li>
-        </ul>
-      </div>
-    </nav>
+          </a>
+          <a href="{% url 'profile' user_pk=user.pk %}">
+            <div class="icon-block">
+              <div class="my-flex-container">
+                <image
+                  class="my-icon"
+                  src="{% static 'site_img/profile.png' %}"
+                ></image>
+              </div>
+              <p class="my-icon-text">{{ user }}</p>
+            </div>
+          </a>
+        </div>
+      </nav>
+    </div>
     
     
 

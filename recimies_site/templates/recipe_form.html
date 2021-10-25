@@ -11,16 +11,10 @@
 <form id="recipe-form" method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="form-group">
-    <label for="recipe-name">name</label>
-    {% render_field form.name id="recipe-name" class="form-group" %}
+    Recipe name: {{form.name}}
   </div>
   <div class="form-group">
-    <label for="recipe-cooking_time">cooking time</label>
-    {% render_field form.cooking_time id="recipe-cooking_time" class="form-group" %}
-  </div>
-  <div class="form-group">
-    <label for="recipe-cooking_time">cooking time units</label>
-    {% render_field form.cooking_time_units id="recipe-cooking_time_units" class="form-group" %}
+    Cooking time: {{form.cooking_time}} <em>units</em>: {{form.cooking_time_units}}
   </div>
   <div class="form-group">
     <label for="recipe-prep_time">prep time</label>
