@@ -16,7 +16,6 @@ from django.utils.decorators import method_decorator
 from .forms import *
 from .models import Recipe, RecimieUser
 
-
 class IndexView(FormView):
     template_name = "index.html"
     success_url = '/'
