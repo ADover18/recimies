@@ -1,6 +1,7 @@
 {% extends 'base.html' %} 
 {% load static %}
 {% load widget_tweaks %}
+{% load crispy_forms_tags %}
 {% block script %}<script defer src="{% static 'js/newRecipeView.js'%}"></script>{% endblock %}
 
 {% block title %}Recimies: Add Recipe{% endblock %}
@@ -8,51 +9,88 @@
 {% block content %}
 {% if user.is_authenticated %}
 
-<form id="recipe-form" method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  <div class="form-group">
-    Recipe name: {{form.name}}
-  </div>
-  <div class="form-group">
-    Cooking time: {{form.cooking_time}} <em>units</em>: {{form.cooking_time_units}}
-  </div>
-  <div class="form-group">
-    <label for="recipe-prep_time">prep time</label>
-    {% render_field form.prep_time id="recipe-prep_time" class="form-group" %}
-  </div>
-  <div class="form-group">
-    <label for="recipe-prep_time">prep time units</label>
-    {% render_field form.prep_time_units id="recipe-prep_time_units" class="form-group" %}
-  </div>
-  <div class="form-group">
-    <label for="recipe-serves">serves</label>
-    {% render_field form.serves id="recipe-serves" class="form-group" %}
-  </div>
-  <div class="form-group">
-    <label for="recipe-image">upload an image</label>
-    {% render_field form.image id="recipe-image" class="form-group" %}
-  </div>
-  {{ingredient_form.management_form}}
-  {%for form in ingredient_form%}
-  <div class="ingredient-form">
-  {{form}}
-  <button class="align-self-center btn btn-danger delete-ingredient-form">Delete</button>
-  </div>
-  {% endfor %}
-  <button id="add-ingredient" class="btn btn-primary my-3">Add Ingredient</button>
-  <br>
-  {{direction_form.management_form}}
-  {%for form in direction_form%}
-  <div class="direction-form">
-  {{form}}
-  <button class="align-self-center btn btn-danger delete-direction-form">Delete</button>
-  </div>
-  {% endfor %}
-  <button id="add-direction" class="btn btn-primary my-3">Add Step</button>
 
-  <input id="submit-button" type="submit" class="btn" value="Save" />
-</form>
-{{ form.errors }} {% endif %} 
 
+  
+
+<div class="form-container">
+{% crispy form %}
+{{ingredient_form.management_form}}
+    {%for form in ingredient_form%}
+    <div class="ingredient-form form-row">
+      <div class="form-group col-6 ing-field">
+      {{form.ingredient|as_crispy_field}}
+      </div>
+      <div class="form-group col-2">
+      {{form.quantity|as_crispy_field}}
+      </div>
+      <div class="form-group col-2">
+      {{form.unit|as_crispy_field}}
+      </div>
+      <svg class="col-1 delete-ingredient-form bin-btn" >
+        <use href="{% static 'site_img/logos/icons.svg' %}#bin"></use>
+      </svg>
+      <svg class="col-1 add-ingredient-form add-btn" >
+        <use href="{% static 'site_img/logos/icons.svg' %}#icon-plus-circle"></use>
+      </svg>
+    </div>
+    {% endfor %}
+    {{direction_form.management_form}}
+    {%for form in direction_form%}
+    <div class="direction-form form-row">
+      <p class="number-step col-1" >1. </p>
+      <div class="form-group col-9 dir-field">
+      {{form.direction|as_crispy_field}}
+      </div>
+      <div class="col-1 delete-direction-form">
+        <svg class="bin-btn">
+          <use href="{% static 'site_img/logos/icons.svg' %}#bin"></use>
+        </svg>
+      </div>
+      <div class="add-direction-form col-1">
+        <svg class="add-btn" >
+          <use href="{% static 'site_img/logos/icons.svg' %}#icon-plus-circle"></use>
+        </svg>
+      </div>
+    </div>
+    {% endfor %}
+    <input id="submit-button" type="submit" class="btn" value="Save" />
+</div>
+<!-- <div class="form-container">
+  <form id="recipe-form" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-row">
+      <div class="form-group col-10 mb-0">
+        {{form.name|as_crispy_field  }}
+      </div>
+      <div class="form-group col-2 mb-0">
+        {{form.serves|as_crispy_field  }}
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-6 mb-0">
+        {{form.cooking_time|as_crispy_field}}
+      </div>
+      <div class="form-group col-6 mb-0">
+        {{form.cooking_time_units|as_crispy_field}}
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-6 mb-0">
+        {{form.prep_time|as_crispy_field}}
+      </div>
+      <div class="form-group col-6 mb-0">
+        {{form.prep_time_units|as_crispy_field}}
+      </div>
+    </div>
+    
+    <div class="form-group">
+      {{form.image|as_crispy_field}}
+    </div> -->
+    
+    
+    
+  {{ form.errors }} {% endif %} 
+<!-- </div> -->
 
 {% endblock %}

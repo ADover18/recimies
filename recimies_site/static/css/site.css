@@ -5,10 +5,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Andada+Pro&display=swap');
 
 @import url('https://fonts.googleapis.com/css2?family=Andada+Pro&family=Courgette&family=Open+Sans&display=swap');
+
+
 .hidden {
   display:none;
 }
 
+svg {
+  pointer-events: none;
+}
 
 
 /* Navbar Elements */
@@ -38,7 +43,7 @@
   margin-left: auto !important;
 }
 
-.form-control {
+#search-box {
   width: 29vw !important;
   margin-right: 10px;
 }
@@ -91,7 +96,7 @@
   .search {
     order: 2;
   }
-  .form-control {
+  #search-box {
     width: 83vw !important;
     margin-right: 10px;
     margin-left: 10px;
@@ -219,8 +224,117 @@
 }
 
 /* Recipe Form */
+@media (max-width: 600px){
+  .requiredField[for="id_serves"] {
+  /* font-size: 10px; */
+  margin-left: -20px;
+  }
+}
+
+.requiredField[for="id_cooking_time_units"],
+.requiredField[for="id_prep_time_units"] {
+  /* font-size: 10px; */
+  color: white;
+  }
+
+
+.asteriskField {
+  display: none;
+}
+
 
 textarea {
   width: 80%;
-  height: 45px;
+  height: 65px !important;
 }
+
+.form-container {
+  margin:30px;
+}
+
+.ingredient-form {
+  height: 75px;
+}
+
+
+#add-ingredient,
+#add-direction  {
+  /* margin-left: 80vw; */
+  
+  
+  margin-bottom: 0px !important;
+  width: 140px;
+  /* margin-top: 10px;
+  font-size: 15px;
+  height: 40px; */
+}
+
+#add-direction {
+  margin-top: 5px !important;
+}
+
+.number-step {
+  text-align: center;
+}
+
+
+.form-group,
+.number-step,
+.bin-btn,
+.add-btn {
+  align-self: center;
+  margin-bottom: 0px;
+}
+
+.form-group.col-10 {
+  margin-top: 10px;
+}
+
+.add-direction-form,
+.delete-direction-form{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  cursor: pointer;
+}
+
+.bin-btn,
+.add-btn {
+  height: 23px;
+  padding: 0px;
+  width: 23px;
+}
+
+.number-step {
+  width: 4.16%; 
+  flex: 0 0 4.16%; 
+  max-width: 4.16%;
+}
+
+
+/* .dir-field {
+  width: 87%; 
+  flex: 0 0 87%; 
+  max-width: 87%;
+} */
+/* When viewport width is under 700px allow more space for delete icon so it can be easily accessed on mobile/tablet */
+/* @media (min-width: 700px) {
+  .add-direction-form,
+  .delete-direction-form {
+    width: 4.16%; 
+    flex: 0 0 4.16%; 
+    max-width: 4.16%;
+  }
+
+  .ing-field {
+    width: 50%; 
+    flex: 0 0 50%; 
+    max-width: 50%;
+  }
+
+  .dir-field {
+    width: 80%; 
+    flex: 0 0 80%; 
+    max-width: 80%;
+  }
+} */

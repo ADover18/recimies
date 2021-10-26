@@ -4,9 +4,12 @@ from django.contrib.auth.forms import UserCreationForm, UsernameField
 from django.contrib.auth.models import User
 
 from .models import Direction, Ingredient, Recipe, RecimieUser
-
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Submit
+from crispy_forms.bootstrap import Div, FormActions
 
 class RegisterForm(UserCreationForm):
+    
     class Meta:
         model = RecimieUser
         fields = ['username', 'email', 'password1', 'password2']
@@ -37,11 +40,11 @@ class DirectionForm(forms.ModelForm):
         model = Direction
         exclude = ()
         
-DirectionFormSet = forms.inlineformset_factory(Recipe, Direction, fields=['direction'], extra=1, can_delete=True)
+DirectionFormSet = forms.inlineformset_factory(Recipe, Direction, fields=['direction'], extra=1, labels= {'direction': 'Method',}, can_delete=True)
 
 
 class RecipeForm(ModelForm):
-
+    
     class Meta:
         model = Recipe
         exclude = ['user',]
@@ -49,9 +52,34 @@ class RecipeForm(ModelForm):
     def __init__(self, *args, **kwargs):
         self.user = RecimieUser.objects.get(pk=kwargs.pop('user_pk', None))
         super(RecipeForm, self).__init__(*args, **kwargs)
-
+        self.fields['name'].label = "Recipe name"
+        self.fields['serves'].label = "Serves/Makes"
+        # self.fields['cooking_time_units'].label = "..."
+        self.fields['prep_time'].label = "Preparation time"
+        # self.fields['prep_time_units'].label = "..."
+        self.helper = FormHelper(self)
+        self.helper.layout = Layout(
+            Div(
+                Div('name', css_class="col-10"), 
+                Div('serves', css_class="col-2"), css_class="form-row"
+            ),
+            Div(
+                Div('cooking_time', css_class="col-6"),
+                Div('cooking_time_units', css_class="col-6"),
+                css_class="form-row"   
+            ),
+            Div(
+                Div('prep_time', css_class="col-6"),
+                Div('prep_time_units', css_class="col-6"),
+                css_class='form-row'   
+            ),
+            Div('image',),
+        )
     def save(self, *args, **kwargs):
         recipe = super(RecipeForm, self).save(commit=False)
         recipe.user = self.user
         recipe.save()
         return recipe
+
+
+    
