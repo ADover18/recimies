@@ -27,12 +27,16 @@
       <div class="form-group col-2">
       {{form.unit|as_crispy_field}}
       </div>
-      <svg class="col-1 delete-ingredient-form bin-btn" >
-        <use href="{% static 'site_img/logos/icons.svg' %}#bin"></use>
-      </svg>
-      <svg class="col-1 add-ingredient-form add-btn" >
-        <use href="{% static 'site_img/logos/icons.svg' %}#icon-plus-circle"></use>
-      </svg>
+      <div class="col-1 delete-ingredient-form">
+        <svg class="ing-bin bin-btn" >
+          <use href="{% static 'site_img/logos/icons.svg' %}#bin"></use>
+        </svg>
+      </div>
+      <div class="col-1 add-ingredient-form">
+        <svg class="ing-add add-btn" >
+          <use href="{% static 'site_img/logos/icons.svg' %}#icon-plus-circle"></use>
+        </svg>
+      </div>
     </div>
     {% endfor %}
     {{direction_form.management_form}}
@@ -43,54 +47,20 @@
       {{form.direction|as_crispy_field}}
       </div>
       <div class="col-1 delete-direction-form">
-        <svg class="bin-btn">
+        <svg class="dir-bin bin-btn">
           <use href="{% static 'site_img/logos/icons.svg' %}#bin"></use>
         </svg>
       </div>
       <div class="add-direction-form col-1">
-        <svg class="add-btn" >
-          <use href="{% static 'site_img/logos/icons.svg' %}#icon-plus-circle"></use>
-        </svg>
+          <svg class="dir-add add-btn" >
+            <use href="{% static 'site_img/logos/icons.svg' %}#icon-plus-circle"></use>
+          </svg>
       </div>
     </div>
     {% endfor %}
-    <input id="submit-button" type="submit" class="btn" value="Save" />
+    <input id="submit-button" type="submit" class="btn btn-success btn-block" value="Save Recipe" />
 </div>
-<!-- <div class="form-container">
-  <form id="recipe-form" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="form-row">
-      <div class="form-group col-10 mb-0">
-        {{form.name|as_crispy_field  }}
-      </div>
-      <div class="form-group col-2 mb-0">
-        {{form.serves|as_crispy_field  }}
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-6 mb-0">
-        {{form.cooking_time|as_crispy_field}}
-      </div>
-      <div class="form-group col-6 mb-0">
-        {{form.cooking_time_units|as_crispy_field}}
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-6 mb-0">
-        {{form.prep_time|as_crispy_field}}
-      </div>
-      <div class="form-group col-6 mb-0">
-        {{form.prep_time_units|as_crispy_field}}
-      </div>
-    </div>
-    
-    <div class="form-group">
-      {{form.image|as_crispy_field}}
-    </div> -->
-    
-    
-    
+     
   {{ form.errors }} {% endif %} 
-<!-- </div> -->
 
 {% endblock %}
