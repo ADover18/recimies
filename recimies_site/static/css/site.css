@@ -243,13 +243,25 @@ svg {
 }
 
 
-textarea {
-  width: 80%;
-  height: 65px !important;
+textarea.form-control {
+  height: 60px;
 }
 
 .form-container {
   margin:30px;
+}
+
+.ingredient-form{
+  padding-top:20px;
+  padding-bottom: 20px;
+}
+
+[for=id_direction-0-direction]{
+  padding-top:40px;
+}
+
+.form-row {
+  padding-bottom: 20px;
 }
 
 .ingredient-form {
@@ -291,18 +303,57 @@ textarea {
 }
 
 .add-direction-form,
-.delete-direction-form{
+.delete-direction-form,
+.add-ingredient-form,
+.delete-ingredient-form{
   display: flex;
   justify-content: center;
   align-content: center;
+}
+
+@media (min-width: 500px) {
+  .add-direction-form,
+  .delete-direction-form,
+  .add-ingredient-form,
+  .delete-ingredient-form{
+      width: 37px;
+      flex: 37px;
+      max-width: 37px;
+  }
+  .ing-field{
+    width: calc(58% - 37px);
+    flex: calc(58% - 37px);
+    max-width: calc(58% - 37px);
+  }
+  .dir-field{
+    width: calc(87% - 37px);
+    flex: calc(87% - 37px);
+    max-width: calc(87% - 37px);
+  }
+}
+
+
+
+.add-ingredient-form,
+.add-direction-form {
   cursor: pointer;
 }
+
 
 .bin-btn,
 .add-btn {
   height: 23px;
   padding: 0px;
   width: 23px;
+}
+
+.bin-btn {
+  display: none;
+}
+
+.ing-bin,
+.ing-add {
+  margin-top: 30px;
 }
 
 .number-step {

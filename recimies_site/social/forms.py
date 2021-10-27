@@ -43,6 +43,7 @@ class DirectionForm(forms.ModelForm):
 DirectionFormSet = forms.inlineformset_factory(Recipe, Direction, fields=['direction'], extra=1, labels= {'direction': 'Method',}, can_delete=True)
 
 
+
 class RecipeForm(ModelForm):
     
     class Meta:
@@ -54,7 +55,6 @@ class RecipeForm(ModelForm):
         super(RecipeForm, self).__init__(*args, **kwargs)
         self.fields['name'].label = "Recipe name"
         self.fields['serves'].label = "Serves/Makes"
-        # self.fields['cooking_time_units'].label = "..."
         self.fields['prep_time'].label = "Preparation time"
         # self.fields['prep_time_units'].label = "..."
         self.helper = FormHelper(self)
