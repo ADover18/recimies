@@ -251,23 +251,26 @@ textarea.form-control {
   margin:30px;
 }
 
-.ingredient-form{
+/* .ingredient-form{
   padding-top:20px;
-  padding-bottom: 20px;
-}
+} */
 
 [for=id_direction-0-direction]{
-  padding-top:40px;
+  margin-top:20px;
 }
 
-.form-row {
+.form-row,
+#div_id_image {
   padding-bottom: 20px;
 }
 
 .ingredient-form {
-  height: 75px;
+  padding-bottom: 5px;
 }
 
+.invalid-feedback{
+  white-space: nowrap;
+}
 
 #add-ingredient,
 #add-direction  {

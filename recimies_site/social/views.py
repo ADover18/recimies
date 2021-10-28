@@ -97,7 +97,7 @@ class EditRecipeMixin():
             self.get_context_data(form=form, ingredient_form = ingredient_form, direction_form=direction_form)
         )
 
-class NewRecipeView(CreateView, EditRecipeMixin):
+class NewRecipeView(CreateView):
     model = Recipe 
     template_name = "recipe_form.html"
     form_class = RecipeForm
@@ -141,6 +141,10 @@ class NewRecipeView(CreateView, EditRecipeMixin):
         direction_form.save()
         return HttpResponseRedirect(self.get_success_url())
 
+    def form_invalid(self, form, ingredient_form, direction_form):
+        return self.render_to_response(
+            self.get_context_data(form=form, ingredient_form = ingredient_form, direction_form=direction_form)
+        )
 
     def get_form_kwargs(self):
         kwargs = super(NewRecipeView, self).get_form_kwargs()
@@ -183,6 +187,7 @@ class RecipeUpdate(UpdateView, EditRecipeMixin):
         being edited
         then save them with their new contents
         """
+        
         # self.object = form.save()
         # ingredient_form.instance = self.object
         # ingredient_form.save()

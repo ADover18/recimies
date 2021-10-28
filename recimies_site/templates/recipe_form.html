@@ -18,13 +18,13 @@
 {{ingredient_form.management_form}}
     {%for form in ingredient_form%}
     <div class="ingredient-form form-row">
-      <div class="form-group col-6 ing-field">
+      <div class="form-group col-6 ing-field ing-input">
       {{form.ingredient|as_crispy_field}}
       </div>
-      <div class="form-group col-2">
+      <div class="form-group col-2 ing-input">
       {{form.quantity|as_crispy_field}}
       </div>
-      <div class="form-group col-2">
+      <div class="form-group col-2 ing-input">
       {{form.unit|as_crispy_field}}
       </div>
       <div class="col-1 delete-ingredient-form">
@@ -58,9 +58,9 @@
       </div>
     </div>
     {% endfor %}
-    <input id="submit-button" type="submit" class="btn btn-success btn-block" value="Save Recipe" />
+    <input formnovalidate id="submit-button" type="submit" class="btn btn-success btn-block" value="Save Recipe" />
 </div>
      
-  {{ form.errors }} {% endif %} 
+ {% endif %} 
 
 {% endblock %}

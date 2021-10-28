@@ -49,6 +49,12 @@ class RecipeForm(ModelForm):
     class Meta:
         model = Recipe
         exclude = ['user',]
+        error_messages = {
+            'name': {
+                'required': "Please enter a recipe name.",
+            },
+        }
+        
 
     def __init__(self, *args, **kwargs):
         self.user = RecimieUser.objects.get(pk=kwargs.pop('user_pk', None))
