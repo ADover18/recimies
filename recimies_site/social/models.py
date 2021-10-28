@@ -2,20 +2,21 @@ import ntpath
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator, MinLengthValidator, MaxLengthValidator  
 
 
 def _recipe_image_path(instance, filename):
         return "recimies_site/static/" + "user_img/%s/%s" % (instance.name, ntpath.basename(filename))
 
 class Recipe(models.Model):
-    name = models.CharField(max_length=255, null=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="recipes", null=False)
-    image = models.ImageField(upload_to=_recipe_image_path, default=settings.DEFAULT_IMAGE_PATH)
+    name = models.CharField(max_length=255, null=False, error_messages={'required': 'Please enter the recipe name', 'blank': 'Please enter the recipe name', 'null': 'Please enter the recipe name'}, validators=[MinLengthValidator(1, message="Please enter a recipe name.")])
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="recipes")
+    image = models.ImageField(upload_to=_recipe_image_path)
     cooking_time = models.IntegerField(default=0)
     cooking_time_units = models.CharField(max_length=25, choices=[('minutes', 'minutes'), ('hours', 'hours')], default='minutes')
-    prep_time = models.IntegerField(null=False, default=0)
+    prep_time = models.IntegerField(null=False, default=0, validators=[MinValueValidator(1, message="Must be over 0")])
     prep_time_units = models.CharField(max_length=20, choices=[('minutes', 'minutes'), ('hours', 'hours')], default='minutes')
-    serves = models.IntegerField(null=False, default=0)
+    serves = models.IntegerField(null=False, default=1, validators=[MinValueValidator(1, message="Must be over 0")])
     equipment = models.TextField(blank=True)
 
 
