@@ -80,7 +80,13 @@ class RecipeView(DetailView):
         context = super(RecipeView, self).get_context_data(**kwargs)
         ingredients = Ingredient.objects.filter(recipe=self.object.pk)
         direction = Direction.objects.filter(recipe=self.object.pk)
+        offset = int(len(ingredients) / 2)+1
+        # if offset % 2 != 0:
+        #     # ensure that the second col does not contain more than the first one
+        #     offset += 1
         context['ingredients'] = ingredients
+        context['ingredients_col0'] = ingredients[:offset]
+        context['ingredients_col1'] = ingredients[offset:]
         context['direction'] = direction
         return context
 

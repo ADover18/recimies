@@ -7,6 +7,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Andada+Pro&family=Courgette&family=Open+Sans&display=swap');
 
 
+@import url('https://fonts.googleapis.com/css2?family=Andada+Pro&family=Courgette&family=Open+Sans&family=Poppins&display=swap');
+
 .hidden {
   display:none;
 }
@@ -142,7 +144,7 @@ svg {
 }
 
 .front-page-link {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Poppins', sans-serif;
   
   color:black;
   padding-top: 0px;
@@ -335,8 +337,6 @@ textarea.form-control {
   }
 }
 
-
-
 .add-ingredient-form,
 .add-direction-form {
   cursor: pointer;
@@ -365,30 +365,92 @@ textarea.form-control {
   max-width: 4.16%;
 }
 
+/* Recipe view */
 
-/* .dir-field {
-  width: 87%; 
-  flex: 0 0 87%; 
-  max-width: 87%;
-} */
-/* When viewport width is under 700px allow more space for delete icon so it can be easily accessed on mobile/tablet */
-/* @media (min-width: 700px) {
-  .add-direction-form,
-  .delete-direction-form {
-    width: 4.16%; 
-    flex: 0 0 4.16%; 
-    max-width: 4.16%;
-  }
+.recipe-container{
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-items: center;
+  justify-content: center;
+  max-width: 100vw;
+}
 
-  .ing-field {
-    width: 50%; 
-    flex: 0 0 50%; 
-    max-width: 50%;
-  }
+.method-container{
+  max-width: 90vw !important;
+}
 
-  .dir-field {
-    width: 80%; 
-    flex: 0 0 80%; 
-    max-width: 80%;
+.content-container{
+  padding: 20px;
+  max-width: 100vw;
+  object-fit: contain;
+}
+
+.recipe-row-container{
+  display:flex;
+}
+
+.title-container{
+  text-align: center;
+  margin: 20px;
+}
+
+.row-container{
+  /* width: 500px; */
+  flex: 4;
+  flex-grow: 4;
+  min-width: 500px;
+  margin-left: 45px;
+  
+}
+
+.ingredient-container {
+  display:flex;
+  flex-direction: row;
+}
+
+.ingredient-column {
+  padding: 10px;
+}
+
+.recipe-image-container{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.recipe-main-image{
+  object-fit: cover;
+  flex: 1;
+  margin-right: 1rem;
+  overflow: hidden;
+  height: 200px;
+}
+
+
+.recipe-info{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.recipe-info-text{
+  align-self:center;
+  margin-bottom: 0px;
+  margin-left: 7px;
+  margin-right: 15px;
+}
+
+
+@media (max-width: 530px){
+  .recipe-info-outer{
+    display:block
   }
-} */
+  .ingredients {
+    margin-left: 20px;
+  }
+  
+}

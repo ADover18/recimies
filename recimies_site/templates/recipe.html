@@ -2,19 +2,57 @@
 {% load static %}
 {% load widget_tweaks %}
 {% block title %}Recimies:{{object.name}}{% endblock %}
+{% block script %}<script defer src="{% static 'js/recipeView.js'%}"></script>{% endblock %}
 {% block content %}
-<h2>{{ object.name }}</h2>
-<h6>Serves: {{ object.serves }} </h6>
-<h6>Prep Time: {{ object.prep_time }} {{ object.prep_time_units }} </h6>
-{% if object.cooking_time > 0 %}
-<h6>Cooking Time: {{ object.cooking_time }} {{object.cooking_time_units}}</h6>
-{% endif %}
-<img class="recipe-image" src="/{{object.image_url}}"/>
-{% for ingredient in ingredients %}
-    <ul>{{ingredient}}</ul>
-{% endfor %}
-{% for step in direction %}
-    <ul>{{ forloop.counter }}. {{step}}</ul>
-{% endfor %}
-{{object.method}}
+<div class="content-container">
+    <div class="title-container">
+        <h2>{{ object.name }}</h2>
+        <div class="recipe-info-outer recipe-info ">
+            <div class="recipe-info">
+                <svg class="my-icon slice">
+                    <use href="{% static 'site_img/logos/icons.svg' %}#slice"></use>
+                </svg>
+                <h6 class="recipe-info-text">Serves: {{ object.serves}}    </h6> 
+            </div>
+            <div class="recipe-info">
+                <svg class="my-icon clock">
+                    <use href="{% static 'site_img/logos/icons.svg' %}#clock"></use>
+                </svg>
+                <h6 class="recipe-info-text">Preparation: {{ object.prep_time }} {{ object.prep_time_units }} {% if object.cooking_time > 0 %}&nbsp Cooking: {{ object.cooking_time }} {{object.cooking_time_units}}</h6>
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="recipe-container">
+        <div class="recipe-row-flex-container">
+            <div class="recipe-image-container">
+                <img class="recipe-main-image" src="/{{object.image_url}}"/>
+            </div>
+            <div class="ingredients">
+                <h3>Ingredients</h3>
+                <div class="ingredient-container">
+                    <div class="ingredient-column">
+                        {% for ingredient in ingredients_col0 %}
+                            <p>{{ingredient}}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="ingredient-column">
+                        {% for ingredient in ingredients_col1 %}
+                            <p>{{ingredient}}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="method row-container">
+            <div class="method-container">
+                <h3>Method</h3>
+                {% for step in direction %}
+                <p>{{ forloop.counter }}. {{step}}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
