@@ -10,7 +10,7 @@ const imageIngredientsCol = document.querySelector(
   ".recipe-row-flex-container"
 );
 
-const imageFillConatainer = () =>
+const imageFillContainer = () =>
   (recipeImage.style.height = `${
     methodContainer.offsetHeight - ingredientsContainers[0].offsetHeight
   }px`);
@@ -31,7 +31,11 @@ if (methodContainer.scrollHeight < 200) {
   imageIngredientsCol.parentNode.removeChild(imageIngredientsCol);
 } else {
     recipeContainer.innerHTML = recipeContainerClone.innerHTML
+    imageFillContainer()
 }
 
+const init =()=>{
+    // 
+    }
 
-
+init()

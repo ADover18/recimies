@@ -6,7 +6,7 @@
 {% block content %}
 <div class="content-container">
     <div class="title-container">
-        <h2>{{ object.name }}</h2>
+        <h1 style="font-family: 'Philosopher', sans-serif;">{{ object.name }}</h1>
         <div class="recipe-info-outer recipe-info ">
             <div class="recipe-info">
                 <svg class="my-icon slice">
@@ -23,22 +23,23 @@
             </div>
         </div>
     </div>
+    <hr>
     <div class="recipe-container">
         <div class="recipe-row-flex-container">
             <div class="recipe-image-container">
                 <img class="recipe-main-image" src="/{{object.image_url}}"/>
             </div>
             <div class="ingredients">
-                <h3>Ingredients</h3>
+                <h3 style="font-family: 'Philosopher', sans-serif;">Ingredients</h3>
                 <div class="ingredient-container">
                     <div class="ingredient-column">
                         {% for ingredient in ingredients_col0 %}
-                            <p>{{ingredient}}</p>
+                            <p>{{ingredient.quantity|floatformat:"-3"}} {{ingredient.unit}} {{ingredient.ingredient}}</p>
                         {% endfor %}
                     </div>
                     <div class="ingredient-column">
                         {% for ingredient in ingredients_col1 %}
-                            <p>{{ingredient}}</p>
+                        <p>{{ingredient.quantity|floatformat:"-2"}} {{ingredient.unit}} {{ingredient.ingredient}}</p>
                         {% endfor %}
                     </div>
                 </div>
@@ -46,7 +47,7 @@
         </div>
         <div class="method row-container">
             <div class="method-container">
-                <h3>Method</h3>
+                <h3 style="font-family: 'Philosopher', sans-serif;">Method</h3>
                 {% for step in direction %}
                 <p>{{ forloop.counter }}. {{step}}</p>
                 {% endfor %}
