@@ -32,7 +32,7 @@ class Ingredient(models.Model):
     ingredient = models.CharField(max_length=100)
     quantity = models.FloatField()
     unit = models.CharField(max_length=20, choices=[
-        (' ', ' '), ('g', 'g'), ('kg', 'kg'), ('oz', 'oz'), ('lb', 'lb'), ('ml', 'ml'), ('l', 'l'), ('cup', 'cup'), ('cups', 'cups'), ('pinch', 'pinch'), ('tsp', 'tsp'), ('tbsp', 'tbsp'), ('fl oz', 'fl oz'), ('pint', 'pint'), ('pints', 'pints'), ('quart', 'quart'), ('quarts', 'quarts'), ('gallon', 'gallon'), ('gallons', 'gallons'), ('whole', 'whole'), ('large', 'large'), ('small', 'small'), ('medium', 'medium'), ('sprinkle', 'sprinkle'), ('pinch', 'pinch'), ('dash', 'dash'), ('dollop', 'dollop'), ('dollops', 'dollops'), ('scoop', 'scoop'), ('scoops', 'scoops'), ('pieces', 'pieces'), ('piece', 'piece')], default='')
+        (' ', ' '), ('g', 'g'), ('kg', 'kg'), ('oz', 'oz'), ('lb', 'lb'), ('ml', 'ml'), ('l', 'l'), ('cup', 'cup'), ('cups', 'cups'), ('pinch', 'pinch'), ('tsp', 'tsp'), ('tbsp', 'tbsp'), ('fl oz', 'fl oz'), ('pint', 'pint'), ('pints', 'pints'), ('quart', 'quart'), ('quarts', 'quarts'), ('gallon', 'gallon'), ('gallons', 'gallons'), ('whole', 'whole'), ('large', 'large'), ('small', 'small'), ('medium', 'medium'), ('sprinkle', 'sprinkle'), ('pinch', 'pinch'), ('dash', 'dash'), ('dollop', 'dollop'), ('dollops', 'dollops'), ('scoop', 'scoop'), ('scoops', 'scoops'), ('pieces', 'pieces'), ('piece', 'piece'), ('can', 'can'), ('cans', 'cans'), ('jar', 'jar'), ('jars', 'jars'), ('tin', 'tin'), ('tins', 'tins'), ('sheet', 'sheet'), ('sheets', 'sheets'), ('handful', 'handful'), ('handfuls', 'handfuls')], default='')
 
 
     def __str__(self):
