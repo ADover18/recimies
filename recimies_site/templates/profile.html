@@ -2,15 +2,31 @@
 {% load static %}
 {% block title %}Recimies: Profile{% endblock %}
 {% block content %}
-  <a href="{% url 'index' %}">Home!</a>
-  <a href="{% url 'logout' %}">Logout</a>
   <h4>Hello {{ object.username }}</h4>
-    <a href="{% url 'new_recipe' user_pk=user.pk %}">New Recipe</a>
-    </br>
-    </br>
+    
   <h5>Your recipes:</h5>
-  {%  for recipe in object.recipes.all %}
-      <a href="{% url 'recipe' recipe_pk=recipe.pk %}">{{recipe.name}}</a>
+  
+  <div class="viewport-container">
+    <div class="container-fluid">
+      <div class="row">
+        {%  for recipe in object.recipes.all %}
+        <a
+            href="{% url 'recipe' recipe_pk=recipe.pk %}"
+            >
+          <div class="col-md-3 col-sm-4 col-6">
+            <div class="thumbnail_container">
+              <img class="recipe-image" src="/{{recipe.image_url}}"" />
+            </div>
+            <a
+              class="front-page-link"
+              
+              >{{recipe.name}}
+            </a>
+          </div>
+        </a>
+      </div>
+    </div>
+    </div>
   {% endfor %}
 {% endblock %}
 
