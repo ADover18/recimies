@@ -136,7 +136,7 @@ recimies_site/static/.DS_Store
 
 # Text file to input user data
 addusers.txt
-
+addRecipes.txt
 
 # Uploaded user images
 recimies_site/static/user_img

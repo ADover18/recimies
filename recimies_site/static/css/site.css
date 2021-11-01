@@ -459,3 +459,14 @@ hr {
   }
   
   
+  .method-step{
+    display: inline !important
+  }
+
+  .number{
+    float:left !important
+  }
+
+  .step{
+    float:left !important
+  }

@@ -49,7 +49,10 @@
             <div class="method-container">
                 <h3 style="font-family: 'Philosopher', sans-serif;">Method</h3>
                 {% for step in direction %}
-                <p>{{ forloop.counter }}. {{step}}</p>
+                <div class="method-step">
+                    <p class="number">{{ forloop.counter }}.</p>
+                    <p class="step">{{step}}</p>
+                </div>
                 {% endfor %}
             </div>
         </div>

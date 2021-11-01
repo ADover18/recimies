@@ -16,10 +16,11 @@ from django.utils.decorators import method_decorator
 from .forms import *
 from .models import Recipe, RecimieUser
 
-class IndexView(FormView):
+class IndexView(FormView, ListView):
     template_name = "index.html"
     success_url = '/'
     form_class = AuthenticationForm
+    model = Recipe
 
     @method_decorator(sensitive_post_parameters('password'))
     @method_decorator(csrf_protect)
@@ -42,10 +43,17 @@ class IndexView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
-        context['recipes'] = Recipe.objects.all()
+        context['recipes'] = self.get_queryset()
         return context
 
-    
+    def get_queryset(self):
+        qs = super().get_queryset()
+        params = self.request.GET
+        query = params.get('q')
+        if query:
+            return qs.filter(name__icontains=query)
+        else:
+            return qs
 
 class ProfileView(DetailView):
     model = RecimieUser
