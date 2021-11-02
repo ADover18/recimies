@@ -12,13 +12,15 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormView, UpdateView, FormMixin
 from django.views.generic.list import ListView
 from django.utils.decorators import method_decorator
+from django.urls import reverse_lazy
+
 
 from .forms import *
 from .models import Recipe, RecimieUser
 
-class IndexView(FormMixin, ListView):
+class IndexView(FormView, ListView):
     template_name = "index.html"
-    success_url = '/'
+    success_url = reverse_lazy('index')
     form_class = AuthenticationForm
     model = Recipe
     paginate_by = 8
@@ -74,7 +76,7 @@ class RegisterView(CreateView):
 
 
 class LogoutView(RedirectView):
-    url = '/'
+    url = reverse_lazy('index')
 
     def get(self, request, *args, **kwargs):
         auth_logout(request)
@@ -115,7 +117,7 @@ class NewRecipeView(CreateView):
     model = Recipe 
     template_name = "recipe_form.html"
     form_class = RecipeForm
-    success_url = '/'
+    success_url = reverse_lazy('profile')
 
     def get(self, request, *args, **kwargs):
         """
@@ -170,7 +172,7 @@ class RecipeUpdate(UpdateView, EditRecipeMixin):
     model = Recipe 
     template_name = "recipe_form.html"
     form_class = RecipeForm
-    success_url = '/'
+    success_url = reverse_lazy('profile')
 
     def get_form_kwargs(self):
         kwargs = super(NewRecipeView, self).get_form_kwargs()
