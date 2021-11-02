@@ -9,18 +9,19 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.base import RedirectView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, FormView, UpdateView
+from django.views.generic.edit import CreateView, FormView, UpdateView, FormMixin
 from django.views.generic.list import ListView
 from django.utils.decorators import method_decorator
 
 from .forms import *
 from .models import Recipe, RecimieUser
 
-class IndexView(FormView, ListView):
+class IndexView(FormMixin, ListView):
     template_name = "index.html"
     success_url = '/'
     form_class = AuthenticationForm
     model = Recipe
+    paginate_by = 8
 
     @method_decorator(sensitive_post_parameters('password'))
     @method_decorator(csrf_protect)
