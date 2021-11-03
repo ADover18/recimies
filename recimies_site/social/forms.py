@@ -1,7 +1,6 @@
 from django.forms import ModelForm, ValidationError
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UsernameField
-from django.contrib.auth.models import User
 
 from .models import Direction, Ingredient, Recipe, RecimieUser
 from crispy_forms.helper import FormHelper
@@ -14,20 +13,20 @@ class RegisterForm(UserCreationForm):
         model = RecimieUser
         fields = ['username', 'email', 'password1', 'password2']
         field_classes = {'username': UsernameField}
-        
 
     def clean(self):
         cleaned_data = super().clean()
         email = cleaned_data.get('email')
-        if User.objects.filter(email=email).count() > 0:
+        if RecimieUser.objects.filter(email=email).count() > 0:
             raise ValidationError(
                 "A user with this email already exists"
             )
         username = cleaned_data.get('username')
-        if User.objects.filter(username=username).count() > 0:
+        if RecimieUser.objects.filter(username=username).count() > 0:
             raise ValidationError(
                 "A user with this username already exists"
             )
+
 
 class IngredientForm(forms.ModelForm):
     class Meta:
@@ -35,6 +34,7 @@ class IngredientForm(forms.ModelForm):
         exclude = ()
         
 IngredientFormSet = forms.inlineformset_factory(Recipe, Ingredient, fields=['ingredient', 'quantity', 'unit'], extra=1, can_delete=True)
+
 
 class DirectionForm(forms.ModelForm):
     class Meta:
@@ -82,11 +82,9 @@ class RecipeForm(ModelForm):
             ),
             Div('image',),
         )
+
     def save(self, *args, **kwargs):
         recipe = super(RecipeForm, self).save(commit=False)
         recipe.user = self.user
         recipe.save()
         return recipe
-
-
-    

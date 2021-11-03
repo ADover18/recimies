@@ -1,62 +1,39 @@
-from django.contrib.auth import login as auth_login, logout as auth_logout
-from django.contrib.auth.models import User
+from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect
 
-from django.views.decorators.cache import never_cache
-from django.views.decorators.csrf import csrf_protect
-from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.base import RedirectView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, FormView, UpdateView, FormMixin
+from django.views.generic.edit import CreateView, FormView, UpdateView
 from django.views.generic.list import ListView
-from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
-
 
 from .forms import *
 from .models import Recipe, RecimieUser
 
-class IndexView(FormView, ListView):
+
+class IndexView(FormView):
     template_name = "index.html"
     success_url = reverse_lazy('index')
     form_class = AuthenticationForm
-    model = Recipe
-    paginate_by = 8
-
-    @method_decorator(sensitive_post_parameters('password'))
-    @method_decorator(csrf_protect)
-    @method_decorator(never_cache)
-    def dispatch(self, request, *args, **kwargs):
-        # Sets a test cookie to make sure the user has cookies enabled
-        request.session.set_test_cookie()
-
-        return super(IndexView, self).dispatch(request, *args, **kwargs)
+    #paginate_by = 8
 
     def form_valid(self, form):
-        auth_login(self.request, form.get_user())
-
-        # If the test cookie worked, go ahead and
-        # delete it since its no longer needed
-        if self.request.session.test_cookie_worked():
-            self.request.session.delete_test_cookie()
-
+        login(self.request, form.get_user())
         return super(IndexView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
-        context['recipes'] = self.get_queryset()
-        return context
-
-    def get_queryset(self):
-        qs = super().get_queryset()
         params = self.request.GET
         query = params.get('q')
         if query:
-            return qs.filter(name__icontains=query)
+             recipes = Recipe.objects.filter(name__icontains=query)
         else:
-            return qs
+             recipes = Recipe.objects.all()
+        context['recipes'] = recipes
+        return context
+
 
 class ProfileView(DetailView):
     model = RecimieUser
@@ -72,21 +49,20 @@ class RegisterView(CreateView):
     template_name = "register.html"
     model = RecimieUser
     form_class = RegisterForm
-    success_url = '/'
+    success_url = reverse_lazy('index')
 
 
 class LogoutView(RedirectView):
     url = reverse_lazy('index')
 
     def get(self, request, *args, **kwargs):
-        auth_logout(request)
+        logout(request)
         return super(LogoutView, self).get(request, *args, **kwargs)
 
 
-class RecipeView(FormView, DetailView):
+class RecipeView(DetailView):
     model = Recipe
     template_name = "recipe.html"
-    form_class = AuthenticationForm
 
     def get_context_data(self, **kwargs):
         context = super(RecipeView, self).get_context_data(**kwargs)
@@ -110,8 +86,6 @@ class RecipeView(FormView, DetailView):
         context['direction'] = direction
         return context
 
-    
-    
     def get_object(self, **kwargs):
         object = Recipe.objects.get(pk=self.kwargs['recipe_pk'])
         return object
@@ -122,6 +96,7 @@ class EditRecipeMixin():
         return self.render_to_response(
             self.get_context_data(form=form, ingredient_form = ingredient_form, direction_form=direction_form)
         )
+
 
 class NewRecipeView(CreateView):
     model = Recipe 

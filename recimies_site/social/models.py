@@ -1,8 +1,7 @@
 import ntpath
-from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.validators import MinValueValidator, MinLengthValidator, MaxLengthValidator  
+from django.core.validators import MinValueValidator, MinLengthValidator
 
 
 def _recipe_image_path(instance, filename):

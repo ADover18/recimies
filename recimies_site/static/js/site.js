@@ -1,4 +1,3 @@
-
 // Get the modal
 const logInModal = document.getElementById("signInModal");
 
@@ -8,19 +7,27 @@ const logInBtn = document.querySelector(".sign-in");
 // Get the <span> element that closes the logInModal
 const span = document.getElementsByClassName("close")[0];
 
-// When the user clicks the button, open the logInModal 
-logInBtn.onclick = function() {
-  logInModal.style.display = "block";
-}
+//Only show the logIn button on the index page
+if (
+  window.location.href.includes("recipe") ||
+  window.location.href.includes("register")
+) {
+  logInBtn.style.display = "none";
+} else {
+  // When the user clicks the button, open the logInModal
+  logInBtn.onclick = function () {
+    logInModal.style.display = "block";
+  };
 
-// When the user clicks on <span> (x), close the logInModal
-span.onclick = function() {
-  logInModal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the logInModal, close it
-window.onclick = function(event) {
-  if (event.target == logInModal) {
+  // When the user clicks on <span> (x), close the logInModal
+  span.onclick = function () {
     logInModal.style.display = "none";
-  }
+  };
+
+  // When the user clicks anywhere outside of the logInModal, close it
+  window.onclick = function (event) {
+    if (event.target == logInModal) {
+      logInModal.style.display = "none";
+    }
+  };
 }
