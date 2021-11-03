@@ -1,11 +1,26 @@
-// document.addEventListener('DOMContentLoaded', function(){ 
 
-// })
-// const recipeSearchBtn = document.querySelector(".recipe-search")
+// Get the modal
+const logInModal = document.getElementById("signInModal");
 
-// console.log(recipeSearchBtn);
+// Get the button that opens the logInModal
+const logInBtn = document.querySelector(".sign-in");
 
-// recipeSearchBtn.addEventListener("click", function(){
-//     console.log('clicked');
-//     location.href = "/"
-// })
+// Get the <span> element that closes the logInModal
+const span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the logInModal 
+logInBtn.onclick = function() {
+  logInModal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the logInModal
+span.onclick = function() {
+  logInModal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the logInModal, close it
+window.onclick = function(event) {
+  if (event.target == logInModal) {
+    logInModal.style.display = "none";
+  }
+}

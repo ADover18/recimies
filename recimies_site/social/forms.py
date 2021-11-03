@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 
 from .models import Direction, Ingredient, Recipe, RecimieUser
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit
-from crispy_forms.bootstrap import Div, FormActions
+from crispy_forms.layout import Layout
+from crispy_forms.bootstrap import Div
 
 class RegisterForm(UserCreationForm):
     
@@ -14,6 +14,7 @@ class RegisterForm(UserCreationForm):
         model = RecimieUser
         fields = ['username', 'email', 'password1', 'password2']
         field_classes = {'username': UsernameField}
+        
 
     def clean(self):
         cleaned_data = super().clean()

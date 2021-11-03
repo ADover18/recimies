@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load widget_tweaks %}
+{% load crispy_forms_tags %}
 {% block title %}Recimies:{{object.name}}{% endblock %}
 {% block script %}<script defer src="{% static 'js/recipeView.js'%}"></script>{% endblock %}
 {% block content %}
@@ -42,6 +43,11 @@
                         <p>{{ingredient.quantity|floatformat:"-2"}} {{ingredient.unit}} {{ingredient.ingredient}}</p>
                         {% endfor %}
                     </div>
+                    <div class="ingredient-column">
+                        {% for ingredient in ingredients_col2 %}
+                        <p>{{ingredient.quantity|floatformat:"-2"}} {{ingredient.unit}} {{ingredient.ingredient}}</p>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -50,8 +56,12 @@
                 <h3 style="font-family: 'Philosopher', sans-serif;">Method</h3>
                 {% for step in direction %}
                 <div class="method-step">
-                    <p class="number">{{ forloop.counter }}.</p>
-                    <p class="step">{{step}}</p>
+                    <div class="number">
+                        <p>{{ forloop.counter }}.</p>
+                    </div>
+                    <div class="step">
+                        <p>{{step}}</p>
+                    </div>
                 </div>
                 {% endfor %}
             </div>

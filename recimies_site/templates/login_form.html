@@ -1,12 +1,13 @@
 
 {% load static %}
 {% load widget_tweaks %}
+{% load crispy_forms_tags %}
 
 
-<form action="{% url 'index' %}" method="post" class="form-inline">
+<form action="{% url 'index' %}" method="post" class="form-inline" style="display: block;">
   {% csrf_token %}
-  {% render_field form.username placeholder="username" %}
-  {% render_field form.password placeholder="password" style="margin-left:1ex" %}
+  {{form.username|as_crispy_field}}
+  {{form.password|as_crispy_field}}
   <input class="btn" type="submit" value="Sign In" style="margin-left:1ex" />
 </form>
-</br>
+

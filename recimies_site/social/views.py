@@ -83,20 +83,30 @@ class LogoutView(RedirectView):
         return super(LogoutView, self).get(request, *args, **kwargs)
 
 
-class RecipeView(DetailView):
+class RecipeView(FormView, DetailView):
     model = Recipe
     template_name = "recipe.html"
+    form_class = AuthenticationForm
 
     def get_context_data(self, **kwargs):
         context = super(RecipeView, self).get_context_data(**kwargs)
         ingredients = Ingredient.objects.filter(recipe=self.object.pk)
         direction = Direction.objects.filter(recipe=self.object.pk)
-        offset = int(len(ingredients) / 2)
-        if offset % 2 != 0:
-            offset +=1
+        if len(ingredients)< 18:
+            offset = int(len(ingredients) / 2)
+            if len(ingredients) % 2 != 0:
+                offset +=1
+            context['ingredients_col0'] = ingredients[:offset]
+            context['ingredients_col1'] = ingredients[offset:]
+        else:
+             offset = int(len(ingredients) / 3)
+             if len(ingredients) % 3 != 0:
+                offset +=1
+             context['ingredients_col0'] = ingredients[:offset]
+             context['ingredients_col1'] = ingredients[offset:offset*2]
+             context['ingredients_col2'] = ingredients[offset*2:]
+
         context['ingredients'] = ingredients
-        context['ingredients_col0'] = ingredients[:offset]
-        context['ingredients_col1'] = ingredients[offset:]
         context['direction'] = direction
         return context
 
