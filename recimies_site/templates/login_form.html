@@ -1,6 +1,6 @@
 
 {% load static %}
-{% load widget_tweaks %}
+
 {% load crispy_forms_tags %}
 
 
@@ -8,6 +8,7 @@
   {% csrf_token %}
   {{form.username|as_crispy_field}}
   {{form.password|as_crispy_field}}
-  <input class="btn" type="submit" value="Sign In" style="margin-left:1ex" />
+  {{form.errors}}
+  <input class="btn btn-success" type="submit" value="Sign In" style="width: 100%; margin-top: 15px;" />
 </form>
 

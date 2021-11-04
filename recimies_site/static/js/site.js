@@ -7,6 +7,15 @@ const logInBtn = document.querySelector(".sign-in");
 // Get the <span> element that closes the logInModal
 const span = document.getElementsByClassName("close")[0];
 
+// Get the sign in button
+const signInBtn = document.querySelector("[value='Sign In']")
+
+//Get the error elements
+const errors = document.querySelectorAll(".errorlist")
+
+//Get the login input fields
+const inputFields = document.querySelectorAll(".textinput")
+
 //Only show the logIn button on the index page
 if (
   window.location.href.includes("recipe") ||
@@ -26,8 +35,21 @@ if (
 
   // When the user clicks anywhere outside of the logInModal, close it
   window.onclick = function (event) {
-    if (event.target == logInModal) {
+    if (event.target === logInModal) {
       logInModal.style.display = "none";
     }
   };
+}
+
+//If there are errors following a sign in attempt display modal window
+
+if (errors.length > 0){
+  errors[0].innerHTML = '<p>Please enter a correct username and password. Both fields are case-sensitive.</p>'
+  logInModal.style.display = "block"
+  inputFields.forEach(input=> {
+    input.style.borderBottomColor = "rgb(220, 53, 69)";
+    input.style.borderLeftColor = "rgb(220, 53, 69)";
+    input.style.borderRightColor = "rgb(220, 53, 69)";
+    input.style.borderTopColor = "rgb(220, 53, 69)";
+  })
 }

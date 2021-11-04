@@ -88,7 +88,10 @@
       <div class="modal-body">
         {% include 'login_form.html' %}
       </div>
-      <a href="{% url 'register' %}">Register</a>
+      <div class="modal-body">
+        <p class="register-link">Dont have an account?&nbsp&nbsp&nbsp<a href="{% url 'register' %}">Register</a></p>
+      </div>
+      
       </div>
     </div>
   </div>

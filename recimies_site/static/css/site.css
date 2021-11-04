@@ -45,7 +45,44 @@
   cursor: pointer;
 }
 
+/* Register nav button */
 
+.my-icon-text:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Other Login Form elements */
+
+
+.errorlist {
+  padding-inline-start: 0px;
+  color: rgb(220, 53, 69);
+  display: inline;
+  font-family: -apple-system, "system-ui", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 12.8px;
+  font-weight: 700;
+}
+
+#id_username,
+#id_password {
+    margin-bottom: 15px;
+  }
+
+@media (min-width: 576px){
+  #id_username,
+  #id_password {
+    margin: 15px;
+  }
+
+  #id_password {
+    margin-left: 19px;
+  }
+}
+
+.register-link{
+  text-align: center;
+}
 
 
 
