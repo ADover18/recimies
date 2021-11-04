@@ -1,43 +1,45 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% block script %}
+<script defer src="{% static 'js/registerView.js'%}"></script>
+{% endblock %}
 {% block title %}Recimies: Register{% endblock %}
 {% block content %}
-<form method="post" class="form-horizontal" style="margin:5em">
-  {% csrf_token %}
-  <div class="form-group">
-    <label class="control-label" for="username">username</label>
-    {% render_field form.username|add_class:'form-control' %}
-    {% for error in form.username.errors %}
-      {{ error }}
-    {% endfor %}
+
+
+<div id="registerModal" class="modal" tabindex="-1" role="dialog">
+  <div class="register-box modal-dialog" role="document">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Register</h5>
+        <a href="{% url 'index' %}">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </a>
+      </div>
+      <div class="modal-body">
+        <form method="post" class="register-form" style="display: block;">
+          {% csrf_token %}
+          {{form.username|as_crispy_field}}
+         
+          {{form.email|as_crispy_field}}
+          {% for error in form.email.errors %}
+            {{ error }}
+          {% endfor %}
+          
+          {{form.password1|as_crispy_field}}
+          
+          {{form.password2|as_crispy_field}}
+          
+          
+          <input class="btn btn-success" id="register-submit" type="submit" value="Register" style="width: 100%">
+        </form>
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <label class="control-label" for="email">email</label>
-    {% render_field form.email|add_class:'form-control' %}
-    {% for error in form.email.errors %}
-      {{ error }}
-    {% endfor %}
-  </div>
-  <div class="form-group">
-    <label class="control-label" for="password">password</label>
-    {% render_field form.password1 class='form-control' type='password' %}
-    {% for error in form.password1.errors %}
-      {{ error }}
-    {% endfor %}
-  </div>
-  <div class="form-group">
-    <label class="control-label" for="password-2">re-enter password</label>
-    {% render_field form.password2 class='form-control' type='password' %}
-  </div>
-    {% for error in form.password2.errors %}
-      {{ error }}
-    {% endfor %}
-    <br/>
-    <input class="btn" id="register-submit" type="submit" value="Submit">
-    {% for error in form.non_field_errors %}
-       {{ error }}
-    {% endfor %}
-</form>
+</div>
 
 {% endblock %}

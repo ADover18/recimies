@@ -20,6 +20,14 @@
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
+#registerModal {
+  display: block;
+  
+}
+
+.register-box{
+  min-width:  100%;
+}
 
 /* Modal Content */
 .modal-content {
@@ -64,14 +72,14 @@
   font-weight: 700;
 }
 
-#id_username,
+.login-username-field,
 #id_password {
     margin-bottom: 15px;
   }
 
 @media (min-width: 576px){
-  #id_username,
-  #id_password {
+  .login-username-field,
+  input#id_password.textinput.textInput.form-control {
     margin: 15px;
   }
 
@@ -84,8 +92,50 @@
   text-align: center;
 }
 
+.form-group{
+  padding: 10px;
+}
+
+#register-submit{
+  margin-top: 20px;
+}
 
 
+/* Register Form */
+/* 
+
+.register-form{
+  padding: 7vw;
+}
+
+.requiredField[for="id_username"],
+[for="id_email"],
+.requiredField[for="id_password1"],
+.requiredField[for="id_password2"]{
+  min-width: 200px;
+  justify-items: flex-start;
+  justify-content: flex-start !important;
+}
+
+input#id_username.textinput.textinput.form-control,
+input#id_email.emailinput.form-control,
+input#id_password1.textinput.textinput.form-control,
+input#id_password2.textinput.textinput.form-control{
+  min-width: 300px;
+}
+
+div#div_id_username.form-group,
+div#div_id_email.form-group,
+div#div_id_password1.form-group,
+div#div_id_password2.form-group{
+  min-height: 96px;
+}
+
+  
+small#hint_id_username.form-text.text-muted,
+small#hint_id_password2.form-text.text-muted{
+  padding-inline-start: 20px;
+} */
 
 
 .hidden {

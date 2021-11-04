@@ -13,9 +13,11 @@ const signInBtn = document.querySelector("[value='Sign In']")
 //Get the error elements
 const errors = document.querySelectorAll(".errorlist")
 
-//Get the login input fields
-const inputFields = document.querySelectorAll(".textinput")
+//Get the username input field
+const usernameFields = document.getElementById("id_username")
 
+
+console.log(usernameFields);
 //Only show the logIn button on the index page
 if (
   window.location.href.includes("recipe") ||
@@ -39,6 +41,15 @@ if (
       logInModal.style.display = "none";
     }
   };
+}
+
+
+
+
+//Add an extra class to the username field to diffrentiate it fron the username field on the register page so it can be individually selected in the CSS.
+
+if (window.location.href.includes('register')===false){
+  usernameFields.classList.add("login-username-field")
 }
 
 //If there are errors following a sign in attempt display modal window
