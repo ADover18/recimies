@@ -1,23 +1,26 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.core import paginator
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect
-
+from django.views.generic import View
 from django.views.generic.base import RedirectView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormView, UpdateView
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .forms import *
 from .models import Recipe, RecimieUser
+from django.http import JsonResponse
 
 
 class IndexView(FormView):
     template_name = "index.html"
     success_url = reverse_lazy('index')
     form_class = AuthenticationForm
-    #paginate_by = 8
+    
 
     def form_valid(self, form):
         login(self.request, form.get_user())
@@ -31,8 +34,50 @@ class IndexView(FormView):
              recipes = Recipe.objects.filter(name__icontains=query)
         else:
              recipes = Recipe.objects.all()
+        page = self.request.GET.get('page', 1)
+        # paginator = Paginator(recipes, 8)
+        # try:
+        #     numbers = paginator.page(page)
+        # except PageNotAnInteger:
+        #     numbers = paginator.page(1)
+        # except EmptyPage:
+        #     numbers = paginator.page(paginator.num_pages)
         context['recipes'] = recipes
+        # list of the 
         return context
+
+def recipes_endpoint(request): # May include more arguments depending on URL parameters
+    # Get data from the database - Ex. Model.object.get(...)
+    params = request.GET
+    query = params.get('q')
+    recipes = {}
+    if query:
+            recipes = Recipe.objects.filter(name__icontains=query)
+    else:
+            recipes = Recipe.objects.all()
+
+    recipe_list = {
+            'recipes': {item['id']: item for item in recipes.values()}
+    }
+    return JsonResponse(recipe_list)
+
+
+# class RecipesEndPointView(View):
+#     def get(self, request):
+#         params = request.GET
+#         query = params.get('q')
+#         recipes = {}
+#         if query:
+#                 recipes = Recipe.objects.filter(name__icontains=query)
+#         else:
+#                 recipes = Recipe.objects.all()
+
+#         recipe_list = {
+#                 'recipes': {item['id']: item for item in recipes.values()}
+#         }
+#         return JsonResponse(request, recipe_list)
+
+
 
 
 class ProfileView(DetailView):

@@ -10,6 +10,10 @@ const imageIngredientsCol = document.querySelector(
   ".recipe-row-flex-container"
 );
 
+
+// set body background:
+document.querySelector("body").style.backgroundColor = "#FAFCFA"
+
 const imageFillContainer = () =>
   (recipeImage.style.height = `${
     methodContainer.offsetHeight - ingredientsContainers[0].offsetHeight

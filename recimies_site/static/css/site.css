@@ -4,6 +4,8 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+
 
 
 /* The Modal (background) */
@@ -100,42 +102,6 @@
   margin-top: 20px;
 }
 
-
-/* Register Form */
-/* 
-
-.register-form{
-  padding: 7vw;
-}
-
-.requiredField[for="id_username"],
-[for="id_email"],
-.requiredField[for="id_password1"],
-.requiredField[for="id_password2"]{
-  min-width: 200px;
-  justify-items: flex-start;
-  justify-content: flex-start !important;
-}
-
-input#id_username.textinput.textinput.form-control,
-input#id_email.emailinput.form-control,
-input#id_password1.textinput.textinput.form-control,
-input#id_password2.textinput.textinput.form-control{
-  min-width: 300px;
-}
-
-div#div_id_username.form-group,
-div#div_id_email.form-group,
-div#div_id_password1.form-group,
-div#div_id_password2.form-group{
-  min-height: 96px;
-}
-
-  
-small#hint_id_username.form-text.text-muted,
-small#hint_id_password2.form-text.text-muted{
-  padding-inline-start: 20px;
-} */
 
 
 .hidden {
@@ -504,6 +470,7 @@ textarea.form-control {
   justify-content: center;
   max-width: 100vw;
   font-family: 'Roboto', sans-serif;
+  /* color:rgb(33, 37, 41) */
 }
 
 
@@ -522,7 +489,7 @@ textarea.form-control {
 }
 
 .title-container{
-  text-align: center;
+  /* text-align: center; */
   margin: 20px;
 }
 
@@ -563,7 +530,7 @@ textarea.form-control {
 .recipe-info{
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  /* justify-content: center; */
   align-content: center;
   align-items: center;
 }
@@ -587,13 +554,18 @@ textarea.form-control {
 }
 
 hr {
-  border-color: rgb(33, 37, 41);
-  color: rgb(33, 37, 41);
-  border-top-color: rgb(33, 37, 41);
+  border-color: #727976;
+  color: #727976;
+  border-top-color: #727976;
   border-radius: 1px;
-  border-top: 2px solid rgb(33, 37, 41);
+  border-top: 2px solid #727976;
   }
-  
+
+.method-title {
+  padding-bottom: 15px;
+}
+
+
   
   .method-step{
     display: flex

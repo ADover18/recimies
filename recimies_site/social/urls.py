@@ -12,6 +12,7 @@ urlpatterns = [
     path('profile/<int:user_pk>/new-recipe', NewRecipeView.as_view(), name='new_recipe'),
     path('recipe/<int:recipe_pk>', RecipeView.as_view(), name='recipe'),
     path('usersearch', SearchUsersListView.as_view(), name='usersearch'),
+    path('recipes_endpoint', recipes_endpoint, name='recipes_endpoint')
 ]
 
 urlpatterns += staticfiles_urlpatterns()

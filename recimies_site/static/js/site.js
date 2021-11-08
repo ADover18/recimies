@@ -16,6 +16,7 @@ const errors = document.querySelectorAll(".errorlist")
 //Get the username input field
 const usernameFields = document.getElementById("id_username")
 
+const navBar = document.querySelector(".my-nav-bar")
 
 console.log(usernameFields);
 //Only show the logIn button on the index page
