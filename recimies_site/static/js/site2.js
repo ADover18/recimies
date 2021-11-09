@@ -3,10 +3,17 @@
 
 const recipeContainer = document.querySelector('.row');
 
-const curLocation = window.location.href;
+const curLocation = window.location.href.slice(0, window.location.href.indexOf("/") + 1)
 
+const searchBox = document.querySelector("#search-box")
 
+const searchButton = document.querySelector(".search-btn")
 
+let recipeData
+
+searchButton.addEventListener("click", function(){
+  console.log(searchBox.value);
+})
 
 
 ///////////////////////// Model /////////////////////////
@@ -33,6 +40,8 @@ const processData = async function () {
   try {
     const data = await getRecipes();
     recipeData = Object.values(data.recipes);
+    if (searchBox.value) recipeData = recipeData.filter(recipe=> recipe.name.toLowerCase().includes(searchBox.value.toLowerCase()))
+    console.log(recipeData)
     recipeData.slice(0, 8).forEach(recipe => {
       renderRecipe(recipe);
       let recipeLink = recipeContainer.lastElementChild.lastElementChild;
@@ -43,14 +52,13 @@ const processData = async function () {
   }
 };
 
-processData();
-
 const loadRecipe = function (entries, observer) {
   entries.forEach(function (entry) {
     if (!entry.isIntersecting) return;
     let newRecipeIndex =
       recipeData.findIndex(recipe => recipe.name === entry.target.innerText) +
       8;
+    if (newRecipeIndex >= recipeData.length) return;
     renderRecipe(recipeData[newRecipeIndex]);
     let recipeLink = recipeContainer.lastElementChild.lastElementChild;
     recipeObserver.observe(recipeLink)
@@ -86,3 +94,10 @@ const renderRecipe = function (recipe) {
 
   recipeContainer.insertAdjacentHTML('beforeend', html);
 };
+
+
+///////////////// init ////////////////////////
+processData();
+
+
+

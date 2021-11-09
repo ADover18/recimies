@@ -26,35 +26,9 @@ class IndexView(FormView):
         login(self.request, form.get_user())
         return super(IndexView, self).form_valid(form)
 
-    def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
-        params = self.request.GET
-        query = params.get('q')
-        if query:
-             recipes = Recipe.objects.filter(name__icontains=query)
-        else:
-             recipes = Recipe.objects.all()
-        page = self.request.GET.get('page', 1)
-        # paginator = Paginator(recipes, 8)
-        # try:
-        #     numbers = paginator.page(page)
-        # except PageNotAnInteger:
-        #     numbers = paginator.page(1)
-        # except EmptyPage:
-        #     numbers = paginator.page(paginator.num_pages)
-        context['recipes'] = recipes
-        # list of the 
-        return context
 
 def recipes_endpoint(request): # May include more arguments depending on URL parameters
-    # Get data from the database - Ex. Model.object.get(...)
-    params = request.GET
-    query = params.get('q')
-    recipes = {}
-    if query:
-            recipes = Recipe.objects.filter(name__icontains=query)
-    else:
-            recipes = Recipe.objects.all()
+    recipes = Recipe.objects.all()
     
     recipe_list = {
             'recipes': {item['id']: item for item in recipes.values()}
