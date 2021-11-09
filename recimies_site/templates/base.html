@@ -6,8 +6,6 @@
     <title>{% block title %}Recimies{% endblock %}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="{% static 'js/jquery-3.3.1.min.js'%}"></script>
-    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
-    <script src="{% static 'js/infinite.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js'%}"></script>
     {% if not user.is_authenticated %}
     <script defer src="{% static 'js/site.js'%}"></script>
@@ -102,6 +100,7 @@
                   src="{% static 'site_img/profile.png' %}"
                 ></image>
               </div>
+              <p class="my-icon-text">{{user}}</p>
             </div>
           </a>
         </div>

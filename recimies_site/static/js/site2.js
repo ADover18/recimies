@@ -1,78 +1,88 @@
-const recipeContainer = document.querySelector(".row")
 
-const curLocation = window.location.href
+///////////////////////// Selecting Elements /////////////////////////
 
+const recipeContainer = document.querySelector('.row');
+
+const curLocation = window.location.href;
+
+
+
+
+
+///////////////////////// Model /////////////////////////
 const getRecipes = async function () {
   try {
     const res = await fetch('/recipes_endpoint', {
-      method: "GET",
+      method: 'GET',
       headers: {
-        Accept: 'social/json',
+        Accept: 'application/json',
         'X-Requested-With': 'XMLHttpRequest', //Necessary to work with request.is_ajax()
       },
-    })
-      .then(response => {
-        console.log(response);
-        return response.json(); //Convert response to JSON
-      })
-      .then(data => {
-        const recipeData = Object.values(data.recipes);
-        console.log(recipeData);
-        // recipeData.map()
-        renderRecipe(recipeData)
-      });
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+    return data;
+  } catch (err) {
+    throw err;
+  }
+};
+
+///////////////////////// Controller /////////////////////////
+
+const processData = async function () {
+  try {
+    const data = await getRecipes();
+    recipeData = Object.values(data.recipes);
+    recipeData.slice(0, 8).forEach(recipe => {
+      renderRecipe(recipe);
+      let recipeLink = recipeContainer.lastElementChild.lastElementChild;
+      recipeObserver.observe(recipeLink);
+    });
   } catch (err) {
     console.error(err);
   }
 };
 
-getRecipes()
+processData();
 
-const renderRecipe = function(data){
-  data.forEach(recipe => {
-    let html = `<a
-       href="${curLocation}recipe/${recipe.id}"
-       >
-       <div class="col-md-3 col-sm-4 col-6">
-       <div class="thumbnail_container">
-         <img class="recipe-image" src="/${recipe.image.slice(14)}" />
-       </div>
-       <a
-         class="front-page-link"
-        
-         >${recipe.name}
-       </a>
-       </div>
-       </a>`;
-  
-    recipeContainer.insertAdjacentHTML('beforeend', html)
+const loadRecipe = function (entries, observer) {
+  entries.forEach(function (entry) {
+    if (!entry.isIntersecting) return;
+    let newRecipeIndex =
+      recipeData.findIndex(recipe => recipe.name === entry.target.innerText) +
+      8;
+    renderRecipe(recipeData[newRecipeIndex]);
+    let recipeLink = recipeContainer.lastElementChild.lastElementChild;
+    recipeObserver.observe(recipeLink)
+    observer.unobserve(entry.target);
   });
 };
 
+const recipeObserver = new IntersectionObserver(loadRecipe, {
+  root: null,
+  threshold: 0,
+});
 
 
 
 
+///////////////////////// View /////////////////////////
 
-recipeContainer.innnerHTML = `<a
-href="{% url 'recipe' recipe_pk=recipe.pk %}"
->
-<div class="col-md-3 col-sm-4 col-6">
-<div class="thumbnail_container">
-  <img class="recipe-image" src="/{{recipe.image_url}}" />
-</div>
-<a
-  class="front-page-link"
-  
-  >{{recipe.name}}
-</a>
-</div>
-</a>`
+const renderRecipe = function (recipe) {
+  let html = `<a
+    href="${curLocation}recipe/${recipe.id}"
+    >
+    <div class="col-md-3 col-sm-4 col-6">
+    <div class="thumbnail_container">
+      <img class="recipe-image" src="/${recipe.image.slice(14)}" />
+    </div>
+    <a
+      class="front-page-link"
+    
+      >${recipe.name}
+    </a>
+    </div>
+    </a>`;
 
-
-
-
-
-// {% for recipe in recipes %}
-      
-//       {% endfor %}
+  recipeContainer.insertAdjacentHTML('beforeend', html);
+};

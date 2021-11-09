@@ -25,26 +25,7 @@
     </div>
   </div>
 
-  <div class="loading" style="display: none;">
-    Loading...
-  </div>
-
-  <!-- {% if page_obj.has_next %}
-    <a class="infinite-more-link" href="?page={{ recipes.next_page_number }}">More</a>
-  {% endif %} -->
-</div>
-
-<script>
-  var infinite = new Waypoint.Infinite({
-    element: $('.viewport-container')[0],
-    onBeforePageLoad: function () {
-      $('.loading').show();
-    },
-    onAfterPageLoad: function ($items) {
-      $('.loading').hide();
-    }
-  });
-</script>
+  
 <!--
 <div class="container-fluid"> <!-- this makes your images scale constantly, between breakpoints as welll. removing -fluid makes then jump in size at breakpoints 
   <div class="row">

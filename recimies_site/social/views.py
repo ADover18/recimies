@@ -55,7 +55,7 @@ def recipes_endpoint(request): # May include more arguments depending on URL par
             recipes = Recipe.objects.filter(name__icontains=query)
     else:
             recipes = Recipe.objects.all()
-
+    
     recipe_list = {
             'recipes': {item['id']: item for item in recipes.values()}
     }
