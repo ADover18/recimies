@@ -2,37 +2,65 @@
 {% load static %}
 {% block title %}Recimies: Profile{% endblock %}
 {% block content %}
-  <h4 style="font-family: Roberto, sans-serif; margin: 10px;">My Recipes</h4>
-    
-  <div class="viewport-container">
-    <div class="container-fluid">
-      <div class="row">
-        {%  for recipe in object.recipes.all %}
-        <a
-            href="{% url 'recipe' recipe_pk=recipe.pk %}"
-            >
-          <div class="col-md-3 col-sm-4 col-6">
-            <div class="thumbnail_container">
-              <img class="recipe-image" src="/{{recipe.image_url}}" />
+<div class="profile-page-container">
+  <div class="profile-header">
+    <div class="personal-info">
+      <image class="my-profile-icon" src="{% static 'site_img/profile.png' %}"></image>
+      <p class="my-username">{{user}}</p>
+    </div>
+    <div class="currently-following">
+      <p class="currently-following-title"> Following</p>
+      <div class="container-fluid">
+        <div class="row">
+          {% for friend in object.friends.all %}
+          <!-- list of user links -->
+          <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+            <div class="profile-container">
+              <div class="profile-pic-container">
+                <image class="profile-icon" src="{% static 'site_img/profile.png' %}">
+                </image>
+              </div>
+              <div class="profile-name-container">
+                {{friend}} 
+              </div>
             </div>
-            <a
-              class="front-page-link"
-              
-              >{{recipe.name}}
-            </a>
           </div>
-        </a>
-        {% endfor %}
+          {% endfor %}
+        </div>
       </div>
     </div>
-  
-    <div class="loading" style="display: none;">
-      Loading...
-    </div>
-  
-    <!-- {% if page_obj.has_next %}
-      <a class="infinite-more-link" href="?page={{ recipes.next_page_number }}">More</a>
-    {% endif %} -->
   </div>
+  <p class="my-recipes-title">My Recipes</p>
+</div>   
+<div class="viewport-container">
+  <div class="container-fluid">
+    <div class="row">
+      {%  for recipe in object.recipes.all %}
+      <a
+          href="{% url 'recipe' recipe_pk=recipe.pk %}"
+          >
+        <div class="col-md-3 col-sm-4 col-6">
+          <div class="thumbnail_container">
+            <img class="recipe-image" src="/{{recipe.image_url}}" />
+          </div>
+          <a
+            class="front-page-link"
+            
+            >{{recipe.name}}
+          </a>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="loading" style="display: none;">
+    Loading...
+  </div>
+
+  <!-- {% if page_obj.has_next %}
+    <a class="infinite-more-link" href="?page={{ recipes.next_page_number }}">More</a>
+  {% endif %} -->
+</div>
 {% endblock %}
 

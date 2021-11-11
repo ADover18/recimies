@@ -1,6 +1,5 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
-from django.core import paginator
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.views.generic import View
@@ -9,7 +8,6 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormView, UpdateView
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .forms import *
 from .models import Recipe, RecimieUser

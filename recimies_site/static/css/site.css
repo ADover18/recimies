@@ -6,7 +6,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
 
-
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@400&display=swap');
 
 /* The Modal (background) */
 .modal {
@@ -484,13 +484,29 @@ textarea.form-control {
   object-fit: contain;
 }
 
-.recipe-row-container{
+.recipe-row-flex-container{
   display:flex;
+  flex-direction:column;
 }
 
 .title-container{
   /* text-align: center; */
   margin: 20px;
+  margin-bottom: 40px;
+}
+
+.recipe-title{
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: -17px;
+
+}
+.recipe-info-outer{
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: -10px;
 }
 
 .row-container{
@@ -509,6 +525,7 @@ textarea.form-control {
 
 .ingredient-column {
   padding: 10px;
+  max-width: 210px;
 }
 
 .recipe-image-container{
@@ -561,6 +578,13 @@ hr {
   border-top: 2px solid #727976;
   }
 
+.vl {
+  border-left: 2px solid #727976;
+  height: 400px;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
 .method-title {
   padding-bottom: 15px;
 }
@@ -578,3 +602,84 @@ hr {
   .step{
     flex: 95%
   }
+
+
+/* Find Friends */
+
+.find-friends-container{
+  margin: 20px;
+}
+.currently-following-title,
+.my-recipes-title,
+.find-friends-title{
+  font-weight: 500; 
+  font-size: 30px;
+  margin-bottom: 0px;
+}
+
+.profile-container{
+  align-items: center;
+  display: flex;
+  margin: 5px;
+  padding: 5px;
+  background: #f7f7f7;
+  border-radius: 10px
+}
+
+.form-contents{
+  display: flex;
+  align-items: center;
+}
+
+.find-friend-input{
+  margin-right: 20px;
+}
+
+.profile-icon {
+  width: 55px;
+  height: 55px;
+}
+
+.profile-name-container{
+  min-width: 90px;
+  padding-left: 10px;
+}
+
+.follow-btn-container{
+  margin-right:10px;
+  margin-left: auto;
+}
+
+
+
+/* Profile page */
+
+.profile-page-container{
+  margin:20px;
+}
+
+.profile-header{
+  display: flex;
+  flex-direction: row;
+}
+.personal-info{
+  margin-bottom: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px;
+}
+.my-profile-icon{
+  width:150px;
+  height: 150px;
+}
+
+.my-username{
+  font-weight: 500; 
+  font-size: 20px;
+  text-align: center;
+}
+
+.currently-following{
+  padding-left: 70px;
+}

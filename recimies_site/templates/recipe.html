@@ -7,7 +7,7 @@
 {% block content %}
 <div class="content-container">
     <div class="title-container">
-        <h1 style="font-family: 'Philosopher', serif; font-size: 70px; color: #24323F; text-transform: uppercase;">{{ object.name }}</h1>
+        <p class="recipe-title" style="font-family: 'Philosopher', serif; font-size: 60px; color: #24323F; text-transform: uppercase;">{{ object.name }}</p>
         <div class="recipe-info-outer recipe-info" style="font-family: 'Philosopher', serif; color: #24323F">
             <div class="recipe-info">
                 <!-- <svg class="my-icon slice">
@@ -23,8 +23,8 @@
                     {% endif %}
             </div>
         </div>
+        <hr>
     </div>
-    <hr>
     <div class="recipe-container">
         <div class="recipe-row-flex-container">
             <div class="recipe-image-container">
@@ -51,8 +51,9 @@
                 </div>
             </div>
         </div>
+        <div class="vl"></div>
         <div class="method row-container">
-            <div class="method-container">
+            <div  class="method-container">
                 <h3 class="method-title" style="font-family: 'Oswald', sans-serif; color: #24323F;">Method</h3>
                 {% for step in direction %}
                 <div class="method-step">

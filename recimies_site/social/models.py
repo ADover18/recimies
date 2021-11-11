@@ -48,7 +48,7 @@ class Direction(models.Model):
 
 
 class RecimieUser(User):
-    friends = models.ManyToManyField('self', null=True)
+    friends = models.ManyToManyField('self', null=True, symmetrical=False)
 
     def __repr__(self):
         return str(self.username)
