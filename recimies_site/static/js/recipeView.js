@@ -1,5 +1,5 @@
 const recipeImage = document.querySelector(".recipe-main-image");
-const ingredientsContainers = document.querySelectorAll(".ingredient-column");
+const ingredientsContainer = document.querySelector(".ingredient-container");
 const methodContainer = document.querySelector(".method-container");
 const recipeContainer = document.querySelector(".recipe-container");
 const contentContainer = document.querySelector(".content-container")
@@ -9,35 +9,77 @@ const methodCol = document.querySelector(".method");
 const imageIngredientsCol = document.querySelector(
   ".recipe-row-flex-container"
 );
+const verticalLine = document.querySelector(".vl");
+
+const ing = document.getElementsByClassName("ingredients")[0]
+const ingCol = document.querySelectorAll(".ingredient-column")
+const titleContainer1 = document.querySelector(".title-container1")
+const titleContainer2 = document.querySelector(".title-container2")
+console.log(titleContainer1, titleContainer2);
 
 
-const titleContainer = document.getElementsByClassName("title-container")[0]
+const a = window.getComputedStyle(ing)['scroll-width']
+// const c = Object.freeze(a)
+console.log(window.innerHeight);
+console.log(ing.scrollHeight)
+console.log(ing);
+console.log(ing.scrollWidth)
+console.log(ingCol);
+console.log(ingCol.offsetWidth)
+console.log(ingredientsContainer)
+console.log(ingredientsContainer.scrollWidth);
 
-const imageFillContainer = () =>
-  // $(".recipe-main-image").css('height', 'auto');
-  // recipeImageContainer.style.height = `${
-  //   (methodContainer.offsetHeight + titleContainer.offsetHeight) - ingredients.offsetHeight
-  // }px`;
-  recipeImageContainer.style.width = `${ingredients.offsetWidth
-  }px !important`;
-  console.log(methodCol)
+// recipeImageContainer.style.height = `${window.innerHeight - ing.scrollHeight}px`
+// const b = Object.entries(a)
+// console.log(b)
+// console.log(ing, ing.clientWidth, window.getComputedStyle(ing));
+
+// const imageFillContainer = () =>
+//   $(".recipe-main-image").css('height', 'auto');
+//   recipeImageContainer.style.height = `${
+//     (methodContainer.offsetHeight + titleContainer.offsetHeight) - ingredients.offsetHeight
+//   }px`;
+  // recipeImageContainer.style.width = `${ingredients.offsetWidth
+//   }px !important`;
+//   console.log(methodCol)
+
 "resize load".split(" ").forEach(function(e){
   window.addEventListener(e, function(){
-    if (methodCol.offsetWidth < 0.7*window.innerWidth){
-      console.log(methodCol.offsetWidth)
-      // let newTitle = titleContainer.cloneNode(true)
-      methodCol.insertBefore(titleContainer, methodContainer)
-      imageFillContainer()
+    recipeImageContainer.style.height = `${window.innerHeight - ing.scrollHeight - 120}px`;
+    recipeImageContainer.style.width = `${ingredientsContainer.scrollWidth}px`;
+    if (methodCol.offsetWidth > 0.7*window.innerWidth){
+      console.log(methodCol.offsetWidth);
+      titleContainer2.style.display = "none";
+      titleContainer1.style.display = "block";
+      recipeImageContainer.style.width = "90vw";
+      ingCol.forEach(col=> col.style.maxWidth = "44vw");
+      verticalLine.style.display = "none";
     } else {
-      console.log(methodCol.offsetWidth)
-      contentContainer.insertBefore(titleContainer, recipeContainer)
+      titleContainer2.style.display = "block";
+      titleContainer1.style.display = "none";
+      ingCol.forEach(col=> col.style.maxWidth = "210px")
+      verticalLine.style.display = "block";
     }
   })
 })
-console.log(contentContainer);
-console.log(recipeContainer);
-// set body background:
-document.querySelector("body").style.backgroundColor = "#FAFCFA"
+
+// "resize load".split(" ").forEach(function(e){
+//   window.addEventListener(e, function(){
+//     if (methodCol.offsetWidth < 0.7*window.innerWidth){
+//       console.log(methodCol.offsetWidth)
+//       // let newTitle = titleContainer.cloneNode(true)
+//       methodCol.insertBefore(titleContainer, methodContainer)
+//       imageFillContainer()
+//     } else {
+//       console.log(methodCol.offsetWidth)
+//       contentContainer.insertBefore(titleContainer, recipeContainer)
+//     }
+//   })
+// })
+// console.log(contentContainer);
+// console.log(recipeContainer);
+// // set body background:
+// document.querySelector("body").style.backgroundColor = "#FAFCFA"
 
 
 

@@ -85,7 +85,7 @@ class RecipeView(DetailView):
         context = super(RecipeView, self).get_context_data(**kwargs)
         ingredients = Ingredient.objects.filter(recipe=self.object.pk)
         direction = Direction.objects.filter(recipe=self.object.pk)
-        if len(ingredients)< 18:
+        if len(ingredients)< 50:
             offset = int(len(ingredients) / 2)
             if len(ingredients) % 2 != 0:
                 offset +=1
