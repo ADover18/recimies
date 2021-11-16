@@ -469,7 +469,7 @@ textarea.form-control {
 /* Recipe view */
 
 .method-container{
-  max-width: 90vw !important;
+  max-width: 85vw !important;
 }
 
 .content-container{
@@ -488,6 +488,9 @@ textarea.form-control {
 }
 
 .recipe-title{
+  font-family: 'Encode Sans Condensed', sans-serif; 
+  font-size: 60px;
+  color: #24323F;
   margin-bottom: 20px;
   margin-left: 20px;
   margin-right: 20px;
@@ -506,7 +509,7 @@ textarea.form-control {
   flex: 4;
   flex-grow: 4;
   min-width: 500px;
-  margin-left: 20px;
+  /* margin-left: 20px; */
   
 }
 
@@ -542,7 +545,7 @@ textarea.form-control {
   flex-direction: row;
   flex-wrap: wrap;
   justify-items: center;
-  justify-content: center;
+  justify-content: space-between;
   max-width: 100vw;
   font-family: 'Roboto', sans-serif;
   margin: 20px;

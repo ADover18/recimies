@@ -34,12 +34,13 @@ const getRecipes = async function () {
   }
 };
 
+
 ///////////////////////// Controller /////////////////////////
 
 const processData = async function () {
   try {
     const data = await getRecipes();
-    recipeData = Object.values(data.recipes);
+    recipeData = [...Object.values(data.friends_recipes,), ...Object.values(data.other_recipes,)];
     if (searchBox.value) recipeData = recipeData.filter(recipe=> recipe.name.toLowerCase().includes(searchBox.value.toLowerCase()))
     console.log(recipeData)
     recipeData.slice(0, 8).forEach(recipe => {
@@ -98,6 +99,5 @@ const renderRecipe = function (recipe) {
 
 ///////////////// init ////////////////////////
 processData();
-
 
 

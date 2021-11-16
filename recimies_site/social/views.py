@@ -27,8 +27,20 @@ class IndexView(FormView):
 
 def recipes_endpoint(request): # May include more arguments depending on URL parameters
     recipes = Recipe.objects.all()
+
+    curuser = RecimieUser.objects.get(username=request.user.username)
+    friends = curuser.friends.all()
+    friends_ids = []
+    for friend in friends.values():
+        friends_ids.append(friend["id"])
+
+    friends_recipes = Recipe.objects.filter(user__in=friends_ids)
+
+    other_recipes = Recipe.objects.exclude(user__in=friends_ids)
     
     recipe_list = {
+            'friends_recipes':{item['id']: item for item in friends_recipes.values()},
+            'other_recipes':{item['id']: item for item in other_recipes.values()},
             'recipes': {item['id']: item for item in recipes.values()}
     }
     return JsonResponse(recipe_list)
