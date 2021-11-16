@@ -53,12 +53,13 @@ console.log(ing.scrollHeight)
       titleContainer2.style.display = "none";
       titleContainer1.style.display = "block";
       recipeImageContainer.style.width = "90vw";
+      recipeImageContainer.style.maxHeight = "30vh"
+      recipeImageContainer.style.minHeight = "20vh"
       ingCol.style.maxWidth = "90vw";
         // ingCol.style.paddingLeft = "15px"
         // ingCol.style.paddingRight = "15px"
       verticalLine.style.display = "none";
     } else {
-      recipeImageContainer.style.maxHeight = "30vh"
       titleContainer2.style.display = "block";
       titleContainer1.style.display = "none";
       // ingCol.forEach(col=> col.style.maxWidth = "210px")

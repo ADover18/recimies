@@ -46,24 +46,6 @@ def recipes_endpoint(request): # May include more arguments depending on URL par
     return JsonResponse(recipe_list)
 
 
-# class RecipesEndPointView(View):
-#     def get(self, request):
-#         params = request.GET
-#         query = params.get('q')
-#         recipes = {}
-#         if query:
-#                 recipes = Recipe.objects.filter(name__icontains=query)
-#         else:
-#                 recipes = Recipe.objects.all()
-
-#         recipe_list = {
-#                 'recipes': {item['id']: item for item in recipes.values()}
-#         }
-#         return JsonResponse(request, recipe_list)
-
-
-
-
 class ProfileView(DetailView):
     model = RecimieUser
     template_name = 'profile.html'
