@@ -85,19 +85,6 @@ class RecipeView(DetailView):
         context = super(RecipeView, self).get_context_data(**kwargs)
         ingredients = Ingredient.objects.filter(recipe=self.object.pk)
         direction = Direction.objects.filter(recipe=self.object.pk)
-        if len(ingredients)< 50:
-            offset = int(len(ingredients) / 2)
-            if len(ingredients) % 2 != 0:
-                offset +=1
-            context['ingredients_col0'] = ingredients[:offset]
-            context['ingredients_col1'] = ingredients[offset:]
-        else:
-             offset = int(len(ingredients) / 3)
-             if len(ingredients) % 3 != 0:
-                offset +=1
-             context['ingredients_col0'] = ingredients[:offset]
-             context['ingredients_col1'] = ingredients[offset:offset*2]
-             context['ingredients_col2'] = ingredients[offset*2:]
 
         context['ingredients'] = ingredients
         context['direction'] = direction

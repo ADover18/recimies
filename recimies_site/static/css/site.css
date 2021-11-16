@@ -510,15 +510,32 @@ textarea.form-control {
   
 }
 
+.ingredients{
+  margin-bottom: 20px;
+}
+
+.ingredients-title {
+  margin-bottom: 20px;
+}
+
 .ingredient-container {
-  display:inline-block;
+  display: inline-block;
 }
 
 .ingredient-column {
-  padding: 10px;
-  max-width: 210px;
-  float: left;
+  column-count: 2;
+  padding-left: 10px;
+  padding-right: 10px;
+  max-width: 500px;
 }
+
+@media (max-width: 550px){
+  .ingredient-column {
+    column-count: 1;
+  }
+}
+
+
 
 .recipe-container{
   display:flex;

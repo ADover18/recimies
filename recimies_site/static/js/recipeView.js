@@ -12,7 +12,7 @@ const imageIngredientsCol = document.querySelector(
 const verticalLine = document.querySelector(".vl");
 
 const ing = document.getElementsByClassName("ingredients")[0]
-const ingCol = document.querySelectorAll(".ingredient-column")
+const ingCol = document.querySelector(".ingredient-column")
 const titleContainer1 = document.querySelector(".title-container1")
 const titleContainer2 = document.querySelector(".title-container2")
 console.log(titleContainer1, titleContainer2);
@@ -43,21 +43,24 @@ console.log(ingredientsContainer.scrollWidth);
 //   }px !important`;
 //   console.log(methodCol)
 
+console.log(ing.scrollHeight)
+// if(ingCol[1].hei)
 "resize load".split(" ").forEach(function(e){
   window.addEventListener(e, function(){
     recipeImageContainer.style.height = `${window.innerHeight - ing.scrollHeight - 120}px`;
     recipeImageContainer.style.width = `${ingredientsContainer.scrollWidth}px`;
     if (methodCol.offsetWidth > 0.7*window.innerWidth){
-      console.log(methodCol.offsetWidth);
       titleContainer2.style.display = "none";
       titleContainer1.style.display = "block";
       recipeImageContainer.style.width = "90vw";
-      ingCol.forEach(col=> col.style.maxWidth = "44vw");
+      ingCol.style.maxWidth = "90vw";
+        // ingCol.style.paddingLeft = "15px"
+        // ingCol.style.paddingRight = "15px"
       verticalLine.style.display = "none";
     } else {
       titleContainer2.style.display = "block";
       titleContainer1.style.display = "none";
-      ingCol.forEach(col=> col.style.maxWidth = "210px")
+      // ingCol.forEach(col=> col.style.maxWidth = "210px")
       verticalLine.style.display = "block";
     }
   })

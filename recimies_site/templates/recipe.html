@@ -10,15 +10,9 @@
         <p class="recipe-title" style="font-family: 'Encode Sans Condensed', sans-serif; font-size: 60px; color: #24323F;">{{ object.name }}</p>
         <div class="recipe-info-outer recipe-info" style="font-family: 'Encode Sans Condensed', sans-serif; color: #24323F">
             <div class="recipe-info">
-                <!-- <svg class="my-icon slice">
-                    <use href="{% static 'site_img/logos/icons.svg' %}#slice"></use>
-                </svg> -->
                 <h6 class="recipe-info-text">Serves: {{ object.serves}}    </h6> 
             </div>
             <div class="recipe-info">
-                <!-- <svg class="my-icon clock">
-                    <use href="{% static 'site_img/logos/icons.svg' %}#clock"></use>
-                </svg> -->
                 <h6 class="recipe-info-text">Preparation: {{ object.prep_time }} {{ object.prep_time_units }} {% if object.cooking_time > 0 %}&nbsp Cooking: {{ object.cooking_time }} {{object.cooking_time_units}}</h6>
                     {% endif %}
             </div>
@@ -31,21 +25,11 @@
                 <img class="recipe-main-image" src="/{{object.image_url}}"/>
             </div>
             <div class="ingredients">
-                <h3 style="font-family: 'Roboto Condensed', sans-serif; color: #24323F">Ingredients</h3>
+                <h3 class="ingredients-title" style="font-family: 'Roboto Condensed', sans-serif; color: #24323F">Ingredients</h3>
                 <div class="ingredient-container">
                     <div id="ingredient-column" class="ingredient-column">
-                        {% for ingredient in ingredients_col0 %}
+                        {% for ingredient in ingredients %}
                             <p>{{ingredient.quantity|floatformat:"-3"}} {{ingredient.unit}} {{ingredient.ingredient}}</p>
-                        {% endfor %}
-                    </div>
-                    <div class="ingredient-column">
-                        {% for ingredient in ingredients_col1 %}
-                        <p>{{ingredient.quantity|floatformat:"-2"}} {{ingredient.unit}} {{ingredient.ingredient}}</p>
-                        {% endfor %}
-                    </div>
-                    <div class="ingredient-column">
-                        {% for ingredient in ingredients_col2 %}
-                        <p>{{ingredient.quantity|floatformat:"-2"}} {{ingredient.unit}} {{ingredient.ingredient}}</p>
                         {% endfor %}
                     </div>
                 </div>
@@ -57,15 +41,9 @@
                 <p class="recipe-title" style="font-family: 'Encode Sans Condensed', sans-serif; font-size: 60px; color: #24323F;">{{ object.name }}</p>
                 <div class="recipe-info-outer recipe-info" style="font-family: 'Encode Sans Condensed', sans-serif; color: #24323F">
                     <div class="recipe-info">
-                        <!-- <svg class="my-icon slice">
-                            <use href="{% static 'site_img/logos/icons.svg' %}#slice"></use>
-                        </svg> -->
                         <h6 class="recipe-info-text">Serves: {{ object.serves}}    </h6> 
                     </div>
                     <div class="recipe-info">
-                        <!-- <svg class="my-icon clock">
-                            <use href="{% static 'site_img/logos/icons.svg' %}#clock"></use>
-                        </svg> -->
                         <h6 class="recipe-info-text">Preparation: {{ object.prep_time }} {{ object.prep_time_units }} {% if object.cooking_time > 0 %}&nbsp Cooking: {{ object.cooking_time }} {{object.cooking_time_units}}</h6>
                             {% endif %}
                     </div>
