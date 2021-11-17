@@ -87,7 +87,7 @@ const renderRecipe = function (recipe) {
     </div>
     <a
       class="front-page-link"
-      >${recipe.fields.name}<br>${recipe.fields.user}
+      >${recipe.fields.name}<br><p style="color: #6c757d;">${recipe.fields.user}</p>
     </a>
     </div>
     </a>`;
