@@ -1,5 +1,6 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.views.generic import View
@@ -12,6 +13,7 @@ from django.urls import reverse_lazy
 from .forms import *
 from .models import Recipe, RecimieUser
 from django.http import JsonResponse
+from django.core import serializers
 
 
 class IndexView(FormView):
@@ -37,13 +39,19 @@ def recipes_endpoint(request): # May include more arguments depending on URL par
     friends_recipes = Recipe.objects.filter(user__in=friends_ids)
 
     other_recipes = Recipe.objects.exclude(user__in=friends_ids)
+    data = serializers.serialize('json',recipes, use_natural_foreign_keys=True)
     
     recipe_list = {
-            'friends_recipes':{item['id']: item for item in friends_recipes.values()},
-            'other_recipes':{item['id']: item for item in other_recipes.values()},
-            'recipes': {item['id']: item for item in recipes.values()}
+            'friends_recipes': serializers.serialize('json',friends_recipes, use_natural_foreign_keys=True),
+            'other_recipes': serializers.serialize('json',other_recipes, use_natural_foreign_keys=True),
+            'recipes': serializers.serialize('json',recipes, use_natural_foreign_keys=True)
+            # 'friends_recipes':{item['user_id']: item for item in friends_recipes.values()},
+            # 'other_recipes':{item['user_id']: item for item in other_recipes.values()},
+            # 'recipes': {item['user_id']: item for item in recipes.values()}
     }
+    # return serializers.serialize('json',recipes, use_natural_foreign_keys=True)
     return JsonResponse(recipe_list)
+    # return serializers.serialize('json',recipes, use_natural_foreign_keys=True)
 
 
 class ProfileView(DetailView):

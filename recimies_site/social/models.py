@@ -45,10 +45,17 @@ class Direction(models.Model):
     def __str__(self):
         return self.direction
 
-
+class UserManager(models.Manager):
+    def get_by_natural_key(self, username):
+        return self.get(username=username)
 
 class RecimieUser(User):
     friends = models.ManyToManyField('self', null=True, symmetrical=False)
+
+    objects = UserManager()
+
+    def natural_key(self):
+        return (self.username)
 
     def __repr__(self):
         return str(self.username)

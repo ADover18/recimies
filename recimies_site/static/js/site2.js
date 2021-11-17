@@ -40,8 +40,8 @@ const getRecipes = async function () {
 const processData = async function () {
   try {
     const data = await getRecipes();
-    recipeData = [...Object.values(data.friends_recipes,), ...Object.values(data.other_recipes,)];
-    if (searchBox.value) recipeData = recipeData.filter(recipe=> recipe.name.toLowerCase().includes(searchBox.value.toLowerCase()))
+    recipeData = [...JSON.parse(data.friends_recipes), ...JSON.parse(data.other_recipes)];
+    if (searchBox.value) recipeData = recipeData.filter(recipe=> recipe.fields.name.toLowerCase().includes(searchBox.value.toLowerCase()))
     console.log(recipeData)
     recipeData.slice(0, 8).forEach(recipe => {
       renderRecipe(recipe);
@@ -57,7 +57,7 @@ const loadRecipe = function (entries, observer) {
   entries.forEach(function (entry) {
     if (!entry.isIntersecting) return;
     let newRecipeIndex =
-      recipeData.findIndex(recipe => recipe.name === entry.target.innerText) +
+      recipeData.findIndex(recipe => recipe.fields.name === entry.target.innerText.split('\n')[0]) +
       8;
     if (newRecipeIndex >= recipeData.length) return;
     renderRecipe(recipeData[newRecipeIndex]);
@@ -79,16 +79,15 @@ const recipeObserver = new IntersectionObserver(loadRecipe, {
 
 const renderRecipe = function (recipe) {
   let html = `<a
-    href="${curLocation}recipe/${recipe.id}"
+    href="${curLocation}recipe/${recipe.pk}"
     >
     <div class="col-md-3 col-sm-4 col-6">
     <div class="thumbnail_container">
-      <img class="recipe-image" src="/${recipe.image.slice(14)}" />
+      <img class="recipe-image" src="/${recipe.fields.image.slice(14)}" />
     </div>
     <a
       class="front-page-link"
-    
-      >${recipe.name}
+      >${recipe.fields.name}<br>${recipe.fields.user}
     </a>
     </div>
     </a>`;
