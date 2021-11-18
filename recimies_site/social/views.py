@@ -14,7 +14,7 @@ from .forms import *
 from .models import Recipe, RecimieUser
 from django.http import JsonResponse
 from django.core import serializers
-
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 class IndexView(FormView):
     template_name = "index.html"
@@ -90,6 +90,7 @@ class RecipeView(DetailView):
 
         context['ingredients'] = ingredients
         context['direction'] = direction
+        
         return context
 
     def get_object(self, **kwargs):
@@ -104,11 +105,19 @@ class EditRecipeMixin():
         )
 
 
-class NewRecipeView(CreateView):
+class NewRecipeView(UserPassesTestMixin, CreateView):
     model = Recipe 
     template_name = "recipe_form.html"
     form_class = RecipeForm
-    success_url = reverse_lazy('profile')
+    success_url = reverse_lazy('index')
+    
+
+    def test_func(self):
+        url = self.request.build_absolute_uri()
+        url_root = self.request.build_absolute_uri('/')
+        user_pk = RecimieUser.objects.get(username=self.request.user.username).pk
+        return url[len(url_root)+8:url.index("new-recipe")-1] == str(user_pk)
+        
 
     def get(self, request, *args, **kwargs):
         """
@@ -146,6 +155,7 @@ class NewRecipeView(CreateView):
         ingredient_form.save()
         direction_form.instance = self.object
         direction_form.save()
+        print(self.kwargs)
         return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self, form, ingredient_form, direction_form):
@@ -163,7 +173,7 @@ class RecipeUpdate(UpdateView, EditRecipeMixin):
     model = Recipe 
     template_name = "recipe_form.html"
     form_class = RecipeForm
-    success_url = reverse_lazy('profile')
+    success_url = reverse_lazy('index')
 
     def get_form_kwargs(self):
         kwargs = super(NewRecipeView, self).get_form_kwargs()

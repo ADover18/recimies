@@ -5,6 +5,7 @@
 {% block title %}Recimies:{{object.name}}{% endblock %}
 {% block script %}<script defer src="{% static 'js/recipeView.js'%}"></script>{% endblock %}
 {% block content %}
+{{ url }}
 <div class="content-container">
     <div class="title-container title-container1">
         <p class="recipe-title">{{ object.name }}</p>

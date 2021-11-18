@@ -11,11 +11,6 @@ const searchButton = document.querySelector(".search-btn")
 
 let recipeData
 
-searchButton.addEventListener("click", function(){
-  console.log(searchBox.value);
-})
-
-
 ///////////////////////// Model /////////////////////////
 const getRecipes = async function () {
   try {
