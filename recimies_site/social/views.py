@@ -27,31 +27,32 @@ class IndexView(FormView):
         return super(IndexView, self).form_valid(form)
 
 
-def recipes_endpoint(request): # May include more arguments depending on URL parameters
+def recipes_endpoint(request):
     recipes = Recipe.objects.all()
 
-    curuser = RecimieUser.objects.get(username=request.user.username)
-    friends = curuser.friends.all()
-    friends_ids = []
-    for friend in friends.values():
-        friends_ids.append(friend["id"])
+    if request.user.is_authenticated:
+        curuser = RecimieUser.objects.get(username=request.user.username)
+        friends = curuser.friends.all()
+        friends_ids = []
+        for friend in friends.values():
+            friends_ids.append(friend["id"])
 
-    friends_recipes = Recipe.objects.filter(user__in=friends_ids)
+        friends_recipes = Recipe.objects.filter(user__in=friends_ids)
 
-    other_recipes = Recipe.objects.exclude(user__in=friends_ids)
-    data = serializers.serialize('json',recipes, use_natural_foreign_keys=True)
+        other_recipes = Recipe.objects.exclude(user__in=friends_ids)
     
-    recipe_list = {
-            'friends_recipes': serializers.serialize('json',friends_recipes, use_natural_foreign_keys=True),
-            'other_recipes': serializers.serialize('json',other_recipes, use_natural_foreign_keys=True),
-            'recipes': serializers.serialize('json',recipes, use_natural_foreign_keys=True)
-            # 'friends_recipes':{item['user_id']: item for item in friends_recipes.values()},
-            # 'other_recipes':{item['user_id']: item for item in other_recipes.values()},
-            # 'recipes': {item['user_id']: item for item in recipes.values()}
-    }
-    # return serializers.serialize('json',recipes, use_natural_foreign_keys=True)
-    return JsonResponse(recipe_list)
-    # return serializers.serialize('json',recipes, use_natural_foreign_keys=True)
+        recipe_list = {
+                'friends_recipes': serializers.serialize('json',friends_recipes, use_natural_foreign_keys=True),
+                'other_recipes': serializers.serialize('json',other_recipes, use_natural_foreign_keys=True),
+                'recipes': serializers.serialize('json',recipes, use_natural_foreign_keys=True)
+        }
+        return JsonResponse(recipe_list)
+    
+    else:
+        recipe_list = {
+                'recipes': serializers.serialize('json',recipes, use_natural_foreign_keys=True)
+        }
+        return JsonResponse(recipe_list)
 
 
 class ProfileView(UserPassesTestMixin, DetailView):
@@ -175,7 +176,7 @@ class NewRecipeView(UserPassesTestMixin, CreateView):
         return kwargs
     
 
-class RecipeUpdate(UpdateView, EditRecipeMixin):
+class RecipeUpdate(UpdateView):
     model = Recipe 
     template_name = "recipe_form.html"
     form_class = RecipeForm
