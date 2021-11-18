@@ -54,9 +54,15 @@ def recipes_endpoint(request): # May include more arguments depending on URL par
     # return serializers.serialize('json',recipes, use_natural_foreign_keys=True)
 
 
-class ProfileView(DetailView):
+class ProfileView(UserPassesTestMixin, DetailView):
     model = RecimieUser
     template_name = 'profile.html'
+
+    def test_func(self):
+        url = self.request.build_absolute_uri()
+        url_root = self.request.build_absolute_uri('/')
+        user_pk = RecimieUser.objects.get(username=self.request.user.username).pk
+        return url[len(url_root)+8:] == str(user_pk)
 
     def get_object(self, **kwargs):
         user_pk = self.kwargs['user_pk']
