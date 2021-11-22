@@ -166,6 +166,7 @@ class NewRecipeView(UserPassesTestMixin, CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self, form, ingredient_form, direction_form):
+        a = self.get_context_data(form=form, ingredient_form = ingredient_form, direction_form=direction_form)
         return self.render_to_response(
             self.get_context_data(form=form, ingredient_form = ingredient_form, direction_form=direction_form)
         )
@@ -182,11 +183,36 @@ class RecipeUpdate(UpdateView):
     form_class = RecipeForm
     success_url = reverse_lazy('index')
 
-    def get_form_kwargs(self):
-        kwargs = super(NewRecipeView, self).get_form_kwargs()
-        kwargs['user_pk'] = self.kwargs['user_pk']
-        kwargs['recipe_pk'] = self.kwargs['recipe_pk'] # whatever the url var is called
-        return kwargs
+    # def get_object(self, **kwargs):
+    #     object = Recipe.objects.get(pk=self.kwargs['pk'])
+    #     return object
+
+    # def get_form_kwargs(self):
+    #     kwargs = super(RecipeUpdate, self).get_form_kwargs()
+    #     kwargs['user_pk'] = self.request.user.pk
+    #     return kwargs
+
+
+    def get(self, request, *args, **kwargs):
+        """
+        Handles GET requests and instantiates filled versions of the form
+        and its inline formsets.
+        """
+        self.object = self.get_object()
+        form_class = self.get_form_class()
+        ingredient_form_class = IngredientFormSet
+        direction_form_class = DirectionFormSet
+        form = self.get_form(form_class)
+        # del self.kwargs['user_pk']
+        ingredient_form = IngredientFormSet(instance = self.object)
+        direction_form = DirectionFormSet(instance = self.object)
+        # ingredient_form = self.get_form(ingredient_form_class)
+        # direction_form = self.get_form(direction_form_class)
+        # ingredient_form = IngredientFormSet()
+        # direction_form = DirectionFormSet()
+        return self.render_to_response(
+            self.get_context_data(form=form, ingredient_form=ingredient_form, direction_form=direction_form)
+        )
 
     def post(self, request, *args, **kwargs):
         """
@@ -194,23 +220,77 @@ class RecipeUpdate(UpdateView):
         formsets with the passed POST variables and then checking them for
         validity.
         """
-        # self.object is already set up UpdateView
+        self.object = self.get_object()
         form_class = self.get_form_class()
         form = self.get_form(form_class)
-        ingredient_form = IngredientFormSet(self.request.POST)
-        direction_form = DirectionFormSet(self.request.POST)
+        ingredient_form = IngredientFormSet(self.request.POST, instance=self.object)
+        direction_form = DirectionFormSet(self.request.POST, instance=self.object)
+        form.user = form.instance.user
+        recipe_id = kwargs['pk']
+        # a = ingredient_form.data['id']
+        # ingredient_form = ingredient_form[0]
+        # direction_form = direction_form[1]
+        # z = ingredient_form[1]
+        # a = ingredient_form[1].auto_id = f'id_{recipe_id}'
+        # b = direction_form[1].auto_id = f'id_{recipe_id}'
+        
+        # die
+        request.POST._mutable = True
+        # ingredient_form.data['id'] = recipe_id
+
+        # ingredient_form.data['direction-INITIAL_FORMS'] = 0
+        f = ingredient_form.data['ingredients-INITIAL_FORMS']
+        # direction_form.data['direction-INITIAL_FORMS'] = 0
+        # direction_form.data['ingredients-INITIAL_FORMS'] = 0
+        # ingredient_form.data['direction-TOTAL_FORMS']
+        g = ingredient_form.data['ingredients-TOTAL_FORMS']
+        # direction_form.data['direction-TOTAL_FORMS'] = 1
+        # direction_form.data['ingredients-TOTAL_FORMS'] = 1
+
+        # x = direction_form.errors
+        # direction_form[1].fields['id'] = kwargs['pk']
+        a = ingredient_form.errors
+        b = ingredient_form.error_messages
+        e = ingredient_form.data
+        c = direction_form.errors
+        d = direction_form.error_messages
+        # die
         if (form.is_valid() and ingredient_form.is_valid() and direction_form.is_valid()):
             return self.form_valid(form, ingredient_form, direction_form)
         else:
+            del kwargs['user_pk']
+            del kwargs['pk']
             return self.form_invalid(form, ingredient_form, direction_form)
 
     def form_valid(self, form, ingredient_form, direction_form):
-        pass
-        """
-        look at contents in form and update the objects that are
-        being edited
-        then save them with their new contents
-        """
+        self.object = form.save()
+        # a = self.object.__dict__
+        # b = ingredient_form.instance
+        # die
+        ingredient_form.instance = self.object
+        ingredient_form.save()
+        direction_form.instance = self.object
+        direction_form.save()
+        print(self.kwargs)
+        return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self, form, ingredient_form, direction_form):
+        a = {'direction_form': direction_form,
+            'form': form,
+            'ingredient_form': ingredient_form,
+            'view': self}
+        
+        return self.render_to_response(
+            self.get_context_data(form=form, ingredient_form = ingredient_form, direction_form=direction_form)
+        )
+
+    # def form_invalid(self, *args, **kwargs):
+        # Here we need to define self.object and self.object is the filled in form with the errors
+        # NOT THIS!!! self.object = self.get_object()
+        # a = self.save()
+        # return self.render_to_response(
+        #     self.get_context_data()
+        # )
         
         # self.object = form.save()
         # ingredient_form.instance = self.object

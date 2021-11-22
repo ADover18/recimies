@@ -390,6 +390,11 @@ textarea.form-control {
   margin-top: 5px !important;
 }
 
+.method-form-title{
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
 .number-step {
   text-align: center;
 }
@@ -407,20 +412,17 @@ textarea.form-control {
   margin-top: 10px;
 }
 
-.add-direction-form,
-.delete-direction-form,
-.add-ingredient-form,
-.delete-ingredient-form{
+
+.add-form,
+.delete-form{
   display: flex;
   justify-content: center;
   align-content: center;
 }
 
 @media (min-width: 500px) {
-  .add-direction-form,
-  .delete-direction-form,
-  .add-ingredient-form,
-  .delete-ingredient-form{
+  .add-form,
+  .delete-form{
       width: 37px;
       flex: 37px;
       max-width: 37px;
@@ -437,8 +439,8 @@ textarea.form-control {
   }
 }
 
-.add-ingredient-form,
-.add-direction-form {
+.delete-form,
+.add-form {
   cursor: pointer;
 }
 
@@ -512,7 +514,7 @@ textarea.form-control {
   
 }
 
-.ingredients{
+.ingredients-list{
   margin-bottom: 20px;
 }
 

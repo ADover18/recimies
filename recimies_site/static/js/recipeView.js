@@ -11,7 +11,7 @@ const imageIngredientsCol = document.querySelector(
 );
 const verticalLine = document.querySelector(".vl");
 
-const ing = document.getElementsByClassName("ingredients")[0]
+const ing = document.getElementsByClassName("ingredients-list")[0]
 const ingCol = document.querySelector(".ingredient-column")
 const titleContainer1 = document.querySelector(".title-container1")
 const titleContainer2 = document.querySelector(".title-container2")

@@ -27,21 +27,31 @@ class RegisterForm(UserCreationForm):
                 "A user with this username already exists"
             )
 
-
 class IngredientForm(forms.ModelForm):
     class Meta:
         model = Ingredient
-        exclude = ()
-        
-IngredientFormSet = forms.inlineformset_factory(Recipe, Ingredient, fields=['ingredient', 'quantity', 'unit'], extra=1, can_delete=True)
+        fields = ['ingredient', 'quantity', 'unit']
 
+    # def __init__(self, *args, **kwargs):
+    #     self.fields = ['ingredient', 'quantity', 'unit']
+    #     self.helper = FormHelper(self)
+    #     self.helper.render_hidden_fields = True
+
+        
+IngredientFormSet = forms.inlineformset_factory(Recipe, Ingredient, form=IngredientForm, extra=1, can_delete=True)
 
 class DirectionForm(forms.ModelForm):
     class Meta:
         model = Direction
-        exclude = ()
+        fields = ['direction']
+
+    def __init__(self, *args, **kwargs):
+        super(DirectionForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_show_labels = False
+
         
-DirectionFormSet = forms.inlineformset_factory(Recipe, Direction, fields=['direction'], extra=1, labels= {'direction': 'Method',}, can_delete=True)
+DirectionFormSet = forms.inlineformset_factory(Recipe, Direction, form=DirectionForm, extra=1, can_delete=True)
 
 
 
@@ -58,13 +68,15 @@ class RecipeForm(ModelForm):
         
 
     def __init__(self, *args, **kwargs):
-        self.user = RecimieUser.objects.get(pk=kwargs.pop('user_pk', None))
+        if "instance" in kwargs and kwargs["instance"] == None:
+                self.user = RecimieUser.objects.get(pk=kwargs.pop('user_pk', None))
         super(RecipeForm, self).__init__(*args, **kwargs)
         self.fields['name'].label = "Recipe name"
         self.fields['serves'].label = "Serves/Makes"
         self.fields['prep_time'].label = "Preparation time"
         # self.fields['prep_time_units'].label = "..."
         self.helper = FormHelper(self)
+        self.helper.render_hidden_fields = True
         self.helper.layout = Layout(
             Div(
                 Div('name', css_class="col-10"), 

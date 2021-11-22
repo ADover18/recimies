@@ -10,14 +10,15 @@
 {% if user.is_authenticated %}
 
 
-
   
 
 <div class="form-container">
 {% crispy form %}
 {{ingredient_form.management_form}}
+    
     {%for form in ingredient_form%}
-    <div class="ingredient-form form-row">
+    {{ form.id|as_crispy_field }}
+    <div class="ingredients ingredient-form form-row">
       <div class="form-group col-6 ing-field ing-input">
       {{form.ingredient|as_crispy_field}}
       </div>
@@ -27,31 +28,33 @@
       <div class="form-group col-2 ing-input">
       {{form.unit|as_crispy_field}}
       </div>
-      <div class="col-1 delete-ingredient-form">
+      <div class="col-1 delete-form">
         <svg class="ing-bin bin-btn" >
           <use href="{% static 'site_img/logos/icons.svg' %}#bin"></use>
         </svg>
       </div>
-      <div class="col-1 add-ingredient-form">
+      <div class="col-1 add-form">
         <svg class="ing-add add-btn" >
           <use href="{% static 'site_img/logos/icons.svg' %}#icon-plus-circle"></use>
         </svg>
       </div>
     </div>
     {% endfor %}
+    <p class="method-form-title">&nbsp&nbsp&nbspMethod</p>
     {{direction_form.management_form}}
     {%for form in direction_form%}
-    <div class="direction-form form-row">
+        {{ form.id|as_crispy_field }}
+    <div class="direction direction-form form-row">
       <p class="number-step col-1" >1. </p>
       <div class="form-group col-9 dir-field">
       {{form.direction|as_crispy_field}}
       </div>
-      <div class="col-1 delete-direction-form">
+      <div class="col-1 delete-form">
         <svg class="dir-bin bin-btn">
           <use href="{% static 'site_img/logos/icons.svg' %}#bin"></use>
         </svg>
       </div>
-      <div class="add-direction-form col-1">
+      <div class="add-form col-1">
           <svg class="dir-add add-btn" >
             <use href="{% static 'site_img/logos/icons.svg' %}#icon-plus-circle"></use>
           </svg>
