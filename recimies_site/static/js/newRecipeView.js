@@ -11,6 +11,12 @@ const hiddenDirFormId = document
 const blankIngForm = document.querySelector('.ingredients').cloneNode(true);
 const blankDirForm = document.querySelector('.direction').cloneNode(true);
 
+
+const initialIdVal = {
+  ingredients: hiddenIngFormId.value,
+  direction: hiddenDirFormId.value,
+};
+
 const addFormElToCrispyForm = () =>
   [...formElementsContainer.children]
     .slice(1)
@@ -82,6 +88,14 @@ const showOrHideDeleteBtn = function (formType) {
         .querySelector('.bin-btn').style.display = 'none');
 };
 
+const setFieldIdValues = function (formType) {
+  if (initialIdVal[formType]) {
+    document
+      .querySelectorAll(`[id^="id_${formType}"][id$="id"]`)
+      .forEach((idEl, index) => (idEl.value = +initialIdVal[formType] + index));
+  }
+};
+
 crispyForm.addEventListener('click', function (event) {
   if (event.target.classList.contains('add-form')) {
     event.preventDefault();
@@ -108,6 +122,7 @@ crispyForm.addEventListener('click', function (event) {
     updateTotalForms(formType);
     numberDirectionSteps();
     showOrHideDeleteBtn(formType);
+    setFieldIdValues(formType);
   }
 });
 
@@ -125,6 +140,7 @@ crispyForm.addEventListener('click', function (event) {
     updateTotalForms(formType);
     numberDirectionSteps();
     showOrHideDeleteBtn(formType);
+    setFieldIdValues(formType);
   }
 });
 
@@ -135,7 +151,8 @@ const init = function () {
       updateTotalForms(formType);
       showOrHideDeleteBtn(formType);
       });
-  numberDirectionSteps();
+  numberDirectionSteps('ingredients');
 };
 
 init();
+

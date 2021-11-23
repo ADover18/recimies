@@ -226,35 +226,6 @@ class RecipeUpdate(UpdateView):
         ingredient_form = IngredientFormSet(self.request.POST, instance=self.object)
         direction_form = DirectionFormSet(self.request.POST, instance=self.object)
         form.user = form.instance.user
-        recipe_id = kwargs['pk']
-        # a = ingredient_form.data['id']
-        # ingredient_form = ingredient_form[0]
-        # direction_form = direction_form[1]
-        # z = ingredient_form[1]
-        # a = ingredient_form[1].auto_id = f'id_{recipe_id}'
-        # b = direction_form[1].auto_id = f'id_{recipe_id}'
-        
-        # die
-        request.POST._mutable = True
-        # ingredient_form.data['id'] = recipe_id
-
-        # ingredient_form.data['direction-INITIAL_FORMS'] = 0
-        f = ingredient_form.data['ingredients-INITIAL_FORMS']
-        # direction_form.data['direction-INITIAL_FORMS'] = 0
-        # direction_form.data['ingredients-INITIAL_FORMS'] = 0
-        # ingredient_form.data['direction-TOTAL_FORMS']
-        g = ingredient_form.data['ingredients-TOTAL_FORMS']
-        # direction_form.data['direction-TOTAL_FORMS'] = 1
-        # direction_form.data['ingredients-TOTAL_FORMS'] = 1
-
-        # x = direction_form.errors
-        # direction_form[1].fields['id'] = kwargs['pk']
-        a = ingredient_form.errors
-        b = ingredient_form.error_messages
-        e = ingredient_form.data
-        c = direction_form.errors
-        d = direction_form.error_messages
-        # die
         if (form.is_valid() and ingredient_form.is_valid() and direction_form.is_valid()):
             return self.form_valid(form, ingredient_form, direction_form)
         else:
@@ -264,15 +235,13 @@ class RecipeUpdate(UpdateView):
 
     def form_valid(self, form, ingredient_form, direction_form):
         self.object = form.save()
-        # a = self.object.__dict__
-        # b = ingredient_form.instance
-        # die
         ingredient_form.instance = self.object
         ingredient_form.save()
         direction_form.instance = self.object
         direction_form.save()
         print(self.kwargs)
         return HttpResponseRedirect(self.get_success_url())
+
 
     def form_invalid(self, form, ingredient_form, direction_form):
         a = {'direction_form': direction_form,
