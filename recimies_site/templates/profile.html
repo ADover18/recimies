@@ -2,6 +2,13 @@
 {% load static %}
 {% block title %}Recimies: Profile{% endblock %}
 {% block content %}
+
+      <!-- <use
+        href="{% static 'site_img/logos/icons.svg' %}#view"
+      ></use> -->
+
+
+
 <div class="profile-page-container">
   <div class="profile-header">
     <div class="personal-info">
@@ -36,12 +43,31 @@
   <div class="container-fluid">
     <div class="row">
       {%  for recipe in object.recipes.all %}
-      <a
-          href="{% url 'recipe' recipe_pk=recipe.pk %}"
-          >
         <div class="col-md-3 col-sm-4 col-6">
           <div class="thumbnail_container">
-            <img class="recipe-image" src="/{{recipe.image_url}}" />
+              <img class="recipe-image recipe-image-scale recipe-image-overlay" src="/{{recipe.image_url}}" />
+              <div class="overlay">
+                <div class="anchor-grid">
+                  <a href="{% url 'recipe' recipe_pk=recipe.pk %}">
+                    <div class="anchor-1"></div>
+                  </a>
+                  <a href="{% url 'recipe' recipe_pk=recipe.pk %}">
+                    <div class="anchor-2"></div>
+                  </a>
+                  <a href="{% url 'recipe' recipe_pk=recipe.pk %}">
+                    <div class="anchor-3"></div>
+                  </a>
+                  <div class="anchor-4">
+                    <a href="{% url 'new_recipe' user_pk=user.pk %}">
+                      <svg class="edit-svg">
+                        <use
+                          href="{% static 'site_img/logos/icons.svg' %}#edit-recipe"
+                        ></use>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
           </div>
           <a
             class="front-page-link"
@@ -49,7 +75,6 @@
             >{{recipe.name}}
           </a>
         </div>
-      </a>
       {% endfor %}
     </div>
   </div>

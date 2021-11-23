@@ -78,7 +78,7 @@ const renderRecipe = function (recipe) {
     >
     <div class="col-md-3 col-sm-4 col-6">
     <div class="thumbnail_container">
-      <img class="recipe-image" src="/${recipe.fields.image.slice(14)}" />
+      <img class="recipe-image recipe-image-scale" src="/${recipe.fields.image.slice(14)}" />
     </div>
     <a
       class="front-page-link"

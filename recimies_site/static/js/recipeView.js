@@ -18,6 +18,17 @@ const titleContainer2 = document.querySelector(".title-container2")
 console.log(titleContainer1, titleContainer2);
 
 
+
+
+
+
+
+
+
+
+
+
+
 const a = window.getComputedStyle(ing)['scroll-width']
 // const c = Object.freeze(a)
 console.log(window.innerHeight);
