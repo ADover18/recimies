@@ -11,10 +11,11 @@
 
 
   
-
-<div class="form-container">
-{% crispy form %}
-{{ingredient_form.management_form}}
+<div class="viewport-container">
+  <div class="form-container">
+    <p class="add-recipe-title section-title">Add Recipe</p>
+  {% crispy form %}
+  {{ingredient_form.management_form}}
     
     {%for form in ingredient_form%}
     {{ form.id|as_crispy_field }}
@@ -62,8 +63,8 @@
     </div>
     {% endfor %}
     <input formnovalidate id="submit-button" type="submit" class="btn btn-success btn-block" value="Save Recipe" />
-</div>
-     
+  </div>
+</div>  
  {% endif %} 
 
 {% endblock %}

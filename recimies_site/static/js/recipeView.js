@@ -58,7 +58,7 @@ console.log(ing.scrollHeight)
 // if(ingCol[1].hei)
 "resize load".split(" ").forEach(function(e){
   window.addEventListener(e, function(){
-    recipeImageContainer.style.height = `${window.innerHeight - ing.scrollHeight - 120}px`;
+    recipeImageContainer.style.height = `${window.innerHeight - ing.scrollHeight - 160}px`;
     recipeImageContainer.style.width = `${ingredientsContainer.scrollWidth}px`;
     if (methodCol.offsetWidth > 0.7*window.innerWidth){
       titleContainer2.style.display = "none";
