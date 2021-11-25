@@ -73,15 +73,15 @@ const recipeObserver = new IntersectionObserver(loadRecipe, {
 ///////////////////////// View /////////////////////////
 
 const renderRecipe = function (recipe) {
-  let html = `<a
+  let html = `<a class="recipe-card"
     href="${curLocation}recipe/${recipe.pk}"
     >
     <div class="col-md-3 col-sm-4 col-6">
-    <div class="thumbnail_container">
-      <img class="recipe-image recipe-image-scale" src="/${recipe.fields.image.slice(14)}" />
+    <div class="recipe-card__image-wrapper">
+      <img class="recipe-card__image recipe-card__image--scale" src="/${recipe.fields.image.slice(14)}" />
     </div>
     <a
-      class="front-page-link"
+      class="recipe-card__description"
       >${recipe.fields.name}<br><p style="color: #6c757d;">${recipe.fields.user}</p>
     </a>
     </div>

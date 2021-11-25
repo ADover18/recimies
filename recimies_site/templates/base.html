@@ -21,122 +21,93 @@
 
   </head>
   <body>
-    <div class="nav-container">
-      <nav class="my-nav-bar">
-        <svg class="main-logo">
-          <use href="{% static 'site_img/logos/icons.svg' %}#logo"></use>
-        </svg>
+    <nav class="nav-bar">
+      <svg class="nav-bar__logo">
+        <use href="{% static 'site_img/logos/icons.svg' %}#logo"></use>
+      </svg>
+      <form method="GET" action="{% url 'index' %}"class="nav-bar__search form-inline my-2 my-lg-0">
+        <input
+          id='search-box'
+          class="nav-bar__search-box form-control mr-sm-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+          name="q" 
+          value="{{ request.GET.q }}"
+        />
+        <input
+          class="nav-bar__search-btn button search-btn btn btn-outline-success my-2 my-sm-0"
+          type="submit"
+          value="Search"
+        >
+        </input>
+      </form>
+      <div class="nav-bar__sub-menu">
+        <a class="nav-bar__sub-menu-link" href="{% url 'index' %}">
+            <svg class="nav-bar__sub-menu-link-icon small-icon">
+              <use href="{% static 'site_img/logos/icons.svg' %}#home"></use>
+            </svg>
+            <p class="nav-bar__sub-menu-link-text">Home</p>
+        </a>
+        {% if user.is_authenticated %}
+        <a class="nav-bar__sub-menu-link" href="{% url 'usersearch' %}">
+              <svg class="nav-bar__sub-menu-link-icon small-icon">
+                <use
+                  href="{% static 'site_img/logos/icons.svg' %}#search"
+                ></use>
+              </svg>
+            <p class="nav-bar__sub-menu-link-text">Find Friends</p>
+        </a>
+        <a class="nav-bar__sub-menu-link" href="{% url 'new_recipe' user_pk=user.pk %}">
+              <svg class="nav-bar__sub-menu-link-icon small-icon">
+                <use
+                  href="{% static 'site_img/logos/icons.svg' %}#new-recipe"
+                ></use>
+              </svg>
+            <p class="nav-bar__sub-menu-link-text">Add Recipe</p>
+        </a>
+        <a class="nav-bar__sub-menu-link" href="{% url 'logout' %}">
+              <svg class="nav-bar__sub-menu-link-icon small-icon">
+                <use
+                  href="{% static 'site_img/logos/icons.svg' %}#log-out"
+                ></use>
+              </svg>
+            <p class="nav-bar__sub-menu-link-text">Log out</p>
+        </a>
+        <a class="nav-bar__sub-menu-link" href="{% url 'profile' user_pk=user.pk %}">
+            <image
+              class="nav-bar__sub-menu-link-icon small-icon"
+              src="{% static 'site_img/profile.png' %}"
+            ></image>
+            <p class="nav-bar__sub-menu-link-text">{{user}}</p>
+        </a>
+      </div>
+    </nav>
 
-        <form method="GET" action="{% url 'index' %}"class="search form-inline my-2 my-lg-0">
-          <input
-            id='search-box'
-            class="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-            name="q" 
-            value="{{ request.GET.q }}"
-          />
-          
-          <input
-            class="recipe-search button search-btn btn btn-outline-success my-2 my-sm-0"
-            type="submit"
-            value="Search"
-          >
-          </input>
-        </form>
-        <div class="icons">
-          <a href="{% url 'index' %}">
-            <div class="icon-block">
-              <div class="my-flex-container">
-                <svg class="my-icon">
-                  <use href="{% static 'site_img/logos/icons.svg' %}#home"></use>
-                </svg>
-              </div>
-              <p class="my-icon-text">Home</p>
-            </div>
-          </a>
-          {% if user.is_authenticated %}
-          <a href="{% url 'usersearch' %}">
-            <div class="icon-block">
-              <div class="my-flex-container">
-                <svg class="my-icon">
-                  <use
-                    href="{% static 'site_img/logos/icons.svg' %}#search"
-                  ></use>
-                </svg>
-              </div>
-              <p class="my-icon-text">Find Friends</p>
-            </div>
-          </a>
-          <a href="{% url 'new_recipe' user_pk=user.pk %}">
-            <div class="icon-block">
-              <div class="my-flex-container">
-                <svg class="my-icon">
-                  <use
-                    href="{% static 'site_img/logos/icons.svg' %}#new-recipe"
-                  ></use>
-                </svg>
-              </div>
-              <p class="my-icon-text">Add Recipe</p>
-            </div>
-          </a>
-          <a href="{% url 'logout' %}">
-            <div class="icon-block">
-              <div class="my-flex-container">
-                <svg class="my-icon">
-                  <use
-                    href="{% static 'site_img/logos/icons.svg' %}#log-out"
-                  ></use>
-                </svg>
-              </div>
-              <p class="my-icon-text">Log out</p>
-            </div>
-          </a>
-          <a href="{% url 'profile' user_pk=user.pk %}">
-            <div class="profile icon-block">
-              <div class="my-flex-container">
-                <image
-                  class="my-icon"
-                  src="{% static 'site_img/profile.png' %}"
-                ></image>
-              </div>
-              <p class="my-icon-text">{{user}}</p>
-            </div>
-          </a>
+
+
+
+  {% else %}
+        <div class="nav-bar__sub-menu-modal-link nav-bar__sub-menu-link ">
+            <svg class="nav-bar__sub-menu-link-icon small-icon">
+              <use
+                href="{% static 'site_img/logos/icons.svg' %}#log-in"
+              ></use>
+            </svg>
+          <p class="nav-bar__sub-menu-link-text">Log In/Register</p>
         </div>
-      </nav>
-    </div>
-    
-    
-
-    {% else %}
-          <!-- <a href="{% url 'register' %}"> -->
-            <div class="sign-in icon-block">
-              <div class="my-flex-container">
-                <svg class="my-icon">
-                  <use
-                    href="{% static 'site_img/logos/icons.svg' %}#log-in"
-                  ></use>
-                </svg>
-              </div>
-              <p class="my-icon-text">Log In/Register</p>
-            </div>
-          <!-- </a> -->
-        </div> 
-      </nav>
-    </div>
+      </div>
+    </nav>
     
     
     {% endif %}
 
     {% block content %}{% endblock %}
 
-    <div id="footer">
+    <div class="footer">
       <br/>
       <br/>
       <small>Copyright Alexandra Dover and James Stevenson {% now "Y" %} </small>
     </div>
-    </html>
-    </body>
-    </html>
+  </body>
+</html>

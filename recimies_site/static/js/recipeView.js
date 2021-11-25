@@ -54,6 +54,7 @@ console.log(ing.scrollHeight)
 // if(ingCol[1].hei)
 "resize load".split(" ").forEach(function(e){
   window.addEventListener(e, function(){
+    ingCol.style.columnCount = 2;
     recipeImageContainer.style.height = `${window.innerHeight - ing.scrollHeight - 160}px`;
     recipeImageContainer.style.width = `${ingredientsContainer.scrollWidth}px`;
     if (ingredientsContainer.scrollWidth + 42 + window.innerWidth*0.03 >window.innerWidth - 500){

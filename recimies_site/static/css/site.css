@@ -1,5 +1,22 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
 
+body{
+  box-sizing: border-box;
+}
 
+.sign-in-modal__content{
+  max-width: 25rem;
+}
+
+.register-modal__dialogue{
+  max-width: 60rem
+}
 /* The Modal (background) */
 
 .modal {
@@ -50,7 +67,7 @@
 
 /* Register nav button */
 
-.my-icon-text:hover{
+.nav-bar__sub-menu-link-text:hover{
   text-decoration: underline;
   cursor: pointer;
 }
@@ -107,33 +124,36 @@ svg {
 
 
 /* Navbar Elements */
-.nav-container {
+/* .nav-container {
   width: 100vw;
   background-color: #f8f9fa;
-}
+} */
 
-.my-nav-bar {
+.nav-bar {
   display: flex;
   flex-wrap: wrap;
+  width: 100vw;
+  background-color: #f8f9fa;
+  padding: 0.2rem;
 }
 
-.main-logo {
+.nav-bar__logo {
   height: 4.375rem;
   width: 13.875rem;
 }
 
-.icons {
+.nav-bar__sub-menu {
   margin-right: 0.625rem;
   display: flex;
   justify-content: space-evenly;
   width: 35%;
 }
-.search {
+.nav-bar__search {
   margin-right: auto !important;
   margin-left: auto !important;
 }
 
-#search-box {
+.nav-bar__search-box {
   width: 29vw !important;
   margin-right: 0.625rem;
 }
@@ -147,24 +167,25 @@ svg {
   padding: 0, 0.3125rem;
 }
 
-.my-icon {
+.small-icon {
   width: 1.875rem;
   height: 1.875rem;
 }
 
-.my-icon-text {
+.nav-bar__sub-menu-link-text {
   text-align: center;
   font-size: x-small;
   font-weight: 300;
   white-space: nowrap;
   color: black;
+  margin: 0;
 }
 
 .search-bar {
   margin-bottom: 0.625rem;
 }
 
-.search {
+.nav-bar__search {
   padding-left: 0.5%;
   min-width: 20.625rem;
   display: flex;
@@ -176,16 +197,26 @@ svg {
   margin-left: 0;
 }
 
+.nav-bar__sub-menu-link{
+  display: flex;
+  flex-direction: column;
+  padding: 0, 0.3125rem;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+
 /* at 970 px search bar drops to row 2. Icons width is increased again. search input box fills most of viewport width. Main logo and svgs stick to left and right of viewport */
 @media (max-width: 60.625rem) {
-  .icons {
+  .nav-bar__sub-menu {
     width: 55%;
     margin-left: auto !important;
   }
-  .search {
+  .nav-bar__search {
     order: 2;
   }
-  #search-box {
+  .nav-bar__search-box {
     width: 83vw !important;
     margin-right: 0.625rem;
     margin-left: 0.625rem;
@@ -198,20 +229,20 @@ svg {
 
 /* at 530 px. Svgs wrap onto next line and fill up viewport width. Remove search bars margin. Main logo svg fills viewport width so it is now center justified.  */
 @media (max-width: 33.125rem) {
-  .main-logo {
+  .nav-bar__logo {
     min-width: 90vw;
   }
-  .icons {
+  .nav-bar__sub-menu {
     width: 100vw;
   }
   .my-flex-container {
     /* margin-top: 0; */
     height: 1.875rem;
   }
-  .my-icon {
+  .nav-bar__sub-menu-link-icon {
     margin: 0;
   }
-  .search {
+  .nav-bar__search {
     margin: 0 !important;
     padding-left: 0;
   }
@@ -221,7 +252,7 @@ svg {
 /* recipe view */
 
 
-.viewport-container{
+.page-content{
   width:100vw;
   padding: 2.2vw;
 }
@@ -231,7 +262,7 @@ svg {
   width: 100%;
 }
 
-.front-page-link {
+.recipe-card__description {
   font-family: 'Roboto', sans-serif;
   font-size: 0.9rem;
   color:black;
@@ -240,25 +271,32 @@ svg {
   text-decoration: none;
   display: inline-block;
   width: 33vw;
-  
 }
+
+.recipe-card__description-name, 
+.recipe-card__description-author{
+  text-align: center;
+}
+
+
+
 
 .strapline {
   font-size: 1.6rem;
   margin-top: -2.3rem;
 }
 
-.recipe-image {
+.recipe-card__image {
   object-fit: cover;
 }
 
-.thumbnail_container:hover .recipe-image-scale{
+.recipe-card__image-wrapper:hover .recipe-card__image--scale{
   transition: .3s ease-in-out;
   transform: scale(1.1); 
 }
 
 
-.thumbnail_container{
+.recipe-card__image-wrapper{
   overflow: hidden;
 }
 
@@ -266,43 +304,43 @@ svg {
 
 /* When there are 4 recipes in a row */
 @media (min-width: 48rem) {
-  .recipe-image {
+  .recipe-card__image {
     width: 22.5vw;
     height: 22.5vw;
   }
-  .thumbnail_container {
+  .recipe-card__image-wrapper {
     height: 22.5vw;
     width: 22.5vw;
   }
-  .front-page-link {
+  .recipe-card__description {
     width: 22.5vw;
   }
 }
 /* When there are 3 recipes in a row */
 @media (max-width: 48rem) and (min-width: 36rem) {
-  .recipe-image {
+  .recipe-card__image {
     width: 29vw;
     height: 29vw;
   }
-  .thumbnail_container {
+  .recipe-card__image-wrapper {
     height: 29vw;
     width: 29vw;
   }
-  .front-page-link {
+  .recipe-card__description {
     width: 29vw;
   }
 }
 /* When there are 2 recipes in a row */
 @media (max-width: 36rem){
-  .recipe-image {
+  .recipe-card__image {
     width: 44vw;
     height: 44vw;
   }
-  .thumbnail_container {
+  .recipe-card__image-wrapper {
     height: 44vw;
     width: 44vw;
   }
-  .front-page-link {
+  .recipe-card__description {
     width: 44vw;
   }
 }

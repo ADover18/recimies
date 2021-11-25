@@ -1,9 +1,9 @@
 // Get the modal
-const logInModal = document.getElementById("signInModal");
+const logInModal = document.querySelector(".sign-in-modal");
 
 // Get the button that opens the logInModal
-const logInBtn = document.querySelector(".sign-in");
-
+const logInBtn = document.querySelector(".nav-bar__sub-menu-modal-link");
+console.log(logInBtn);
 // Get the <span> element that closes the logInModal
 const span = document.getElementsByClassName("close")[0];
 
@@ -16,7 +16,7 @@ const errors = document.querySelectorAll(".errorlist")
 //Get the username input field
 const usernameFields = document.getElementById("id_username")
 
-const navBar = document.querySelector(".my-nav-bar")
+const navBar = document.querySelector(".nav-bar")
 
 console.log(usernameFields);
 //Only show the logIn button on the index page
