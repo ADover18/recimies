@@ -15,12 +15,7 @@ const ing = document.getElementsByClassName("ingredients-list")[0]
 const ingCol = document.querySelector(".ingredient-column")
 const titleContainer1 = document.querySelector(".title-container1")
 const titleContainer2 = document.querySelector(".title-container2")
-console.log(titleContainer1, titleContainer2);
-
-
-
-
-
+console.log(ingredientsContainer.scrollWidth);
 
 
 
@@ -30,15 +25,16 @@ console.log(titleContainer1, titleContainer2);
 
 
 const a = window.getComputedStyle(ing)['scroll-width']
+// console.log(a)
 // const c = Object.freeze(a)
-console.log(window.innerHeight);
-console.log(ing.scrollHeight)
-console.log(ing);
-console.log(ing.scrollWidth)
-console.log(ingCol);
-console.log(ingCol.offsetWidth)
-console.log(ingredientsContainer)
-console.log(ingredientsContainer.scrollWidth);
+// console.log(window.innerHeight);
+// console.log(ing.scrollHeight)
+// console.log(ing);
+// console.log(ing.scrollWidth)
+// console.log(ingCol);
+// console.log(methodCol.offsetWidth)
+// console.log(ingredientsContainer)
+// console.log(ingredientsContainer.scrollWidth);
 
 // recipeImageContainer.style.height = `${window.innerHeight - ing.scrollHeight}px`
 // const b = Object.entries(a)
@@ -60,19 +56,27 @@ console.log(ing.scrollHeight)
   window.addEventListener(e, function(){
     recipeImageContainer.style.height = `${window.innerHeight - ing.scrollHeight - 160}px`;
     recipeImageContainer.style.width = `${ingredientsContainer.scrollWidth}px`;
+    if (ingredientsContainer.scrollWidth + 42 + window.innerWidth*0.03 >window.innerWidth - 500){
+      ingCol.style.columnCount = `${Math.floor(window.innerWidth/290)}`
+    }
+    if (ingredientsContainer.scrollWidth + 42 + window.innerWidth*0.03 <window.innerWidth - 500){
+      ingCol.style.columnCount = 2
+    }
     if (methodCol.offsetWidth > 0.7*window.innerWidth){
       titleContainer2.style.display = "none";
       titleContainer1.style.display = "block";
       recipeImageContainer.style.width = "90vw";
-      recipeImageContainer.style.maxHeight = "30vh"
-      recipeImageContainer.style.minHeight = "20vh"
+      recipeImageContainer.style.maxHeight = "30vh";
+      recipeImageContainer.style.minHeight = "20vh";
       ingCol.style.maxWidth = "90vw";
-        // ingCol.style.paddingLeft = "15px"
+      // ingCol.style.columnCount = `${Math.floor(window.innerWidth/290)}`
+      // console.log(Math.floor(window.innerWidth/290));
         // ingCol.style.paddingRight = "15px"
       verticalLine.style.display = "none";
     } else {
       titleContainer2.style.display = "block";
       titleContainer1.style.display = "none";
+      ingCol.style.maxWidth = "500px";
       // ingCol.forEach(col=> col.style.maxWidth = "210px")
       verticalLine.style.display = "block";
     }

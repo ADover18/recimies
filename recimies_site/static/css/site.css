@@ -1,11 +1,12 @@
 
 
 /* The Modal (background) */
+
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  padding-top: 6.26rem; /* Location of the box */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -27,8 +28,8 @@
 .modal-content {
   background-color: #fefefe;
   margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
+  padding: 1.25rem;
+  border: 0.0625rem solid #888;
   width: 80%;
 }
 
@@ -36,7 +37,7 @@
 .close {
   color: #aaaaaa;
   float: right;
-  font-size: 28px;
+  font-size: 1.75rem;
   font-weight: bold;
 }
 
@@ -62,23 +63,23 @@
   color: rgb(220, 53, 69);
   display: inline;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 12.8px;
+  font-size: 0.8rem;
   font-weight: 700;
 }
 
 .login-username-field,
 #id_password {
-    margin-bottom: 15px;
+    margin-bottom: 0.9375rem;
   }
 
-@media (min-width: 576px){
+@media (min-width:36rem){
   .login-username-field,
   input#id_password.textinput.textInput.form-control {
-    margin: 15px;
+    margin: 0.95rem;
   }
 
   #id_password {
-    margin-left: 19px;
+    margin-left: 1.18rem;
   }
 }
 
@@ -87,11 +88,11 @@
 }
 
 .form-group{
-  padding: 10px;
+  padding: 0.625rem;
 }
 
 #register-submit{
-  margin-top: 20px;
+  margin-top: 1.25rem;
 }
 
 
@@ -117,12 +118,12 @@ svg {
 }
 
 .main-logo {
-  height: 70px;
-  width: 222px;
+  height: 4.375rem;
+  width: 13.875rem;
 }
 
 .icons {
-  margin-right: 10px;
+  margin-right: 0.625rem;
   display: flex;
   justify-content: space-evenly;
   width: 35%;
@@ -134,21 +135,21 @@ svg {
 
 #search-box {
   width: 29vw !important;
-  margin-right: 10px;
+  margin-right: 0.625rem;
 }
 .my-flex-container {
   display: flex;
   justify-content: center;
-  margin-top: 15px;
+  margin-top: 0.9375rem;
 }
 
 .icon-block {
-  padding: 0, 5px;
+  padding: 0, 0.3125rem;
 }
 
 .my-icon {
-  width: 30px;
-  height: 30px;
+  width: 1.875rem;
+  height: 1.875rem;
 }
 
 .my-icon-text {
@@ -160,12 +161,12 @@ svg {
 }
 
 .search-bar {
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 .search {
   padding-left: 0.5%;
-  min-width: 330px;
+  min-width: 20.625rem;
   display: flex;
   flex-wrap: nowrap;
 }
@@ -176,7 +177,7 @@ svg {
 }
 
 /* at 970 px search bar drops to row 2. Icons width is increased again. search input box fills most of viewport width. Main logo and svgs stick to left and right of viewport */
-@media (max-width: 970px) {
+@media (max-width: 60.625rem) {
   .icons {
     width: 55%;
     margin-left: auto !important;
@@ -186,17 +187,17 @@ svg {
   }
   #search-box {
     width: 83vw !important;
-    margin-right: 10px;
-    margin-left: 10px;
+    margin-right: 0.625rem;
+    margin-left: 0.625rem;
   }
   .search-btn {
-    margin: 10px;
+    margin: 0.625rem;
   }
 }
 /* at 800 px. Search bar drops to row 2. Icons width is increased again. search input box fills most of viewport width. Main logo and svgs stick to left and right of viewport */
 
 /* at 530 px. Svgs wrap onto next line and fill up viewport width. Remove search bars margin. Main logo svg fills viewport width so it is now center justified.  */
-@media (max-width: 530px) {
+@media (max-width: 33.125rem) {
   .main-logo {
     min-width: 90vw;
   }
@@ -205,7 +206,7 @@ svg {
   }
   .my-flex-container {
     /* margin-top: 0; */
-    height: 30px;
+    height: 1.875rem;
   }
   .my-icon {
     margin: 0;
@@ -222,19 +223,19 @@ svg {
 
 .viewport-container{
   width:100vw;
-  padding: 20px;
+  padding: 2.2vw;
 }
 
 .container-fluid {
-  /* padding: 1rem; */
+  padding: 0;
   width: 100%;
 }
 
 .front-page-link {
   font-family: 'Roboto', sans-serif;
-  
+  font-size: 0.9rem;
   color:black;
-  padding: 10px 0;
+  padding: 0.625rem 0;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -264,7 +265,7 @@ svg {
 
 
 /* When there are 4 recipes in a row */
-@media (min-width: 767px) {
+@media (min-width: 48rem) {
   .recipe-image {
     width: 22.5vw;
     height: 22.5vw;
@@ -278,7 +279,7 @@ svg {
   }
 }
 /* When there are 3 recipes in a row */
-@media (max-width: 767px) and (min-width: 575px) {
+@media (max-width: 48rem) and (min-width: 36rem) {
   .recipe-image {
     width: 29vw;
     height: 29vw;
@@ -292,7 +293,7 @@ svg {
   }
 }
 /* When there are 2 recipes in a row */
-@media (max-width: 575px){
+@media (max-width: 36rem){
   .recipe-image {
     width: 44vw;
     height: 44vw;
@@ -307,22 +308,22 @@ svg {
 }
 
 /* Recipe Form */
-@media (max-width: 600px){
+@media (max-width: 37.5rem){
   .requiredField[for="id_serves"] {
-  /* font-size: 10px; */
-  margin-left: -20px;
+  /* font-size: 0.625rem; */
+  margin-left: -1.25rem;
   }
 }
 
 .requiredField[for="id_cooking_time_units"],
 .requiredField[for="id_prep_time_units"] {
-  /* font-size: 10px; */
+  /* font-size: 0.625rem; */
   color: white;
   }
 
 
 .add-recipe-title{
-  padding-left: 10px;
+  padding-left: 0.625rem;
 } 
 
 
@@ -332,28 +333,28 @@ svg {
 
 
 textarea.form-control {
-  height: 60px;
+  height: 3.75rem;
 }
 
 .form-container {
-  margin:30px;
+  margin:1.875rem;
 }
 
 /* .ingredient-form{
-  padding-top:20px;
+  padding-top:1.25rem;
 } */
 
 [for=id_direction-0-direction]{
-  margin-top:20px;
+  margin-top:1.25rem;
 }
 
 .form-row,
 #div_id_image {
-  padding-bottom: 20px;
+  padding-bottom: 1.25rem;
 }
 
 .ingredient-form {
-  padding-bottom: 5px;
+  padding-bottom: 0.3125rem;
 }
 
 .invalid-feedback{
@@ -366,18 +367,18 @@ textarea.form-control {
   
   
   margin-bottom: 0 !important;
-  width: 140px;
-  /* margin-top: 10px;
-  font-size: 15px;
+  width: 8.75rem;
+  /* margin-top: 0.625rem;
+  font-size: 0.9375rem;
   height: 40px; */
 }
 
 #add-direction {
-  margin-top: 5px !important;
+  margin-top: 0.3125rem !important;
 }
 
 .method-form-title{
-  margin-top: 20px;
+  margin-top: 1.25rem;
   margin-bottom: 0;
 }
 
@@ -395,7 +396,7 @@ textarea.form-control {
 }
 
 .form-group.col-10 {
-  margin-top: 10px;
+  margin-top: 0.625rem;
 }
 
 
@@ -406,22 +407,22 @@ textarea.form-control {
   align-content: center;
 }
 
-@media (min-width: 500px) {
+@media (min-width: 31.25rem) {
   .add-form,
   .delete-form{
-      width: 37px;
-      flex: 37px;
-      max-width: 37px;
+      width: 2.3125rem;
+      flex: 2.3125rem;
+      max-width: 2.3125rem;
   }
   .ing-field{
-    width: calc(58% - 37px);
-    flex: calc(58% - 37px);
-    max-width: calc(58% - 37px);
+    width: calc(58% - 2.3125rem);
+    flex: calc(58% - 2.3125rem);
+    max-width: calc(58% - 2.3125rem);
   }
   .dir-field{
-    width: calc(87% - 37px);
-    flex: calc(87% - 37px);
-    max-width: calc(87% - 37px);
+    width: calc(87% - 2.3125rem);
+    flex: calc(87% - 2.3125rem);
+    max-width: calc(87% - 2.3125rem);
   }
 }
 
@@ -433,9 +434,9 @@ textarea.form-control {
 
 .bin-btn,
 .add-btn {
-  height: 23px;
+  height: 1.4375rem;
   padding: 0;
-  width: 23px;
+  width: 1.4375rem;
 }
 
 .bin-btn {
@@ -444,7 +445,7 @@ textarea.form-control {
 
 .ing-bin,
 .ing-add {
-  margin-top: 30px;
+  margin-top: 1.875rem;
 }
 
 .number-step {
@@ -463,8 +464,8 @@ textarea.form-control {
 
 .title-container{
   /* text-align: center; */
-  margin: 20px;
-  margin-bottom: 40px;
+  margin: 1.25rem;
+  margin-bottom: 2.5rem;
 }
 
 .title-container1{
@@ -473,37 +474,37 @@ textarea.form-control {
 
 .recipe-title{
   font-family: 'Encode Sans Condensed', sans-serif; 
-  font-size: 60px;
+  font-size: 3.75rem;
   color: #24323F;
-  margin-bottom: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-top: -17px;
+  margin-bottom: 1.25rem;
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+  margin-top: -1.0625rem;
   font-weight: 500;
 
 }
 .recipe-info-outer{
-  margin-bottom: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-top: -10px;
+  margin-bottom: 1.25rem;
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+  margin-top: -0.625rem;
 }
 
 .row-container{
-  /* width: 500px; */
+  /* width: 31.25rem; */
   flex: 4;
   flex-grow: 4;
-  min-width: 500px;
-  /* margin-left: 20px; */
+  min-width: 31.25rem;
+  /* margin-left: 1.25rem; */
   
 }
 
 .ingredients-list{
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 .ingredients-title {
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 .ingredient-container {
@@ -512,11 +513,11 @@ textarea.form-control {
 
 .ingredient-column {
   column-count: 2;
-  padding: 0px 10px;
-  max-width: 500px;
+  padding: 0 0.625rem;
+  max-width: 31.25rem;
 }
 
-@media (max-width: 550px){
+@media (max-width: 34.375rem){
   .ingredient-column {
     column-count: 1;
   }
@@ -532,7 +533,6 @@ textarea.form-control {
   justify-content: space-between;
   max-width: 100vw;
   font-family: 'Roboto', sans-serif;
-  margin: 20px;
   /* color:rgb(33, 37, 41) */
 }
 
@@ -545,7 +545,7 @@ textarea.form-control {
   display: flex;
   flex-direction: row;
   /* width: 50%; */
-  margin-bottom: 30px;
+  margin-bottom: 1.875rem;
 }
 
 .recipe-main-image{
@@ -566,18 +566,18 @@ textarea.form-control {
 .recipe-info-text{
   align-self:center;
   margin-bottom: 0;
-  margin-left: 7px;
-  margin-right: 15px;
+  margin-left: 0.4375rem;
+  margin-right: 0.9375rem;
 }
 
 
-@media (max-width: 550px){
+@media (max-width: 34.375rem){
   .recipe-info-outer{
     display:block
   }
   .ingredients,
   .method-container {
-    margin-left: 20px;
+    margin-left: 1.25rem;
   }
   
 }
@@ -586,18 +586,18 @@ hr {
   border-color: #727976;
   color: #727976;
   border-top-color: #727976;
-  border-radius: 1px;
-  border-top: 2px solid #727976;
+  border-radius: 0.0625rem;
+  border-top: 0.125rem solid #727976;
   }
 
 .vl {
-  border-left: 2px solid #727976;
+  border-left: 0.125rem solid #727976;
   height: 80vh;
-  margin: 20px;
+  margin: 1.25rem;
 }
 
 .method-title {
-  padding-bottom: 15px;
+  padding-bottom: 0.9375rem;
 }
 
 
@@ -619,7 +619,7 @@ hr {
 
 .section-title{
   font-weight: 500; 
-  font-size: 30px;
+  font-size: 1.875rem;
 }
 
 .currently-following-title,
@@ -631,10 +631,10 @@ hr {
 .profile-container{
   align-items: center;
   display: flex;
-  margin: 5px;
-  padding: 5px;
+  margin: 0.3125rem;
+  padding: 0.3125rem;
   background: #f7f7f7;
-  border-radius: 10px
+  border-radius: 0.625rem
 }
 
 .form-contents{
@@ -643,21 +643,21 @@ hr {
 }
 
 .find-friend-input{
-  margin-right: 20px;
+  margin-right: 1.25rem;
 }
 
 .profile-icon {
-  width: 55px;
-  height: 55px;
+  width: 3.5rem;
+  height: 3.5rem;
 }
 
 .profile-name-container{
-  min-width: 90px;
-  padding-left: 10px;
+  min-width: 5.625rem;
+  padding-left: 0.625rem;
 }
 
 .follow-btn-container{
-  margin-right:10px;
+  margin-right:0.625rem;
   margin-left: auto;
 }
 
@@ -666,7 +666,7 @@ hr {
 /* Profile page */
 
 .profile-page-container{
-  margin:20px;
+  margin:1.25rem;
 }
 
 .profile-header{
@@ -678,21 +678,21 @@ hr {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 10px;
+  padding: 0.625rem;
 }
 .my-profile-icon{
-  width:150px;
-  height: 150px;
+  width:9.375rem;
+  height: 9.375rem;
 }
 
 .my-username{
   font-weight: 500; 
-  font-size: 20px;
+  font-size: 1.25rem;
   text-align: center;
 }
 
 .currently-following{
-  padding-left: 70px;
+  padding-left: 4.375rem;
 }
 
 .container-overlay{
@@ -729,17 +729,26 @@ hr {
 .anchor-1{
   grid-area: header;
   width: 100%;
-  height: 10%;
+  height: 100%;
 }
 
 .anchor-2{
   grid-area: header;
-  width: 75%;
-  height: 25%;
+  width: 100%;
+  height: 100%;
+}
+
+.anchor-3{
+  grid-area: big-footer;
+  width: 100%;
+  height: 100%;
 }
 
 .anchor-4{
   grid-area: footer;
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .edit-svg{
