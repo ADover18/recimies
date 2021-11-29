@@ -124,10 +124,13 @@ svg {
 
 
 /* Navbar Elements */
-/* .nav-container {
-  width: 100vw;
-  background-color: #f8f9fa;
-} */
+
+
+.nav-bar__logo, 
+.nav-bar__sub-menu {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
 
 .nav-bar {
   display: flex;
@@ -179,10 +182,6 @@ svg {
   white-space: nowrap;
   color: black;
   margin: 0;
-}
-
-.search-bar {
-  margin-bottom: 0.625rem;
 }
 
 .nav-bar__search {
@@ -499,7 +498,6 @@ textarea.form-control {
 }
 
 
-
 .title-container{
   /* text-align: center; */
   margin: 1.25rem;
@@ -512,7 +510,7 @@ textarea.form-control {
 
 .recipe-title{
   font-family: 'Encode Sans Condensed', sans-serif; 
-  font-size: 3.75rem;
+  font-size: 3rem;
   color: #24323F;
   margin-bottom: 1.25rem;
   margin-left: 1.25rem;
@@ -528,6 +526,7 @@ textarea.form-control {
   margin-top: -0.625rem;
 }
 
+
 .row-container{
   /* width: 31.25rem; */
   flex: 4;
@@ -538,7 +537,7 @@ textarea.form-control {
 }
 
 .ingredients-list{
-  margin-bottom: 1.25rem;
+  margin-bottom: 2rem;
 }
 
 .ingredients-title {
@@ -550,7 +549,7 @@ textarea.form-control {
 }
 
 .ingredient-column {
-  column-count: 2;
+  /* column-count: 2; */
   padding: 0 0.625rem;
   max-width: 31.25rem;
 }
@@ -576,6 +575,7 @@ textarea.form-control {
 
 .recipe-row-flex-container{
   display:block;
+  height:max-content;
   /* height: 100vh; */
 }
 
@@ -584,6 +584,9 @@ textarea.form-control {
   flex-direction: row;
   /* width: 50%; */
   margin-bottom: 1.875rem;
+  min-height: 12rem;
+  /* position:sticky;
+  top: 30px; */
 }
 
 .recipe-main-image{
@@ -591,7 +594,9 @@ textarea.form-control {
   flex: 1;
   margin-right: 1rem;
   overflow: hidden;
+  min-height: 12rem;
 }
+
 
 
 .recipe-info{
@@ -613,11 +618,6 @@ textarea.form-control {
   .recipe-info-outer{
     display:block
   }
-  .ingredients,
-  .method-container {
-    margin-left: 1.25rem;
-  }
-  
 }
 
 hr {
@@ -632,12 +632,13 @@ hr {
   border-left: 0.125rem solid #727976;
   height: 80vh;
   margin: 1.25rem;
+  position: sticky;
+  top: 30px;
 }
 
 .method-title {
   padding-bottom: 0.9375rem;
 }
-
 
   
   .method-step{
@@ -655,14 +656,36 @@ hr {
 
 /* Find Friends */
 
+.page-content--find-friends{
+  background-color: #fff;
+  overflow: auto;
+}
+
+.find-friends{
+  max-width: 35rem;
+  margin: 1.2rem auto;
+  border: 1px;
+  border-radius: 1px;
+  padding: 5px 20px;
+  /* background-color: #f7f7f7; */
+  box-shadow: 20px 20px 50px grey;
+}
+
+.find-friends__title,
+.find-friends__search,
+.find-friends__user-list{
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+
 .section-title{
   font-weight: 500; 
   font-size: 1.875rem;
 }
 
 .currently-following-title,
-.my-recipes-title,
-.find-friends-title{
+.my-recipes-title {
   margin-bottom: 0;
 }
 
@@ -675,7 +698,7 @@ hr {
   border-radius: 0.625rem
 }
 
-.form-contents{
+.find-friends__search{
   display: flex;
   align-items: center;
 }

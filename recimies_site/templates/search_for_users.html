@@ -2,51 +2,47 @@
 {% load static %}
 {% block title %}Recimies: Search for Users{% endblock %}
 {% block content %}
-<div class="page-content">
-  <p class="section-title find-friends-title">Find Friends</p>
-  <div class="searchbar">
-    <form method="GET">
-      <div class="form-contents">
+<div class="page-content--find-friends">
+  <div class="find-friends">
+    <p class="find-friends__title section-title">Find Friends</p>
+    <form class="find-friends__search" method="GET">
         <input type="text" class=" find-friend-input form-control" name="q" value="{{ request.GET.q }}" />
         <input class="button btn btn-outline-success my-2 my-sm-0" type="submit" value="Search Profile" />
-      </div>
     </form>
-  </div>
-
-  <div class="container-fluid">
-    <div class="row">
-      {% for otheruser in object_list %}
-      <!-- list of user links -->
-      {% if user.username != otheruser.username %}
-      <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-        <div class="profile-container">
-          <div class="profile-pic-container">
-            <image class="profile-icon" src="{% static 'site_img/profile.png' %}">
-            </image>
-          </div>
-          <div class="profile-name-container">
-            {{otheruser}} 
-          </div>
-          <div class="follow-btn-container">
-            {% if otheruser not in friends %}
-              <form action="#" method="POST">
-                {%csrf_token%}
-                <button type="submit" class="btn btn-outline-primary" value="{{otheruser.pk}}" name="addfriend">Follow</button>
-              </form>
-            {% endif %}
-            {% if otheruser in friends %}
-              <form action="#" method="POST">
-                {%csrf_token%}
-                <button type="submit" class="btn btn-outline-primary" value="{{otheruser.pk}}" name="removefriend">Unfollow</button>
-              </form>
-            {% endif %}
+    <div class="find-friends__user-list container-fluid">
+      <div class="row">
+        {% for otheruser in object_list %}
+        <!-- list of user links -->
+        {% if user.username != otheruser.username %}
+        <div class="col-12">
+          <div class="profile-container">
+            <div class="profile-pic-container">
+              <image class="profile-icon" src="{% static 'site_img/profile.png' %}">
+              </image>
+            </div>
+            <div class="profile-name-container">
+              {{otheruser}} 
+            </div>
+            <div class="follow-btn-container">
+              {% if otheruser not in friends %}
+                <form action="#" method="POST">
+                  {%csrf_token%}
+                  <button type="submit" class="btn btn-outline-primary" value="{{otheruser.pk}}" name="addfriend">Follow</button>
+                </form>
+              {% endif %}
+              {% if otheruser in friends %}
+                <form action="#" method="POST">
+                  {%csrf_token%}
+                  <button type="submit" class="btn btn-outline-primary" value="{{otheruser.pk}}" name="removefriend">Unfollow</button>
+                </form>
+              {% endif %}
+            </div>
           </div>
         </div>
+        {% endif %}
+        {% endfor %}
       </div>
-      {% endif %}
-      {% endfor %}
     </div>
   </div>
-  
 </div>
 {% endblock %}
