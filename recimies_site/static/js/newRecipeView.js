@@ -19,7 +19,7 @@ const initialIdVal = {
 
 const addFormElToCrispyForm = () =>
   [...formElementsContainer.children]
-    .slice(1)
+    .slice(2)
     .forEach(formEl => crispyForm.appendChild(formEl));
 
 const numberDirectionSteps = function () {

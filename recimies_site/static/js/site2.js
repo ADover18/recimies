@@ -35,7 +35,7 @@ const getRecipes = async function () {
 const processData = async function () {
   try {
     const data = await getRecipes();
-    data.friends_recipes ? recipeData = [...JSON.parse(data.friends_recipes), ...JSON.parse(data.other_recipes)] : recipeData = JSON.parse(data.recipes);
+    recipeData = data.friends_recipes ?  [...JSON.parse(data.friends_recipes), ...JSON.parse(data.other_recipes)] : JSON.parse(data.recipes);
     if (searchBox.value) recipeData = recipeData.filter(recipe=> recipe.fields.name.toLowerCase().includes(searchBox.value.toLowerCase()))
     console.log(recipeData)
     recipeData.slice(0, 8).forEach(recipe => {
