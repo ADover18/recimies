@@ -32,11 +32,6 @@ class IngredientForm(forms.ModelForm):
         model = Ingredient
         fields = ['ingredient', 'quantity', 'unit']
 
-    # def __init__(self, *args, **kwargs):
-    #     self.fields = ['ingredient', 'quantity', 'unit']
-    #     self.helper = FormHelper(self)
-    #     self.helper.render_hidden_fields = True
-
         
 IngredientFormSet = forms.inlineformset_factory(Recipe, Ingredient, form=IngredientForm, extra=1, can_delete=True)
 
@@ -79,8 +74,8 @@ class RecipeForm(ModelForm):
         self.helper.render_hidden_fields = True
         self.helper.layout = Layout(
             Div(
-                Div('name', css_class="col-10"), 
-                Div('serves', css_class="col-2"), css_class="form-row"
+                Div('name', css_class="col-9"), 
+                Div('serves', css_class="col-3"), css_class="form-row"
             ),
             Div(
                 Div('cooking_time', css_class="col-6"),

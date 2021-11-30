@@ -55,20 +55,28 @@ def recipes_endpoint(request):
         return JsonResponse(recipe_list)
 
 
-class ProfileView(UserPassesTestMixin, DetailView):
+class ProfileView(DetailView):
     model = RecimieUser
     template_name = 'profile.html'
 
-    def test_func(self):
-        url = self.request.build_absolute_uri()
-        url_root = self.request.build_absolute_uri('/')
-        user_pk = RecimieUser.objects.get(username=self.request.user.username).pk
-        return url[len(url_root)+8:] == str(user_pk)
+    # def test_func(self):
+    #     url = self.request.build_absolute_uri()
+    #     url_root = self.request.build_absolute_uri('/')
+    #     user_pk = RecimieUser.objects.get(username=self.request.user.username).pk
+    #     return url[len(url_root)+8:] == str(user_pk)
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileView, self).get_context_data(**kwargs)
+        followers = RecimieUser.objects.filter(friends=self.object.pk)
+
+        context['followers'] = followers
+        return context
 
     def get_object(self, **kwargs):
         user_pk = self.kwargs['user_pk']
         object = RecimieUser.objects.get(pk=user_pk)
         return object
+
 
 
 class RegisterView(CreateView):
@@ -177,20 +185,14 @@ class NewRecipeView(UserPassesTestMixin, CreateView):
         return kwargs
     
 
-class RecipeUpdate(UpdateView):
+class RecipeUpdate(UserPassesTestMixin, UpdateView):
     model = Recipe 
     template_name = "recipe_form.html"
     form_class = RecipeForm
     success_url = reverse_lazy('index')
 
-    # def get_object(self, **kwargs):
-    #     object = Recipe.objects.get(pk=self.kwargs['pk'])
-    #     return object
-
-    # def get_form_kwargs(self):
-    #     kwargs = super(RecipeUpdate, self).get_form_kwargs()
-    #     kwargs['user_pk'] = self.request.user.pk
-    #     return kwargs
+    def test_func(self):
+        return self.get_object().user.username == self.request.user.username
 
 
     def get(self, request, *args, **kwargs):

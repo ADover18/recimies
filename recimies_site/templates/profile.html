@@ -6,72 +6,72 @@
       <!-- <use
         href="{% static 'site_img/logos/icons.svg' %}#view"
       ></use> -->
-
-
 <div class="page-content">
   <div class="profile-page-container">
     <div class="profile-header">
       <div class="personal-info">
         <image class="my-profile-icon" src="{% static 'site_img/profile.png' %}"></image>
-        <p class="my-username">{{user}}</p>
+        <p class="my-username">{{object}}</p>
       </div>
-      <div class="currently-following">
-        <p class="section-title currently-following-title"> Following</p>
-        <div class="container-fluid">
-          <div class="row">
-            {% for friend in object.friends.all %}
-            <!-- list of user links -->
-            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
-              <div class="profile-container">
-                <div class="profile-pic-container">
-                  <image class="profile-icon" src="{% static 'site_img/profile.png' %}">
-                  </image>
-                </div>
-                <div class="profile-name-container">
-                  {{friend}} 
-                </div>
-              </div>
-            </div>
-            {% endfor %}
-          </div>
-        </div>
+      <div class="personal-info">
+        <p>{{object.recipes.all.count}} Recipes</p>
+        <p>{{object.friends.all.count}} Following</p>
+        <p>{{followers.count}} Followers</p>
       </div>
     </div>
-    <p class="section-title my-recipes-title">My Recipes</p>
+  </div>
+  <p>Following</p>
+  <div class="following-container">
+    {% for friend in object.friends.all %}
+    <div class="profile-pic-container">
+      <image class="profile-icon" src="{% static 'site_img/profile.png' %}">
+      </image>
+      <div class="profile-name-container">
+        {{friend}} 
+      </div>
+    </div>
+    {% endfor %}
   </div>   
   <div class="recipes-grid container-fluid">
     <div class="row">
       {%  for recipe in object.recipes.all %}
         <div class="recipe-card col-md-3 col-sm-4 col-6">
-          <div class="recipe-card__image-wrapper container-overlay">
-            <img class="recipe-card__image recipe-card__image--scale" src="/{{recipe.image_url}}" />            
-            <div class="anchor-grid">
-              <a href="{% url 'recipe' recipe_pk=recipe.pk %}">
-                <div class="anchor-1"></div>
-              </a>
-              <a href="{% url 'recipe' recipe_pk=recipe.pk %}">
-                <div class="anchor-2"></div>
-              </a>
-              <a href="{% url 'recipe' recipe_pk=recipe.pk %}">
-                <div class="anchor-3"></div>
-              </a>
-              <div class="anchor-4">
-                <a href="{% url 'edit_recipe' user_pk=user.pk pk=recipe.pk %}">
-                  <svg class="edit-svg edit-grey">
-                    <use
-                      href="{% static 'site_img/logos/icons.svg' %}#edit-recipe-grey"
-                    ></use>
-                  </svg>
-                  <svg class="edit-svg edit-white">
-                    <use
-                      href="{% static 'site_img/logos/icons.svg' %}#edit-recipe-white"
-                    ></use>
-                  </svg>
+          {% if object.username == user.username %}
+            <div class="recipe-card__image-wrapper container-overlay">
+              <img class="recipe-card__image recipe-card__image--scale" src="/{{recipe.image_url}}" />            
+              <div class="anchor-grid">
+                <a href="{% url 'recipe' recipe_pk=recipe.pk %}">
+                  <div class="anchor-1"></div>
                 </a>
-              </div>
+                <a href="{% url 'recipe' recipe_pk=recipe.pk %}">
+                  <div class="anchor-2"></div>
+                </a>
+                <a href="{% url 'recipe' recipe_pk=recipe.pk %}">
+                  <div class="anchor-3"></div>
+                </a>
+                <div class="anchor-4">
+                  <a href="{% url 'edit_recipe' user_pk=user.pk pk=recipe.pk %}">
+                    <svg class="edit-svg edit-grey">
+                      <use
+                        href="{% static 'site_img/logos/icons.svg' %}#edit-recipe-grey"
+                      ></use>
+                    </svg>
+                    <svg class="edit-svg edit-white">
+                      <use
+                        href="{% static 'site_img/logos/icons.svg' %}#edit-recipe-white"
+                      ></use>
+                    </svg>
+                  </a>
+                </div>
+              </div>              
             </div>
-              
-          </div>
+          {% else %}
+            <div class="recipe-card__image-wrapper">
+              <a href="{% url 'recipe' recipe_pk=recipe.pk %}">
+                <img class="recipe-card__image recipe-card__image--scale" src="/{{recipe.image_url}}" />
+              </a>
+            </div> 
+          {% endif %}
           <a
             class="recipe-card__description"
             
@@ -82,5 +82,6 @@
     </div>
   </div>
 </div>
+
 {% endblock %}
 

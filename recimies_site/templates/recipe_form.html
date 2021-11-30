@@ -10,23 +10,27 @@
 {% if user.is_authenticated %}
 
 
-  
+ 
 <div class="page-content">
   <div class="form-container">
+    {% if recipe.name %}
+      <p class="add-recipe-title section-title">Edit Recipe</p>
+    {% else %}
     <p class="add-recipe-title section-title">Add Recipe</p>
+    {% endif %}
   {% crispy form %}
   {{ingredient_form.management_form}}
     
     {%for form in ingredient_form%}
     {{ form.id|as_crispy_field }}
     <div class="ingredients ingredient-form form-row">
-      <div class="form-group col-6 ing-field ing-input">
+      <div class="form-group col-6 ing-field ing-input ing-input--ingredient">
       {{form.ingredient|as_crispy_field}}
       </div>
-      <div class="form-group col-2 ing-input">
+      <div class="form-group col-2 ing-input ing-input--quantity">
       {{form.quantity|as_crispy_field}}
       </div>
-      <div class="form-group col-2 ing-input">
+      <div class="form-group col-2 ing-input ing-input--unit">
       {{form.unit|as_crispy_field}}
       </div>
       <div class="col-1 delete-form">
