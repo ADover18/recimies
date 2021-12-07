@@ -1,38 +1,89 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block title %}Recimies: Profile{% endblock %}
+{% block script %}<script defer src="{% static 'js/profileView.js'%}"></script>{% endblock %}
 {% block content %}
-
+{{recimieuser.image}}
       <!-- <use
         href="{% static 'site_img/logos/icons.svg' %}#view"
       ></use> -->
+
 <div class="page-content">
-  <div class="profile-page-container">
-    <div class="profile-header">
-      <div class="personal-info">
-        <image class="my-profile-icon" src="{% static 'site_img/profile.png' %}"></image>
-        <p class="my-username">{{object}}</p>
-      </div>
-      <div class="personal-info">
-        <p>{{object.recipes.all.count}} Recipes</p>
-        <p>{{object.friends.all.count}} Following</p>
-        <p>{{followers.count}} Followers</p>
+  <!-- <div id="registerModal" class="register-modal modal" tabindex="-1" role="dialog">
+    <div class="register-modal__dialogue modal-dialog" role="document">
+      Modal content
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Profile</h5>
+          <a href="{% url 'index' %}">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </a>
+        </div>
+        <div class="modal-body">
+            {% crispy form %}
+            <input class="btn btn-success" id="register-submit" type="submit" value="submit" style="width: 100%"/>
+        </div>
       </div>
     </div>
+  </div> -->
+  <div class="profile-wrapper">
+    <div class="profile">
+      <p class="profile__full-name">{{object.get_full_name}}</p>
+      <div class="profile__info">
+        <div class="profile__info-text">
+          <p>{{object.description|linebreaks}}</p>
+          <div class="profile__username-row">
+            <p class="profile__username"><em>{{object.username}}</em></p>
+            <button type="button" class="profile__edit-btn btn btn-outline-secondary">Edit Profile</button>
+          </div>
+          
+          <div class="profile__info-stats">
+            <p><b>{{object.recipes.all.count}}</b> Recipes&nbsp&nbsp&nbsp</p>
+            <p><b>{{object.profile.followers.all.count}}00</b> Following&nbsp&nbsp&nbsp<b>{{followers.count}}00</b> Followers</p>
+          </div>
+        </div> 
+      </div>
+    </div>
+    <image class="profile__info-image" src="/{{object.profile.image_url}}"></image>
   </div>
-  <p>Following</p>
-  <div class="following-container">
-    {% for friend in object.friends.all %}
-    <div class="profile-pic-container">
-      <image class="profile-icon" src="{% static 'site_img/profile.png' %}">
-      </image>
-      <div class="profile-name-container">
-        {{friend}} 
-      </div>
-    </div>
-    {% endfor %}
-  </div>   
-  <div class="recipes-grid container-fluid">
+  <div class="following">
+    <p class="following__title">Following</p>
+    <div class="following__container">
+      {% for following in object.profile.followers.all %}
+      <a href="{% url 'profile' user_id=following.id %}">
+        <div class="profile-pic-container">
+          {% if following.image %}
+            <image class="profile-icon" src="/{{friend.image_url}}">
+            </image>
+          {% else %}
+            <image class="profile-icon" src="{% static 'site_img/profile.png' %}">
+            </image>
+          {% endif %}
+          <div class="profile-name-container--profile">
+            {{following}} 
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>   
+    <svg class="left-arrow" xmlns="http://www.w3.org/2000/svg" width="48px" height="48px" viewBox="0 0 48 48" fill="none">
+      <rect width="48" height="48" fill="grey" fill-opacity="0.01"/>
+      <path d="M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44Z" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M27 33L18 24L27 15" stroke="grey" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <svg class="right-arrow" xmlns="http://www.w3.org/2000/svg" width="48px" height="48px" viewBox="0 0 48 48" fill="none">
+      <rect width="48" height="48" fill="grey" fill-opacity="0.01"/>
+      <path d="M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44Z" fill="white" stroke="white" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M21 33L30 24L21 15" stroke="grey" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    <!-- <p class="left-arrow"><</p>
+    <p class="right-arrow">></p> -->
+  </div>
+  
+  <div class=" recipes-grid recipes-grid--profile container-fluid">
     <div class="row">
       {%  for recipe in object.recipes.all %}
         <div class="recipe-card col-md-3 col-sm-4 col-6">
@@ -50,7 +101,7 @@
                   <div class="anchor-3"></div>
                 </a>
                 <div class="anchor-4">
-                  <a href="{% url 'edit_recipe' user_pk=user.pk pk=recipe.pk %}">
+                  <a href="{% url 'edit_recipe' user_id=user.id pk=recipe.pk %}">
                     <svg class="edit-svg edit-grey">
                       <use
                         href="{% static 'site_img/logos/icons.svg' %}#edit-recipe-grey"

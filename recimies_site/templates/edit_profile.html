@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Recimies: Profile{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+      <!-- <use
+        href="{% static 'site_img/logos/icons.svg' %}#view"
+      ></use> -->
+<div class="page-content">
+  <form method="post" class="register-form" style="display: block;">
+    {% csrf_token %}
+    {{form.image|as_crispy_field}}
+
+    {{form.first_name|as_crispy_field}}
+    
+    {{form.last_name|as_crispy_field}}
+    
+    
+    
+    <input class="btn btn-success" id="register-submit" type="submit" value="Update" style="width: 100%">
+  </form>
+</div>
+
+{% endblock %}
+

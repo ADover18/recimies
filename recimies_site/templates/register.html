@@ -28,6 +28,10 @@
         <div class="modal-body">
           <form method="post" class="register-form" style="display: block;">
             {% csrf_token %}
+            {{form.first_name|as_crispy_field}}
+            
+            {{form.last_name|as_crispy_field}}
+          
             {{form.username|as_crispy_field}}
           
             {{form.email|as_crispy_field}}

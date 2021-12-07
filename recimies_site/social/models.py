@@ -3,9 +3,15 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MinLengthValidator
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 def _recipe_image_path(instance, filename):
         return "recimies_site/static/" + "user_img/%s/%s" % (instance.name, ntpath.basename(filename))
+
+def _user_image_path(instance, filename):
+        return "recimies_site/static/" + "user_img/profile_pic/%s/%s" % (instance.profile_name, ntpath.basename(filename))
 
 class Recipe(models.Model):
     name = models.CharField(max_length=255, null=False, error_messages={'required': 'Please enter the recipe name', 'blank': 'Please enter the recipe name', 'null': 'Please enter the recipe name'}, validators=[MinLengthValidator(1, message="Please enter a recipe name.")])
@@ -24,6 +30,7 @@ class Recipe(models.Model):
 
     def image_url(self):
         return str(self.image)[14:]
+    
 
 # Added
 class Ingredient(models.Model):
@@ -45,18 +52,52 @@ class Direction(models.Model):
     def __str__(self):
         return self.direction
 
-class UserManager(models.Manager):
-    def get_by_natural_key(self, username):
-        return self.get(username=username)
+# class UserManager(models.Manager):
+#     def get_by_natural_key(self, username):
+#         return self.get(username=username)
 
-class RecimieUser(User):
-    friends = models.ManyToManyField('self', null=True, symmetrical=False)
+# class RecimieUser(User):
+#     friends = models.ManyToManyField('self', null=True, symmetrical=False)
 
-    objects = UserManager()
+#     image = models.ImageField(upload_to=_user_image_path, null=True)
 
-    def natural_key(self):
-        return (self.username)
+#     description = models.TextField(blank=True)
 
-    def __repr__(self):
-        return str(self.username)
 
+#     def natural_key(self):
+#         return (self.username)
+
+#     def __repr__(self):
+#         return str(self.username)
+
+#     def image_url(self):
+#         if self.image:
+#             return str(self.image.url)[15:]
+#         else:
+#             return 'static/site_img/profile.png'
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='profile', verbose_name='user', default=0)
+    followers = models.ManyToManyField(User, blank=True, related_name='followers', default=0)
+    profile_name = models.CharField(max_length=50)
+    profile_description = models.TextField(max_length=500, blank=True)
+    profile_image = models.ImageField(upload_to=_user_image_path, null=True)
+
+    def __str__(self):
+        return self.user.username
+
+    def image_url(self):
+        if self.profile_image:
+            return str(self.profile_image.url)[15:]
+        else:
+            return 'static/site_img/profile.png'
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()

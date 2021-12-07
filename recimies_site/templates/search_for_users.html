@@ -2,6 +2,7 @@
 {% load static %}
 {% block title %}Recimies: Search for Users{% endblock %}
 {% block content %}
+
 <div class="page-content--find-friends">
   <div class="find-friends">
     <p class="find-friends__title section-title">Find Users</p>
@@ -24,16 +25,16 @@
               {{otheruser}} 
             </div>
             <div class="follow-btn-container">
-              {% if otheruser not in friends %}
+              {% if otheruser not in following %}
                 <form action="#" method="POST">
                   {%csrf_token%}
-                  <button type="submit" class="btn btn-outline-primary" value="{{otheruser.pk}}" name="addfriend">Follow</button>
+                  <button type="submit" class="btn btn-outline-primary" value="{{otheruser.id}}" name="addfollow">Follow</button>
                 </form>
               {% endif %}
-              {% if otheruser in friends %}
+              {% if otheruser in following %}
                 <form action="#" method="POST">
                   {%csrf_token%}
-                  <button type="submit" class="btn btn-outline-primary" value="{{otheruser.pk}}" name="removefriend">Unfollow</button>
+                  <button type="submit" class="btn btn-outline-primary" value="{{otheruser.id}}" name="removefollow">Unfollow</button>
                 </form>
               {% endif %}
             </div>

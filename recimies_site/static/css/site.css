@@ -247,7 +247,10 @@ svg {
   }
 }
 
-
+.nav-bar__sub-menu-link-icon__profile{
+  border-radius: 50%;
+  object-fit: cover;
+}
 /* recipe view */
 
 
@@ -743,6 +746,8 @@ hr {
 .profile-icon {
   width: 3.5rem;
   height: 3.5rem;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .profile-name-container{
@@ -763,34 +768,93 @@ hr {
 
 
 /* Profile page */
-
-.profile-page-container{
-  margin:1.25rem;
+.profile-wrapper{
+  /* text-align: center; */
+  display:flex;
 }
 
-.profile-header{
+.profile{
+  display:inline-block;
+  margin-left: auto;
+}
+
+
+.profile__full-name{
+  font-weight: 500; 
+  font-size: 2rem;
+  margin-bottom: 0;
+}
+
+
+.profile__info{
   display: flex;
   flex-direction: row;
-}
-.personal-info{
-  margin-right: auto;
-  margin-top: auto;
-  margin-bottom: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0.625rem;
-}
-.my-profile-icon{
-  width:9.375rem;
-  height: 9.375rem;
+  justify-content: flex-start;
 }
 
-.my-username{
-  font-weight: 500; 
-  font-size: 1.25rem;
-  text-align: center;
+
+.profile__info-text{
+  min-width: 25vw;
+  margin-right: 50px;
 }
+
+.profile__username-row{
+  display:flex;
+  flex-direction: row;
+  /* justify-content: center; */
+  align-items: center;
+  align-content: center;
+  margin-bottom: 10px;
+}
+
+.profile__edit-btn{
+  height: 30px;
+  font-size: 0.9rem;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.profile__username{
+  margin-bottom: 0;
+  margin-right: 50px;
+}
+
+.profile__info-stats{
+  display: flex; 
+  flex-direction: row; 
+  flex-wrap: wrap; 
+  white-space: nowrap; 
+  font-size: 1.15rem;
+}
+
+
+
+.profile__info-image {
+  width: clamp(90px, 18vw, 1000px);
+  height: clamp(90px, 18vw, 1000px);
+  border-radius: 50%;
+  border: 0.0625rem solid #888;
+  padding: 5px;
+  margin-right: auto;
+  object-fit: cover;
+}
+
+
+
+
+
+@media(max-width: 450px){
+  .profile__info-text{
+    font-size: 3.6vw;
+  }
+  .profile__info-stats{
+    font-size: 3.8vw;
+  }
+}
+
+/* javascript height of profile picture is height of inline bloxck profile text */
+
+
 
 .currently-following{
   padding-left: 4.375rem;
@@ -875,16 +939,32 @@ hr {
   }
 }
 
-.following-container{
+.following {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+.following__container{
   display: flex;
   flex-direction: row;
   overflow-x: scroll;
-  margin: 1rem;
   padding-bottom: 1rem;
   padding-top: 1rem;
+  /* border: 1px solid #cccccc;
+  border-radius: 10px; */
+ 
   /* background-color: #f8f9fa; */
   /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
 }
+
+.following__title{
+  margin-top: 1rem;
+  margin-bottom: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
 .profile-pic-container{
   display:flex;
   flex-direction: column;
@@ -895,8 +975,28 @@ hr {
   font-size: 0.8rem;
 }
 
-.profile-name-container,
-.profile-icon{
-  padding: 0;
-  
+.profile-name-container--profile{
+  min-width: 5.625rem;
+  color:black;
 }
+
+.left-arrow {
+  position:absolute;
+  left: 0;
+  top: 58px;
+  border-radius: 50%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  width: 30px;
+  height: 30px;
+}
+
+.right-arrow {
+  position:absolute;
+  right: 0;
+  top: 58px;
+  border-radius: 50%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  width: 30px;
+  height: 30px;
+}
+

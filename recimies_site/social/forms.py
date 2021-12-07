@@ -2,27 +2,42 @@ from django.forms import ModelForm, ValidationError
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UsernameField
 
-from .models import Direction, Ingredient, Recipe, RecimieUser
+from django.contrib.auth.models import User
+
+from .models import Direction, Ingredient, Recipe, Profile
+# , RecimieUser
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout
 from crispy_forms.bootstrap import Div
 
+# from django.utils.translation import ugettext_lazy as _
+
+class ProfileForm(forms.ModelForm):
+    
+    class Meta:
+        model = Profile
+        fields = ['profile_name', 'profile_description', 'profile_image']
+        
+
+
+
+
 class RegisterForm(UserCreationForm):
     
     class Meta:
-        model = RecimieUser
-        fields = ['username', 'email', 'password1', 'password2']
+        model = User
+        fields = ['username', 'email', 'password1', 'password2', 'first_name', 'last_name']
         field_classes = {'username': UsernameField}
 
     def clean(self):
         cleaned_data = super().clean()
         email = cleaned_data.get('email')
-        if RecimieUser.objects.filter(email=email).count() > 0:
+        if User.objects.filter(email=email).count() > 0:
             raise ValidationError(
                 "A user with this email already exists"
             )
         username = cleaned_data.get('username')
-        if RecimieUser.objects.filter(username=username).count() > 0:
+        if User.objects.filter(username=username).count() > 0:
             raise ValidationError(
                 "A user with this username already exists"
             )
@@ -64,7 +79,7 @@ class RecipeForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         if "instance" in kwargs and kwargs["instance"] == None:
-                self.user = RecimieUser.objects.get(pk=kwargs.pop('user_pk', None))
+                self.user = User.objects.get(id=kwargs.pop('user_id', None))
         super(RecipeForm, self).__init__(*args, **kwargs)
         self.fields['name'].label = "Recipe name"
         self.fields['serves'].label = "Serves/Makes"
