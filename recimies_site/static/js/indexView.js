@@ -2,13 +2,9 @@
 ///////////////////////// Selecting Elements /////////////////////////
 
 const recipeContainer = document.querySelector('.row');
-
 const curLocation = window.location.href.slice(0, window.location.href.indexOf("/") + 1)
-
 const searchBox = document.querySelector("#search-box")
-
 const searchButton = document.querySelector(".search-btn")
-
 let recipeData
 
 ///////////////////////// Model /////////////////////////
@@ -37,7 +33,6 @@ const processData = async function () {
     const data = await getRecipes();
     recipeData = data.friends_recipes ?  [...JSON.parse(data.friends_recipes), ...JSON.parse(data.other_recipes)] : JSON.parse(data.recipes);
     if (searchBox.value) recipeData = recipeData.filter(recipe=> recipe.fields.name.toLowerCase().includes(searchBox.value.toLowerCase()))
-    console.log(recipeData)
     recipeData.slice(0, 8).forEach(recipe => {
       renderRecipe(recipe);
       let recipeLink = recipeContainer.lastElementChild.lastElementChild;
@@ -64,7 +59,7 @@ const loadRecipe = function (entries, observer) {
 
 const recipeObserver = new IntersectionObserver(loadRecipe, {
   root: null,
-  threshold: 0,
+  threshold: 0.8,
 });
 
 
@@ -93,5 +88,3 @@ const renderRecipe = function (recipe) {
 
 ///////////////// init ////////////////////////
 processData();
-
-

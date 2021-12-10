@@ -2,7 +2,6 @@ import ntpath
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MinLengthValidator
-
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -32,7 +31,6 @@ class Recipe(models.Model):
         return str(self.image)[14:]
     
 
-# Added
 class Ingredient(models.Model):
     recipe = models.ForeignKey(Recipe, related_name='ingredients', on_delete=models.CASCADE)
     ingredient = models.CharField(max_length=100)
@@ -52,37 +50,14 @@ class Direction(models.Model):
     def __str__(self):
         return self.direction
 
-# class UserManager(models.Manager):
-#     def get_by_natural_key(self, username):
-#         return self.get(username=username)
-
-# class RecimieUser(User):
-#     friends = models.ManyToManyField('self', null=True, symmetrical=False)
-
-#     image = models.ImageField(upload_to=_user_image_path, null=True)
-
-#     description = models.TextField(blank=True)
-
-
-#     def natural_key(self):
-#         return (self.username)
-
-#     def __repr__(self):
-#         return str(self.username)
-
-#     def image_url(self):
-#         if self.image:
-#             return str(self.image.url)[15:]
-#         else:
-#             return 'static/site_img/profile.png'
 
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='profile', verbose_name='user', default=0)
     followers = models.ManyToManyField(User, blank=True, related_name='followers', default=0)
-    profile_name = models.CharField(max_length=50)
+    profile_name = models.CharField(max_length=50, blank=True)
     profile_description = models.TextField(max_length=500, blank=True)
-    profile_image = models.ImageField(upload_to=_user_image_path, null=True)
+    profile_image = models.ImageField(upload_to=_user_image_path, null=True, blank=True)
 
     def __str__(self):
         return self.user.username

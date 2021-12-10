@@ -3,41 +3,48 @@
 {% block title %}Recimies: Search for Users{% endblock %}
 {% block content %}
 
-<div class="page-content--find-friends">
-  <div class="find-friends">
-    <p class="find-friends__title section-title">Find Users</p>
-    <form class="find-friends__search" method="GET">
+<div class="page-content--find-users">
+  <div class="find-users">
+    <p class="find-users__title section-title">Find Users</p>
+    <form class="find-users__search" method="GET">
         <input type="text" class=" find-friend-input form-control" name="q" value="{{ request.GET.q }}" />
         <input class="button btn btn-outline-success my-2 my-sm-0" type="submit" value="Search Profile" />
     </form>
-    <div class="find-friends__user-list container-fluid">
+    <div class="find-users__user-list container-fluid">
       <div class="row">
         {% for otheruser in object_list %}
         <!-- list of user links -->
         {% if user.username != otheruser.username %}
         <div class="col-12">
-          <div class="profile-container">
-            <div class="profile-pic-container">
-              <image class="profile-icon" src="{% static 'site_img/profile.png' %}">
-              </image>
+          <div class="profile-card">
+            {% if otheruser.profile.profile_image %}
+            <image class="profile-icon profile-icon--search" src="/{{otheruser.profile.image_url}}">
+            </image>
+            {% else %}
+            <image class="profile-icon profile-icon--search" src="{% static 'site_img/profile.png' %}">
+            </image>
+            {% endif %}
+            <div class="profile-card__name-container">
+              <a class="profile-card__username" href="{% url 'profile' user_id=otheruser.id %}">{{otheruser}}</a>
+              <p class="profile-card__full-name">
+                {% if otheruser.profile.profile_name %}
+              {{ otheruser.profile.profile_name }}
+              {% else %}
+              {{otheruser.get_full_name}}
+              {% endif %}</p> 
             </div>
-            <div class="profile-name-container">
-              {{otheruser}} 
-            </div>
-            <div class="follow-btn-container">
               {% if otheruser not in following %}
-                <form action="#" method="POST">
+                <form class="profile-card__follow-input" action="#" method="POST">
                   {%csrf_token%}
-                  <button type="submit" class="btn btn-outline-primary" value="{{otheruser.id}}" name="addfollow">Follow</button>
+                  <button type="submit" class="follow-btn btn btn-outline-primary" value="{{otheruser.id}}" name="addfollow">Follow</button>
                 </form>
               {% endif %}
               {% if otheruser in following %}
-                <form action="#" method="POST">
+                <form class="profile-card__follow-input" action="#" method="POST">
                   {%csrf_token%}
-                  <button type="submit" class="btn btn-outline-primary" value="{{otheruser.id}}" name="removefollow">Unfollow</button>
+                  <button type="submit" class="follow-btn btn btn-outline-primary" value="{{otheruser.id}}" name="removefollow">Unfollow</button>
                 </form>
               {% endif %}
-            </div>
           </div>
         </div>
         {% endif %}

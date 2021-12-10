@@ -10,59 +10,65 @@
       ></use> -->
 
 <div class="page-content">
-  <!-- <div id="registerModal" class="register-modal modal" tabindex="-1" role="dialog">
-    <div class="register-modal__dialogue modal-dialog" role="document">
-      Modal content
+  <div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog--wide" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Edit Profile</h5>
-          <a href="{% url 'index' %}">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </a>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <div class="modal-body">
             {% crispy form %}
-            <input class="btn btn-success" id="register-submit" type="submit" value="submit" style="width: 100%"/>
+            <input class="btn--wide btn btn-success" type="submit" value="submit" />
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
   <div class="profile-wrapper">
     <div class="profile">
-      <p class="profile__full-name">{{object.get_full_name}}</p>
+      <p class="profile__full-name">
+        {% if object.profile_name %}
+        {{object.profile_name}}
+        {% else %}
+        {{object.user.get_full_name}}
+        {% endif%}
+      </p>
       <div class="profile__info">
         <div class="profile__info-text">
-          <p>{{object.description|linebreaks}}</p>
+          <p>{{object.profile_description|linebreaks}}</p>
           <div class="profile__username-row">
-            <p class="profile__username"><em>{{object.username}}</em></p>
-            <button type="button" class="profile__edit-btn btn btn-outline-secondary">Edit Profile</button>
+            <p class="profile__username"><em>{{object.user.username}}</em></p>
+            {% if user.username == object.user.username %}
+              <button type="button" class="profile__edit-btn btn btn-outline-secondary">Edit Profile</button>
+            {% endif %}
           </div>
           
           <div class="profile__info-stats">
-            <p><b>{{object.recipes.all.count}}</b> Recipes&nbsp&nbsp&nbsp</p>
-            <p><b>{{object.profile.followers.all.count}}00</b> Following&nbsp&nbsp&nbsp<b>{{followers.count}}00</b> Followers</p>
+            <p><b>{{object.user.recipes.all.count}}</b> Recipes&nbsp&nbsp&nbsp</p>
+            <p><b>{{object.followers.all.count}}</b> Following&nbsp&nbsp&nbsp<b>{{followers.count}}</b> Followers</p>
           </div>
         </div> 
       </div>
     </div>
-    <image class="profile__info-image" src="/{{object.profile.image_url}}"></image>
+    <image class="profile__info-image" src="/{{object.image_url}}"></image>
   </div>
+  {% if object.followers.all.count > 0 %}
   <div class="following">
     <p class="following__title">Following</p>
     <div class="following__container">
-      {% for following in object.profile.followers.all %}
+      {% for following in object.followers.all %}
       <a href="{% url 'profile' user_id=following.id %}">
-        <div class="profile-pic-container">
+        <div class="following__user">
           {% if following.image %}
             <image class="profile-icon" src="/{{friend.image_url}}">
             </image>
           {% else %}
             <image class="profile-icon" src="{% static 'site_img/profile.png' %}">
-            </image>
+            </image> 
           {% endif %}
-          <div class="profile-name-container--profile">
+          <div class="following__username">
             {{following}} 
           </div>
         </div>
@@ -82,12 +88,12 @@
     <!-- <p class="left-arrow"><</p>
     <p class="right-arrow">></p> -->
   </div>
-  
+  {% endif %}
   <div class=" recipes-grid recipes-grid--profile container-fluid">
     <div class="row">
-      {%  for recipe in object.recipes.all %}
+      {%  for recipe in object.user.recipes.all %}
         <div class="recipe-card col-md-3 col-sm-4 col-6">
-          {% if object.username == user.username %}
+          {% if object.user.username == user.username %}
             <div class="recipe-card__image-wrapper container-overlay">
               <img class="recipe-card__image recipe-card__image--scale" src="/{{recipe.image_url}}" />            
               <div class="anchor-grid">

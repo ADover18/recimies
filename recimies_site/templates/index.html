@@ -1,9 +1,9 @@
 {% extends 'base.html' %} 
 {% load static %} 
 {% block title %}Recimies{% endblock %}
-{% block script %}<script defer src="{% static 'js/site2.js'%}"></script>
+{% block script %}<script defer src="{% static 'js/indexView.js'%}"></script>
 {% if not user.is_authenticated %}
-<script defer src="{% static 'js/site.js'%}"></script>
+<script defer src="{% static 'js/loginView.js'%}"></script>
 {% endif %}
 {% endblock %}
 {% block content %}

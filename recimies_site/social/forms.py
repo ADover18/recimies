@@ -1,16 +1,12 @@
 from django.forms import ModelForm, ValidationError
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UsernameField
-
 from django.contrib.auth.models import User
-
 from .models import Direction, Ingredient, Recipe, Profile
-# , RecimieUser
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout
 from crispy_forms.bootstrap import Div
 
-# from django.utils.translation import ugettext_lazy as _
 
 class ProfileForm(forms.ModelForm):
     
@@ -18,8 +14,11 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ['profile_name', 'profile_description', 'profile_image']
         
-
-
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        self.fields['profile_name'].label = "Full name"
+        self.fields['profile_description'].label = "Bio"
+        self.fields['profile_image'].label = "Profile Picture"
 
 
 class RegisterForm(UserCreationForm):
@@ -62,7 +61,6 @@ class DirectionForm(forms.ModelForm):
 
         
 DirectionFormSet = forms.inlineformset_factory(Recipe, Direction, form=DirectionForm, extra=1, can_delete=True)
-
 
 
 class RecipeForm(ModelForm):

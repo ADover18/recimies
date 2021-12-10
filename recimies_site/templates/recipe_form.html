@@ -14,9 +14,9 @@
 <div class="page-content">
   <div class="form-container">
     {% if recipe.name %}
-      <p class="add-recipe-title section-title">Edit Recipe</p>
+      <p class="section-title section-title--add-recipe">Edit Recipe</p>
     {% else %}
-    <p class="add-recipe-title section-title">Add Recipe</p>
+    <p class="section-title section-title--add-recipe">Add Recipe</p>
     {% endif %}
   {% crispy form %}
   {{ingredient_form.management_form}}
@@ -50,7 +50,7 @@
     {%for form in direction_form%}
         {{ form.id|as_crispy_field }}
     <div class="direction direction-form form-row">
-      <p class="number-step col-1" >1. </p>
+      <p class="direction__number-step col-1" >1. </p>
       <div class="form-group col-9 dir-field">
       {{form.direction|as_crispy_field}}
       </div>

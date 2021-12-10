@@ -1,8 +1,6 @@
 from django.contrib import admin
 from .models import Direction, Ingredient, Recipe,  Profile
-# Profile, RecimieUser,
-# Register your models here.
-# admin.site.register(RecimieUser)
+
 admin.site.register(Profile)
 
 class IngredientInline(admin.TabularInline):

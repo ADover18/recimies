@@ -13,8 +13,8 @@
     </div>
   </div>
 
-  <div id="registerModal" class="register-modal modal" tabindex="-1" role="dialog">
-    <div class="register-modal__dialogue modal-dialog" role="document">
+  <div class="modal--register  modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog--wide" role="document">
       <!-- Modal content -->
       <div class="modal-content">
         <div class="modal-header">
@@ -26,7 +26,7 @@
           </a>
         </div>
         <div class="modal-body">
-          <form method="post" class="register-form" style="display: block;">
+          <form method="post" class="register-form">
             {% csrf_token %}
             {{form.first_name|as_crispy_field}}
             
@@ -44,7 +44,7 @@
             {{form.password2|as_crispy_field}}
             
             
-            <input class="btn btn-success" id="register-submit" type="submit" value="Register" style="width: 100%">
+            <input class="btn--wide btn btn-success" type="submit" value="Register">
           </form>
         </div>
       </div>

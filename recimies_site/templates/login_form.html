@@ -4,11 +4,11 @@
 {% load crispy_forms_tags %}
 
 
-<form action="{% url 'index' %}" method="post" class="login-form form-inline" style="display: block;">
+<form action="{% url 'index' %}" method="post" class="login-form form-inline">
   {% csrf_token %}
   {{form.username|as_crispy_field}}
   {{form.password|as_crispy_field}}
   {{form.errors}}
-  <input class="login-form__btn btn btn-success" type="submit" value="Log In" style="width: 100%; margin-top: 15px;" />
+  <input class="login-form__btn btn btn-success" type="submit" value="Log In"/>
 </form>
 

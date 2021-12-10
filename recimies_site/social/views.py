@@ -1,26 +1,15 @@
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.models import User
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import render, redirect
-from django.views.generic import View
+from django.shortcuts import redirect
 from django.views.generic.base import RedirectView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormView, UpdateView
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
-from django.urls import reverse
-
 from .forms import *
 from .models import Profile, Recipe
-# Profile RecimieUser
-from django.http import JsonResponse
-from django.core import serializers
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.contrib import messages
-from django.views.generic.edit import FormMixin
-
-from django.conf import settings
 
 
 
@@ -36,53 +25,17 @@ class IndexView(FormView):
 
     
 
-def recipes_endpoint(request):
-    recipes = Recipe.objects.all()
-
-    if request.user.is_authenticated:
-        curuser = User.objects.get(username=request.user.username)
-        followingusers = curuser.profile.followers.all()
-        following_ids = []
-        for followinguser in followingusers.values():
-            following_ids.append(followinguser["id"])
-
-        following_recipes = Recipe.objects.filter(user__in=following_ids)
-
-        other_recipes = Recipe.objects.exclude(user__in=following_ids)
-    
-        recipe_list = {
-                'friends_recipes': serializers.serialize('json',following_recipes, use_natural_foreign_keys=True),
-                'other_recipes': serializers.serialize('json',other_recipes, use_natural_foreign_keys=True),
-                'recipes': serializers.serialize('json',recipes, use_natural_foreign_keys=True)
-        }
-        return JsonResponse(recipe_list)
-    
-    else:
-        recipe_list = {
-                'recipes': serializers.serialize('json',recipes, use_natural_foreign_keys=True)
-        }
-        return JsonResponse(recipe_list)
-
-
 class ProfileView(DetailView):
     model = Profile
     template_name = 'profile.html'
     form_class = ProfileForm
 
-
-    # def test_func(self):
-    #     url = self.request.build_absolute_uri()
-    #     url_root = self.request.build_absolute_uri('/')
-    #     user_id = User.objects.get(username=self.request.user.username).id
-    #     return url[len(url_root)+8:] == str(user_id)
-
-    def get_success_url(self):
-        return reverse('post_detail', kwargs={'id': self.object.id})
+    def get_success_url(self, **kwargs):
+        user_id = self.kwargs['user_id']
+        return redirect('profile', user_id = user_id)
 
     def get_form(self):
-        form = self.form_class(instance=self.object)
-        # form = ProfileForm(initial={'post': self.object})
-
+        form = self.form_class(instance=self.get_object())
         return form
 
     def get_context_data(self, **kwargs):
@@ -90,40 +43,30 @@ class ProfileView(DetailView):
         followers = Profile.objects.filter(followers=self.object.pk)
         context['followers'] = followers
         context['form'] = self.get_form()
-        # profile = self.object.profile
-        # die
-        # context['form_kwargs'] = self.get_form_kwargs()
-        # die
-        # context['form'] = ProfileForm(initial={'post': self.object})
-        # context.update({
-        #     'form': self.get_form(), 
-        # })
         return context
 
     def get_object(self, **kwargs):
         user_id = self.kwargs['user_id']
-        object = User.objects.get(id=user_id)
+        object = User.objects.get(id=user_id).profile
         return object
 
     def post(self, request, **kwargs):
         self.object = self.get_object()
-        form = self.get_form()
-        params = request.POST
-        curuser = User.objects.get(username=self.request.user.username)
-        # b = params.keys()
-        # new_image = params['image_path']
-        # curuser.image = new_image
-        c = form.__dict__
-        die
+        form = ProfileForm(request.POST,request.FILES, instance=request.user.profile)
+        
         if form.is_valid():
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
-
+        
 
     def form_valid(self, form):
         form.save()
-        return super(ProfileView, self).form_valid(form)
+        return self.get_success_url()
+
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=self.get_form()))
+    
 
 class RegisterView(CreateView):
     template_name = "register.html"
@@ -139,11 +82,6 @@ class LogoutView(RedirectView):
         logout(request)
         return super(LogoutView, self).get(request, *args, **kwargs)
 
-# class UserUpdate(UpdateView):
-#     template_name = "edit_profile.html"
-#     model = RecimieUser
-#     form_class = RegisterForm
-#     success_url = reverse_lazy('profile')
 
 
 class RecipeView(DetailView):
@@ -165,12 +103,6 @@ class RecipeView(DetailView):
         return object
 
 
-# class EditRecipeMixin():
-#     def form_invalid(self, form, ingredient_form, direction_form):
-#         return self.render_to_response(
-#             self.get_context_data(form=form, ingredient_form = ingredient_form, direction_form=direction_form)
-#         )
-
 
 class NewRecipeView(UserPassesTestMixin, CreateView):
     model = Recipe 
@@ -178,15 +110,12 @@ class NewRecipeView(UserPassesTestMixin, CreateView):
     form_class = RecipeForm
     success_url = reverse_lazy('index')
     
-    
-
     def test_func(self):
         url = self.request.build_absolute_uri()
         url_root = self.request.build_absolute_uri('/')
         user_id = User.objects.get(username=self.request.user.username).id
         return url[len(url_root)+8:url.index("new-recipe")-1] == str(user_id)
         
-
     def get(self, request, *args, **kwargs):
         """
         Handles GET requests and instantiates blank versions of the form
@@ -317,7 +246,6 @@ class SearchUsersListView(ListView):
         return context
 
     
-
     def get_queryset(self):
         qs = super().get_queryset()
         params = self.request.GET
@@ -342,4 +270,3 @@ class SearchUsersListView(ListView):
             pass
         return redirect('usersearch')        
             
-    #if two users are friends in the database render the text following else render a follow button

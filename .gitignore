@@ -140,3 +140,6 @@ addRecipes.txt
 
 # Uploaded user images
 recimies_site/static/user_img
+
+# Node Modules
+node_modules

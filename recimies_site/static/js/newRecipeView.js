@@ -1,4 +1,3 @@
-
 // Main Elements
 let formElementsContainer = document.querySelector('.form-container');
 const crispyForm = document.querySelector('[method="post"]');
@@ -8,8 +7,17 @@ const hiddenIngFormId = document.querySelector('[id$="id"]').cloneNode(true);
 const hiddenDirFormId = document
   .querySelector('[id^="id_direction"][id$="id"]')
   .cloneNode(true);
-const blankIngForm = document.querySelector('.ingredients').cloneNode(true);
-const blankDirForm = document.querySelector('.direction').cloneNode(true);
+
+
+const createBlankForm = function (formtype) {
+  const form = document.querySelector(`.${formtype}`).cloneNode(true);
+  const formInputs = form.querySelectorAll("input, select, textarea");
+  [...formInputs].forEach((input) => {
+    input.value = "";
+    input.textContent = "";
+  });
+  return form;
+};
 
 
 const initialIdVal = {
@@ -23,9 +31,8 @@ const addFormElToCrispyForm = () =>
     .forEach(formEl => crispyForm.appendChild(formEl));
 
 const numberDirectionSteps = function () {
-  document.querySelectorAll('.number-step').forEach(step => {
+  document.querySelectorAll('.direction__number-step').forEach(step => {
     let directionIdLabel = step.parentElement.previousElementSibling.id;
-    // console.log(directionIdLabel);
     const stepNum =
       parseInt(
         directionIdLabel.substring(
@@ -107,8 +114,8 @@ crispyForm.addEventListener('click', function (event) {
     const newBlankForm = event.target.parentElement.classList.contains(
       'ingredients'
     )
-      ? blankIngForm.cloneNode(true)
-      : blankDirForm.cloneNode(true);
+      ? createBlankForm("ingredients")
+      : createBlankForm("direction")
     event.target.parentElement.parentElement.insertBefore(
       newHiddenForm,
       event.target.parentElement.nextSibling
