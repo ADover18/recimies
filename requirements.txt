@@ -1,4 +1,5 @@
 Django
+django-crispy-forms
 django-widget-tweaks
 Pillow
 psycopg2-binary
