@@ -19,10 +19,14 @@ recipeTitleMobile.style.fontSize = `${3 + 1/recipeTitleMobile.textContent.length
 "resize load".split(" ").forEach(function(e){
   window.addEventListener(e, function(){
     ingList.style.columnCount = 2;
-    recipeImage.style.height = `${window.innerHeight - ingredients.scrollHeight - 160}px`;
-    recipeImage.style.width = `${ingList.scrollWidth}px`;
-    if (ingList.scrollWidth + 42 + window.innerWidth*0.03 >window.innerWidth - 500){
-      ingList.style.columnCount = `${Math.floor(window.innerWidth/290)}`
+    let windowWidth = window.innerWidth;
+    let windowHeight = window.innerHeight;
+    let ingredientsHeight = ingredients.scrollHeight;
+    let ingredientsWidth = ingList.scrollWidth;
+    recipeImage.style.height = `${windowHeight - ingredientsHeight - 160}px`;
+    recipeImage.style.width = `${ingredientsWidth}px`;
+    if (ingredientsWidth + 42 + windowWidth*0.03 >windowWidth - 500){
+      ingList.style.columnCount = `${Math.floor(windowWidth/290)}`
       recipeHeaderDesktop.style.display = "none";
       recipeHeaderMobile.style.display = "block";
       recipeImage.style.width = "90vw";
@@ -35,7 +39,7 @@ recipeTitleMobile.style.fontSize = `${3 + 1/recipeTitleMobile.textContent.length
       imageIngredientsCol.style.position = "";
       imageIngredientsCol.style.top = "";
     }
-    if (ingList.scrollWidth + 42 + window.innerWidth*0.03 <window.innerWidth - 500){
+    if (ingredientsWidth + 42 + windowWidth*0.03 < windowWidth - 500){
       ingList.style.columnCount = 2
       recipeHeaderDesktop.style.display = "block";
       recipeHeaderMobile.style.display = "none";
