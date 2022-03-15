@@ -417,6 +417,11 @@ textarea.form-control {
   margin-top: 0.3125rem !important;
 }
 
+.del-field{
+  position: absolute;
+  top: -100000000000px;
+}
+
 .method-form-title {
   margin-top: 1.25rem;
   margin-bottom: 0;
@@ -467,6 +472,10 @@ textarea.form-control {
 .delete-form,
 .add-form {
   cursor: pointer;
+}
+
+.delete-form{
+  margin-bottom: 0;
 }
 
 .bin-btn,
@@ -531,9 +540,7 @@ textarea.form-control {
   min-width: 31.25rem;
 }
 
-.ingredients {
-  margin-bottom: 2rem;
-}
+
 
 .ingredients__title {
   margin-bottom: 1.25rem;

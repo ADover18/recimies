@@ -17,7 +17,6 @@ def recipes_endpoint(request):
         following_recipes = Recipe.objects.filter(user__in=following_ids)
 
         other_recipes = Recipe.objects.exclude(user__in=following_ids)
-    
         recipe_list = {
                 'friends_recipes': serializers.serialize('json',following_recipes, use_natural_foreign_keys=True),
                 'other_recipes': serializers.serialize('json',other_recipes, use_natural_foreign_keys=True),

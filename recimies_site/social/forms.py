@@ -1,10 +1,10 @@
-from django.forms import ModelForm, ValidationError
+from django.forms import Field, ModelForm, ValidationError
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UsernameField
 from django.contrib.auth.models import User
 from .models import Direction, Ingredient, Recipe, Profile
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout
+from crispy_forms.layout import Layout, Field
 from crispy_forms.bootstrap import Div
 
 
@@ -46,8 +46,24 @@ class IngredientForm(forms.ModelForm):
         model = Ingredient
         fields = ['ingredient', 'quantity', 'unit']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = IngredientFormSetHelper()
+
         
-IngredientFormSet = forms.inlineformset_factory(Recipe, Ingredient, form=IngredientForm, extra=1, can_delete=True)
+IngredientFormSet = forms.inlineformset_factory(Recipe, Ingredient, form=IngredientForm, extra=1, max_num=2, can_delete=True)
+
+class IngredientFormSetHelper(FormHelper):
+ def __init__(self, *args, **kwargs):
+    super(IngredientFormSetHelper, self).__init__(*args, **kwargs)
+    self.form_tag = False    
+    self.disable_csrf = True 
+    self.layout = Layout(
+        Field('Ingredient'),
+        Field("DELETE", type="hidden")  # <- ADD THIS LINE
+    )
+
+
 
 class DirectionForm(forms.ModelForm):
     class Meta:
@@ -60,7 +76,7 @@ class DirectionForm(forms.ModelForm):
         self.helper.form_show_labels = False
 
         
-DirectionFormSet = forms.inlineformset_factory(Recipe, Direction, form=DirectionForm, extra=1, can_delete=True)
+DirectionFormSet = forms.inlineformset_factory(Recipe, Direction, form=DirectionForm, extra=1, max_num=1, can_delete=True)
 
 
 class RecipeForm(ModelForm):

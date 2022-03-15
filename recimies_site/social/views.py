@@ -190,6 +190,8 @@ class RecipeUpdate(UserPassesTestMixin, UpdateView):
         # del self.kwargs['user_pk']
         ingredient_form = IngredientFormSet(instance = self.object)
         direction_form = DirectionFormSet(instance = self.object)
+        # a = ingredient_form.__dict__
+        # DIE
         return self.render_to_response(
             self.get_context_data(form=form, ingredient_form=ingredient_form, direction_form=direction_form)
         )

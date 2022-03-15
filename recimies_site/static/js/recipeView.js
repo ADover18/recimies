@@ -19,6 +19,7 @@ recipeTitleMobile.style.fontSize = `${3 + 1/recipeTitleMobile.textContent.length
 "resize load".split(" ").forEach(function(e){
   window.addEventListener(e, function(){
     ingList.style.columnCount = 2;
+    ingList.style.columnGap = "16px"
     let windowWidth = window.innerWidth;
     let windowHeight = window.innerHeight;
     let ingredientsHeight = ingredients.scrollHeight;

@@ -22,9 +22,11 @@
   </head>
   <body>
     <nav class="nav-bar">
-      <svg class="nav-bar__logo">
-        <use href="{% static 'site_img/logos/icons.svg' %}#logo"></use>
-      </svg>
+      <a href="{% url 'index' %}">
+        <svg class="nav-bar__logo">
+          <use href="{% static 'site_img/logos/icons.svg' %}#logo"></use>
+        </svg>
+      </a>
       <form method="GET" action="{% url 'index' %}"class="nav-bar__search form-inline my-2 my-lg-0">
         <input
           id='search-box'
